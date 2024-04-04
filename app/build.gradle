@@ -47,6 +47,12 @@ android {
 }
 
 dependencies {
+
+    // Nav Drawer
+    implementation "androidx.compose.material:material:1.3.0-alpha03"
+    implementation "androidx.compose.material:material-icons-extended:1.3.0-alpha03"
+    implementation "androidx.compose.ui:ui-tooling:1.3.0-alpha03"
+
     implementation "androidx.navigation:navigation-compose:2.5.2"
 
     implementation "androidx.compose.material:material-icons-extended:1.4.3"

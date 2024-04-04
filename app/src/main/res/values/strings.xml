@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">HospitalMar</string>
+    <string name="drawer_home">Inicio</string>
+    <string name="drawer_home_description">Ir a la pantalla de inicio</string>
+    <string name="drawer_settings">Configuración</string>
+    <string name="drawer_settings_description">Configurar la aplicación</string>
+    <string name="drawer_about">Acerca de</string>
+    <string name="drawer_info_description">Información sobre la aplicación</string>
 </resources>

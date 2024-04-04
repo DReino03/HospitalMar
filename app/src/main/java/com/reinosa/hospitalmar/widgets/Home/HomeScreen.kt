@@ -12,29 +12,3 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DrawerScreen() {
-    var selectedItem by remember { mutableStateOf(0) }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("App Title") }
-            )
-        },
-        drawerContent = {
-            DrawerContent(selectedItem) { index ->
-                selectedItem = index
-            }
-        },
-        content = {
-            when (selectedItem) {
-                0 -> ScreenContent("Home Screen")
-                1 -> ScreenContent("Profile Screen")
-                2 -> ScreenContent("Settings Screen")
-            }
-        }
-    )
-}
-
