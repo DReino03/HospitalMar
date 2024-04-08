@@ -6,4 +6,8 @@
     <string name="drawer_settings_description">Configurar la aplicación</string>
     <string name="drawer_about">Acerca de</string>
     <string name="drawer_info_description">Información sobre la aplicación</string>
+    <string name="drawer_graphics">Evaluación\n</string>
+    <string name="drawer_graphics_description">Evaluación\n</string>
+    <string name="drawer_profile">Cuenta\n</string>
+    <string name="drawer_profile_description">Pagina de la cuenta\n</string>
 </resources>
