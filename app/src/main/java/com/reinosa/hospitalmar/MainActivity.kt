@@ -17,16 +17,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.reinosa.hospitalmar.View.DrawerAppScreen
 import com.reinosa.hospitalmar.View.screens.AboutScreen
-import com.reinosa.hospitalmar.View.screens.EvalScreen
+import com.reinosa.hospitalmar.View.screens.GraficsScreen
 import com.reinosa.hospitalmar.View.screens.HomeScreen
+import com.reinosa.hospitalmar.View.screens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.SettingsScreen
+import com.reinosa.hospitalmar.View.screens.evalScreen
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
+import com.reinosa.hospitalmar.widgets.Evaluacio.EvalScreen
+import com.reinosa.hospitalmar.widgets.Home.HomeContent
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
-
-
-
-
 
 
 class MainActivity : ComponentActivity() {
@@ -88,7 +88,13 @@ fun Navigation(navController: NavHostController) {
             DrawerAppScreen(navController)
         }
         composable(NavigationGraph.EVALUATE){
-            EvalScreen(navController)
+            evalScreen(navController)
+        }
+        composable(NavigationGraph.PROFILE){
+            ProfileScreen(navController)
+        }
+        composable(NavigationGraph.GRAPHICS){
+            GraficsScreen(navController)
         }
     }
 }
@@ -100,4 +106,6 @@ object NavigationGraph {
     const val LOGIN = "login"
     const val DRAWER = "drawer"
     const val EVALUATE = "evaluate"
+    const val PROFILE = "profile"
+    const val GRAPHICS = "graphics"
 }

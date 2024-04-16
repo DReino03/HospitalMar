@@ -1,6 +1,7 @@
 package com.reinosa.hospitalmar.View.screens
 
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,130 +14,71 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.DrawerValue
 import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.twotone.Star
+import androidx.compose.material.rememberDrawerState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
-
-class Star(val id: Int, var selected: Boolean)
+import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
+import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
+import com.reinosa.hospitalmar.widgets.Evaluacio.EvalScreen
+import com.reinosa.hospitalmar.widgets.Evaluacio.ModulItem
+import com.reinosa.hospitalmar.widgets.Evaluacio.ModulScreen
+import com.reinosa.hospitalmar.widgets.Home.HomeContent
+import kotlinx.coroutines.launch
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun EvalScreen(navController: NavController) {
+fun evalScreen(navController: NavController){
 
-        Column {
-            Text(text = "Iniciativa", modifier = Modifier
-                .padding(16.dp)
-                .background(Color.Green))
-            LazyColumn {
+    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+    val scope = rememberCoroutineScope()
 
-                items(5)
-                {index->    Card(
-                    modifier = Modifier
-                        .background(Color.Magenta)
-                        .padding(16.dp)
-                ) {
-                    Spacer(modifier = Modifier.padding(8.dp))
-                    Row() {
-                        Text(
-                            text = "Actua amb rapidesa per a resoldre els problemes que es presenten a la tasca",
-                            Modifier.padding(16.dp))
+    Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = {
+            TopAppBar(
+                title = { androidx.compose.material.Text(text = stringResource(R.string.drawer_graphics)) },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        scope.launch {
+                            scaffoldState.drawerState.open()
+                        }
+                    }) {
+                        androidx.compose.material.Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
-                    Spacer(modifier = Modifier.padding(8.dp))
-                    Row(
-                    ) {
-                        StarMenu(5)
-                    }
-                    Spacer(modifier = Modifier.padding(8.dp))
-
                 }
-
-                }
-
+            )
+        },
+        drawerContent = {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                DrawerHeader()
+                DrawerItems(navController = navController)
 
             }
-        }
-
-
-}
-@Composable
-fun evalCard(text:String){
-    Spacer(modifier = Modifier.padding(8.dp))
-    Card(
-        modifier = Modifier
-            .background(Color.Magenta)
-            .padding(16.dp)
-    ) {
-        Spacer(modifier = Modifier.padding(8.dp))
-        Row() {
-            Text(
-
-                text = "Actua amb rapidesa per a resoldre els problemes que es presenten a la tasca",
-                Modifier.padding(16.dp))
-        }
-        Spacer(modifier = Modifier.padding(8.dp))
-        Row(
-        ) {
-            StarMenu(5)
-        }
-        Spacer(modifier = Modifier.padding(8.dp))
-
+        },
+        drawerBackgroundColor = Color.White // Cambiar por el color deseado
+    ){
+        ModulScreen(navController = navController)
     }
 }
 
-@Composable
-fun StarMenu(stars: Int) {
-    Row(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        for (i in 1..stars) {
-            IconButton(
-                onClick = { /* ... */ }
-            ) {
-                Icon(
-                    imageVector = Icons.TwoTone.Star,
-                    contentDescription = "Star"
-                )
-            }
-        }
-    }
-}
-@Composable
-fun Star(star: Star) {
-    Box(
-        modifier = Modifier.clickable { star.selected = !star.selected }
-    ) {
-        if (star.selected) {
-            // Mostrar imagen o icono de estrella seleccionada
-            this.let {
-                Icon(
-                    imageVector = Icons.Filled.Star,
-                    contentDescription = "Star"
-                )
-            }
-        } else {
-            // Mostrar imagen o icono de estrella no seleccionada
-        }
-    }
-}
-
-@Composable
-fun StarMenu(stars: List<Star>) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        stars.forEach { star ->
-            Star(star)
-        }
-    }
-}

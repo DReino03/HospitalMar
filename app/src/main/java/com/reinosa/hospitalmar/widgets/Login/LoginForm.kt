@@ -22,18 +22,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.reinosa.hospitalmar.Model.Credentials.Credentials
+import com.reinosa.hospitalmar.Model.Credentials.checkCredentials
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
+import com.reinosa.hospitalmar.widgets.Login.LabeledCheckbox
+import com.reinosa.hospitalmar.widgets.Login.loginField
+import com.reinosa.hospitalmar.widgets.Login.passwordField
 
 @Composable
 fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
     var isChecked by remember { mutableStateOf(viewModel.isChecked) }
-
+    var credentials by remember { mutableStateOf(Credentials()) }
+    val context = LocalContext.current
     Surface {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -49,19 +56,19 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 tint = colorResource(id = R.color.white),
                 modifier = Modifier.size(100.dp)
             )
-            LoginField(
+            loginField(
                 value = "login",
-                onChange = { },
+                onChange = { data -> credentials = credentials.copy(login = data) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
 
             )
             Spacer(modifier = Modifier.height(10.dp))
-            PasswordField(
+            passwordField(
                 value = "password",
-                onChange = { },
-                submit = { },
+                onChange = { data -> credentials = credentials.copy(pwd = data) },
+                submit = { if (!checkCredentials(credentials, context)) credentials = Credentials() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
@@ -70,13 +77,16 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
             Row(modifier = Modifier.padding(100.dp,0.dp,10.dp,0.dp)) {
                 LabeledCheckbox(
                     label = "Remember Me",
-                    isChecked = isChecked,
-                    onCheckChanged = {viewModel.isChecked = isChecked},
+                    onCheckChanged = {
+                        credentials = credentials.copy(remember = !credentials.remember)
+                    },
+                    isChecked = credentials.remember
                 )
             }
 
             Button(
                 onClick = {
+                    credentials = credentials.copy(remember = !credentials.remember)
                     navController.navigate("Drawer")
                 },
                 enabled = true,
@@ -85,7 +95,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                     .fillMaxWidth()
                     .padding(20.dp)
             ) {
-                Text("Login" )
+                Text("Accedeix" )
             }
         }
     }

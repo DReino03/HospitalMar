@@ -18,7 +18,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginField(
+fun loginField(
     value: String,
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,

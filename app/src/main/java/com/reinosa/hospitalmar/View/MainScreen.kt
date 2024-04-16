@@ -9,7 +9,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,6 +18,7 @@ import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.View.screens.HomeScreen
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
+import com.reinosa.hospitalmar.widgets.Home.HomeContent
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -52,7 +52,7 @@ fun DrawerAppScreen(navController: NavHostController) {
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        HomeScreen(navController = navController)
+        HomeContent(navController = navController)
     }
 }
 

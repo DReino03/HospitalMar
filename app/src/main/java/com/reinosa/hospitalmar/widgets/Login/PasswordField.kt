@@ -25,7 +25,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordField(
+fun passwordField(
     value: String,
     onChange: (String) -> Unit,
     submit: () -> Unit,

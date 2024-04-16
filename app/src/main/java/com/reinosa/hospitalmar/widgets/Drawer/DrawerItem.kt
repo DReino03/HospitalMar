@@ -17,20 +17,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.reinosa.hospitalmar.Model.AppDrawerItemInfo
-import com.reinosa.hospitalmar.Model.DrawerParams
+import androidx.navigation.NavController
+import com.reinosa.hospitalmar.Model.Drawer.AppDrawerItemInfo
+import com.reinosa.hospitalmar.Model.Drawer.DrawerParams
 
 
 @Composable
-fun DrawerItems(navController: NavHostController) {
+fun DrawerItems(navController: NavController) {
     for (item in DrawerParams.drawerButtons) {
         DrawerItem(item, navController)
     }
 }
 
 @Composable
-fun DrawerItem(item: AppDrawerItemInfo<*>, navController: NavHostController) {
+fun DrawerItem(item: AppDrawerItemInfo<*>, navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

@@ -1,5 +1,6 @@
-package com.reinosa.hospitalmar.Model
+package com.reinosa.hospitalmar.Model.Drawer
 
+import com.reinosa.hospitalmar.Model.Drawer.AppDrawerItemInfo
 import com.reinosa.hospitalmar.Nav.MainNavOption
 import com.reinosa.hospitalmar.R
 
@@ -47,6 +48,6 @@ object DrawerParams {
             R.drawable.ic_exit,
             R.string.exit_app_description,
             "Salir"
-        )
+        ),
     )
 }

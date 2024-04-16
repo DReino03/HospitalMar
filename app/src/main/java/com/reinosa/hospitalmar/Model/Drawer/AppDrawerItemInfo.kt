@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.Model
+package com.reinosa.hospitalmar.Model.Drawer
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
