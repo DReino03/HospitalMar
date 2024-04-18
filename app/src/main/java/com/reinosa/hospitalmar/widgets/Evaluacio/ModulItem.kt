@@ -26,7 +26,7 @@ import com.reinosa.hospitalmar.R
 fun ModulItem(text:String ,navController: NavController) {
 Card(
         modifier = Modifier
-            .background(Color.Magenta)
+            .background(Color.White)
             .padding(16.dp)
             .fillMaxWidth()
     ) {
@@ -35,13 +35,16 @@ Card(
             Text(
                 text = text,
                 Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription ="BACK",
                 modifier = Modifier
-                .size(60.dp)
-                .clickable { navController.navigate("evaluate")
-                Log.e("ModulItem", "click")}
+                    .size(60.dp)
+                    .clickable {
+                        navController.navigate("eval")
+                        Log.e("ModulItem", "click")
+                    }
             )
         }
         Spacer(modifier = Modifier.padding(8.dp))

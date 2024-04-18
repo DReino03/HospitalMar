@@ -33,7 +33,7 @@ fun passwordField(
     label: String = "Password",
     placeholder: String = "Enter your Password"
 ) {
-
+    var text by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
 
     val leadingIcon = @Composable {
@@ -55,8 +55,8 @@ fun passwordField(
 
 
     TextField(
-        value = value,
-        onValueChange = onChange,
+        value = text,
+        onValueChange = {text = it},
         modifier = modifier,
         leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,

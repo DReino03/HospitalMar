@@ -18,7 +18,7 @@ fun evalCard(text:String){
     Spacer(modifier = Modifier.padding(8.dp))
     Card(
         modifier = Modifier
-            .background(Color.Magenta)
+            .background(Color.White)
             .padding(16.dp)
     ) {
         Spacer(modifier = Modifier.padding(8.dp))

@@ -2,8 +2,11 @@ package com.reinosa.hospitalmar.widgets.Profile
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -33,28 +36,14 @@ fun ProfileContent(navController: NavController){
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp)
+                .background(Color.White),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            ProfileImage(
-                painter = painterResource(id = R.drawable.ic_profile),
-                contentDescription = "Profile Picture"
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "John Doe",
-                style = MaterialTheme.typography.h5,
-                textAlign = TextAlign.Center,
-                color = Color.Black
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Software Developer",
-                style = MaterialTheme.typography.body1,
-                textAlign = TextAlign.Center,
-                color = Color.Gray
-            )
+            Row(modifier = Modifier.background(Color.White)) {
+
+            }
         }
 
 }

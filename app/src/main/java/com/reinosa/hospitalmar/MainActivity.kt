@@ -96,6 +96,9 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationGraph.GRAPHICS){
             GraficsScreen(navController)
         }
+        composable(NavigationGraph.EVAL){
+            EvalScreen(navController)
+        }
     }
 }
 
@@ -108,4 +111,5 @@ object NavigationGraph {
     const val EVALUATE = "evaluate"
     const val PROFILE = "profile"
     const val GRAPHICS = "graphics"
+    const val EVAL = "eval"
 }

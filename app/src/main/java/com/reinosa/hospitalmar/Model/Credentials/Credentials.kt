@@ -9,3 +9,4 @@ data class Credentials(
         return login.isNotEmpty() && pwd.isNotEmpty()
     }
 }
+

@@ -1,6 +1,7 @@
 package com.reinosa.hospitalmar.widgets.Login
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -38,6 +40,10 @@ import com.reinosa.hospitalmar.widgets.Login.passwordField
 
 @Composable
 fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
+    var text by remember { mutableStateOf("") }
+    var password by remember {
+        mutableStateOf("")
+    }
     var isChecked by remember { mutableStateOf(viewModel.isChecked) }
     var credentials by remember { mutableStateOf(Credentials()) }
     val context = LocalContext.current
@@ -57,8 +63,8 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 modifier = Modifier.size(100.dp)
             )
             loginField(
-                value = "login",
-                onChange = { data -> credentials = credentials.copy(login = data) },
+                value = text,
+                onChange = { text = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
@@ -66,7 +72,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
             )
             Spacer(modifier = Modifier.height(10.dp))
             passwordField(
-                value = "password",
+                value = password,
                 onChange = { data -> credentials = credentials.copy(pwd = data) },
                 submit = { if (!checkCredentials(credentials, context)) credentials = Credentials() },
                 modifier = Modifier
@@ -74,7 +80,10 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                     .padding(20.dp)
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Row(modifier = Modifier.padding(100.dp,0.dp,10.dp,0.dp)) {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .wrapContentSize(Alignment.Center)) {
                 LabeledCheckbox(
                     label = "Remember Me",
                     onCheckChanged = {
@@ -94,6 +103,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
+                    .clickable { viewModel.hashPassword(password) }
             ) {
                 Text("Accedeix" )
             }

@@ -19,7 +19,7 @@ import com.reinosa.hospitalmar.R
 
 @Composable
 fun HomeContent(navController: NavController){
-    val imagePainter = listOf<Int>(R.drawable.ic_evaluacio,R.drawable.ic_informes,  R.drawable.ic_person,R.drawable.ic_info)
+    val imagePainter = listOf<Int>(R.drawable.ic_evaluacio,R.drawable.ic_informes,  R.drawable.ic_person,R.drawable.ic_information)
     Column(modifier = Modifier
         .fillMaxSize()
         .background(color = Color.White)
