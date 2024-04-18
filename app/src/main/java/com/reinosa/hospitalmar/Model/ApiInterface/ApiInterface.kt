@@ -9,6 +9,7 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -16,13 +17,14 @@ import retrofit2.http.Path
 import retrofit2.http.Url
 
 interface ApiInterface {
-    @GET("login/alumnos")
-    suspend fun getAlumnos(): List<Alumno>
+    @GET
+    suspend fun getAlumnos(@Url url: String): Response<Alumno>
 
     @GET("/login/profesor")
     suspend fun getProfesores(): List<Profesor>
 
-
+    @POST("user/login/alumnos")
+    suspend fun login(@Body alumno: Alumno): Response<ResponseBody>
 
     companion object{
         val BASE_URL = "http://172.23.6.122:8080/"

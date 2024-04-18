@@ -29,21 +29,25 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.Credentials.Credentials
 import com.reinosa.hospitalmar.Model.Credentials.checkCredentials
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
-import com.reinosa.hospitalmar.widgets.Login.LabeledCheckbox
-import com.reinosa.hospitalmar.widgets.Login.loginField
-import com.reinosa.hospitalmar.widgets.Login.passwordField
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Composable
 fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
-    var text by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
     var password by remember {
         mutableStateOf("")
     }
+    var hasedPassword by remember { mutableStateOf("") }
+
     var isChecked by remember { mutableStateOf(viewModel.isChecked) }
     var credentials by remember { mutableStateOf(Credentials()) }
     val context = LocalContext.current
@@ -63,8 +67,8 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 modifier = Modifier.size(100.dp)
             )
             loginField(
-                value = text,
-                onChange = { text = it },
+                value = username,
+                onChange = { username = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
@@ -74,7 +78,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
             passwordField(
                 value = password,
                 onChange = { data -> credentials = credentials.copy(pwd = data) },
-                submit = { if (!checkCredentials(credentials, context)) credentials = Credentials() },
+                submit = { /* if (!checkCredentials(credentials, context)) credentials = Credentials()*/},
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
@@ -103,9 +107,37 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
-                    .clickable { viewModel.hashPassword(password) }
+                    .clickable { hasedPassword = viewModel.hashPassword(password) }
             ) {
                 Text("Accedeix" )
+            }
+        }
+    }
+
+    CoroutineScope(Dispatchers.IO).launch {
+        val repository = Repository(username, hasedPassword)
+        val response = repository.login(viewModel.currentAlumno.value!!)
+
+        withContext(Dispatchers.Main) {
+            if (response.isSuccessful) {
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    viewModel.getUsuario(username)
+
+                    withContext(Dispatchers.Main) {
+                        viewModel.success.observe(viewLifecycleOwner) { success ->
+                            if (success == true) {
+                                findNavController().navigate(R.id.action_loginFragment_to_equipoFragment)
+                            }
+                        }
+                    }
+                }
+            }else{
+                val customToastView = layoutInflater.inflate(R.layout.toast_nologin, null)
+                val toast = Toast(context)
+                toast.duration = Toast.LENGTH_SHORT
+                toast.view = customToastView
+                toast.show()
             }
         }
     }
