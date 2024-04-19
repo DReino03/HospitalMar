@@ -7,4 +7,5 @@ import android.widget.Toast
 import com.reinosa.hospitalmar.MainActivity
 
 fun checkCredentials(creds: Credentials, context: String): Boolean {
+    return false
 }

@@ -114,6 +114,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
         }
     }
 
+    /*
     CoroutineScope(Dispatchers.IO).launch {
         val repository = Repository(username, hasedPassword)
         val response = repository.login(viewModel.currentAlumno.value!!)
@@ -141,4 +142,5 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
             }
         }
     }
+     */
 }
