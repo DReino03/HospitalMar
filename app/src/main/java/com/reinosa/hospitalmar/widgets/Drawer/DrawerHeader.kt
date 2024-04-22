@@ -22,6 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.reinosa.hospitalmar.R
+import com.reinosa.hospitalmar.ui.theme.blueproject
 
 @Composable
 fun DrawerHeader() {
@@ -29,7 +30,7 @@ fun DrawerHeader() {
         modifier = Modifier
             .fillMaxWidth()
             .height(180.dp)
-            .background(Color.Blue)
+            .background(blueproject)
             .padding(16.dp)
         ,
         contentAlignment = Alignment.BottomStart,
