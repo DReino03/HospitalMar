@@ -70,7 +70,7 @@ fun Navigation(navController: NavHostController) {
     val loginViewModel : LoginViewModel = remember { LoginViewModel() }
     NavHost(
         navController = navController,
-        startDestination = NavigationGraph.LOGIN
+        startDestination = NavigationGraph.HOME
     ) {
         composable(NavigationGraph.HOME) {
             HomeScreen(navController)

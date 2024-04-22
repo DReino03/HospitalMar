@@ -1,7 +1,8 @@
 package com.reinosa.hospitalmar.widgets.Login
 
+import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.Credentials.Credentials
-import com.reinosa.hospitalmar.Model.Credentials.checkCredentials
+import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
@@ -40,13 +41,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
     var username by remember { mutableStateOf("") }
     var password by remember {
         mutableStateOf("")
     }
-    var hasedPassword by remember { mutableStateOf("") }
+    var hashedPassword by remember { mutableStateOf("") }
 
     var isChecked by remember { mutableStateOf(viewModel.isChecked) }
     var credentials by remember { mutableStateOf(Credentials()) }
@@ -99,48 +101,44 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
 
             Button(
                 onClick = {
+                    hashedPassword = viewModel.hashPassword(password)
                     credentials = credentials.copy(remember = !credentials.remember)
-                    navController.navigate("Drawer")
+                    viewModel.currentAlumno.value = Alumno(0, username, hashedPassword, "admin", "534533F", username, "",0,0,hashedPassword,0)
+                    viewModel.repository = Repository(username, hashedPassword )
+
+
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val repository = Repository(username, hashedPassword)
+                        val response = repository.login(viewModel.currentAlumno.value!!)
+
+                        withContext(Dispatchers.Main) {
+                            if (response.isSuccessful) {
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    viewModel.getUsuario(username)
+                                    navController.navigate("Drawer")
+
+                                }
+                            }else{
+                                val toast = Toast(context)
+                                toast.duration = Toast.LENGTH_SHORT
+                                toast.setText("Error")
+                                toast.show()
+                            }
+                        }
+                    }
                 },
                 enabled = true,
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp)
-                    .clickable { hasedPassword = viewModel.hashPassword(password) }
+                    .padding(20.dp),
             ) {
-                Text("Accedeix" )
+                Text("Accedeix")
             }
         }
     }
 
-    /*
-    CoroutineScope(Dispatchers.IO).launch {
-        val repository = Repository(username, hasedPassword)
-        val response = repository.login(viewModel.currentAlumno.value!!)
 
-        withContext(Dispatchers.Main) {
-            if (response.isSuccessful) {
 
-                CoroutineScope(Dispatchers.IO).launch {
-                    viewModel.getUsuario(username)
 
-                    withContext(Dispatchers.Main) {
-                        viewModel.success.observe(viewLifecycleOwner) { success ->
-                            if (success == true) {
-                                findNavController().navigate(R.id.action_loginFragment_to_equipoFragment)
-                            }
-                        }
-                    }
-                }
-            }else{
-                val customToastView = layoutInflater.inflate(R.layout.toast_nologin, null)
-                val toast = Toast(context)
-                toast.duration = Toast.LENGTH_SHORT
-                toast.view = customToastView
-                toast.show()
-            }
-        }
-    }
-     */
 }

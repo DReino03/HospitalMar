@@ -21,6 +21,9 @@ class LoginViewModel(): ViewModel() {
     var isChecked by mutableStateOf(false)
     var currentAlumno = MutableLiveData<Alumno>()
     var currentProfesor = MutableLiveData<Profesor>()
+    val success = MutableLiveData<Boolean>()
+
+
     lateinit var repository: Repository
     fun login(email: String, password: String): Boolean {
         val hashedPassword = hashPassword(password)
@@ -57,6 +60,9 @@ class LoginViewModel(): ViewModel() {
             }
         }
     }
+
+
+
 
 
 }
