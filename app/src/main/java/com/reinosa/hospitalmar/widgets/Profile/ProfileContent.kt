@@ -1,6 +1,7 @@
 package com.reinosa.hospitalmar.widgets.Profile
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,8 +13,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,37 +33,22 @@ import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ProfileContent(navController: NavController){
-
-        // Contenido de la pantalla
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-                .background(Color.White),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Row(modifier = Modifier.background(Color.White)) {
-
-            }
-        }
-
-}
-
-
-@Composable
-fun ProfileImage(
-    painter: Painter,
-    contentDescription: String
-) {
-    Image(
-        painter = painter,
-        contentDescription = contentDescription,
+fun ProfileContent(navController: NavController) {
+    // Contenido de la pantalla
+    Surface(
         modifier = Modifier
-            .size(150.dp)
-            .padding(16.dp),
-        contentScale = ContentScale.Crop
-    )
+            .size(154.dp)
+            .padding(5.dp),
+        shape = CircleShape,
+        elevation = 4.dp,
+
+    ) {
+        Image(
+            painter = painterResource(R.drawable.ic_person),
+            contentDescription = "ic_person",
+            modifier = Modifier.padding(20.dp))
+
+    }
+
 }
 

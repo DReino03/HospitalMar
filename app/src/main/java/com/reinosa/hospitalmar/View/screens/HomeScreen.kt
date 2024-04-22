@@ -58,7 +58,7 @@ fun HomeScreen(navController: NavController) {
         scaffoldState = scaffoldState,
         topBar = {
             androidx.compose.material.TopAppBar(
-                title = { androidx.compose.material.Text(text = stringResource(R.string.app_name)) },
+                title = { androidx.compose.material.Text(text = stringResource(R.string.drawer_home)) },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {

@@ -17,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.reinosa.hospitalmar.View.DrawerAppScreen
 import com.reinosa.hospitalmar.View.screens.AboutScreen
+import com.reinosa.hospitalmar.View.screens.CoevalScreen
 import com.reinosa.hospitalmar.View.screens.GraficsScreen
 import com.reinosa.hospitalmar.View.screens.HomeScreen
 import com.reinosa.hospitalmar.View.screens.ProfileScreen
@@ -99,6 +100,9 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationGraph.EVAL){
             EvalScreen(navController)
         }
+        composable(NavigationGraph.COEVAL){
+            CoevalScreen(navController)
+        }
     }
 }
 
@@ -112,4 +116,5 @@ object NavigationGraph {
     const val PROFILE = "profile"
     const val GRAPHICS = "graphics"
     const val EVAL = "eval"
+    const val COEVAL = "coeval"
 }
