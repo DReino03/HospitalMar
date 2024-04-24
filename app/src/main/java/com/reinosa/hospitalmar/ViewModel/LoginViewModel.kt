@@ -38,10 +38,10 @@ class LoginViewModel(): ViewModel() {
         return hashedBytes.joinToString("") { "%02x".format(it) }
     }
 
-    fun getUsuario(username: String) {
+    fun getUsuario(correo: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = repository.getAlumnos("/usuario/$username")
+                val response = repository.getAlumnos("/user/alumno/$correo")
 
                 if (response.isSuccessful) {
                     if (Looper.myLooper() == Looper.getMainLooper()) {
