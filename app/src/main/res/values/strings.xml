@@ -13,4 +13,6 @@
     <string name="exit_app">Salida</string>
     <string name="exit_app_description">Salir de la aplicacion</string>
     <string name="profile">Perfil</string>
+    <string name="Coevaluació">Coevaluació</string>
+
 </resources>

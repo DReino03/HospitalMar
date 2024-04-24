@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.BottomAppBar
 import androidx.compose.material.DrawerValue
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -19,9 +20,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
+import com.reinosa.hospitalmar.ViewModel.CoevalViewModel
+import com.reinosa.hospitalmar.widgets.Coevaluacio.CoevaluacioContent
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import com.reinosa.hospitalmar.widgets.Evaluacio.ModulScreen
@@ -29,7 +33,7 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun CoevalScreen(navController: NavController){
+fun CoevalScreen(navController: NavController, coevalViewModel: CoevalViewModel){
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
 
@@ -37,7 +41,7 @@ fun CoevalScreen(navController: NavController){
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.drawer_graphics), textAlign = TextAlign.Justify) },
+                title = { Text(text = stringResource(R.string.Coevaluació), textAlign = TextAlign.Justify) },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {
@@ -49,6 +53,14 @@ fun CoevalScreen(navController: NavController){
                 }
             )
         },
+        bottomBar = {
+                    BottomAppBar {
+                        Text(
+                            text = coevalViewModel.studentsSelected.toString(),
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+        },
         drawerContent = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 DrawerHeader()
@@ -58,6 +70,7 @@ fun CoevalScreen(navController: NavController){
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
+        CoevaluacioContent(navController = navController, coevalViewModel = CoevalViewModel())
     }
 }
 
