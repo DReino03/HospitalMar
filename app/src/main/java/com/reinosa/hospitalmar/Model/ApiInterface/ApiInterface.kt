@@ -23,7 +23,7 @@ interface ApiInterface {
     @GET("/login/profesor")
     suspend fun getProfesores(): List<Profesor>
 
-    @POST("user/login/alumnos")
+    @POST("user/login/alumno")
     suspend fun login(@Body alumno: Alumno): Response<ResponseBody>
 
     companion object{

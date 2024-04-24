@@ -2,8 +2,8 @@ package com.reinosa.hospitalmar.widgets.Login
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,7 +25,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -44,7 +42,7 @@ import kotlinx.coroutines.withContext
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
-    var username by remember { mutableStateOf("") }
+    var correo by remember { mutableStateOf("") }
     var password by remember {
         mutableStateOf("")
     }
@@ -55,22 +53,20 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
     val context = LocalContext.current
     Surface {
         Column(
-            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
                 .fillMaxWidth()
                 .background(blueproject)
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            Image(
+                painter = painterResource(id = R.drawable.ic_hospitalne),
                 contentDescription = "Logo",
-                tint = colorResource(id = R.color.white),
-                modifier = Modifier.size(100.dp)
+                modifier = Modifier.size(350.dp)
             )
             loginField(
-                value = username,
-                onChange = { username = it },
+                value = correo,
+                onChange = { correo = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
@@ -91,7 +87,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 .padding(horizontal = 16.dp)
                 .wrapContentSize(Alignment.Center)) {
                 LabeledCheckbox(
-                    label = "Remember Me",
+                    label = "Recorda'm",
                     onCheckChanged = {
                         credentials = credentials.copy(remember = !credentials.remember)
                     },
@@ -103,19 +99,19 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 onClick = {
                     hashedPassword = viewModel.hashPassword(password)
                     credentials = credentials.copy(remember = !credentials.remember)
-                    viewModel.currentAlumno.value = Alumno(0, username, hashedPassword, "admin", "534533F", username, "",0,0,hashedPassword,0)
-                    viewModel.repository = Repository(username, hashedPassword )
+                    viewModel.currentAlumno.value = Alumno(0, "", "", "", "", correo, "",0,0,password,0)
+                    viewModel.repository = Repository(correo, hashedPassword)
 
 
                     CoroutineScope(Dispatchers.IO).launch {
-                        val repository = Repository(username, hashedPassword)
+                        val repository = Repository(correo, hashedPassword)
                         val response = repository.login(viewModel.currentAlumno.value!!)
 
                         withContext(Dispatchers.Main) {
                             if (response.isSuccessful) {
                                 CoroutineScope(Dispatchers.IO).launch {
-                                    viewModel.getUsuario(username)
-                                    navController.navigate("Drawer")
+                                    viewModel.getUsuario(correo)
+                                    navController.navigate("drawer")
 
                                 }
                             }else{
