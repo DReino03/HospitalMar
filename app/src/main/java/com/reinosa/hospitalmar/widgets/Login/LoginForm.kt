@@ -1,6 +1,7 @@
 package com.reinosa.hospitalmar.widgets.Login
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -43,6 +44,7 @@ import kotlinx.coroutines.withContext
 @Composable
 fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
     var correo by remember { mutableStateOf("") }
+    var identificador by remember { mutableStateOf("") }
     var password by remember {
         mutableStateOf("")
     }
@@ -65,8 +67,8 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 modifier = Modifier.size(350.dp)
             )
             loginField(
-                value = correo,
-                onChange = { correo = it },
+                value = identificador,
+                onChange = { identificador = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
@@ -98,26 +100,21 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
             Button(
                 onClick = {
                     hashedPassword = viewModel.hashPassword(password)
-                    credentials = credentials.copy(remember = !credentials.remember)
-                    viewModel.currentAlumno.value = Alumno(0, "", "", "", "", correo, "",0,0,password,0)
-                    viewModel.repository = Repository(correo, hashedPassword)
-
+                    viewModel.currentAlumno.value = Alumno(0, "", "", "", "", "", identificador,0,0,hashedPassword,0)
+                    viewModel.repository = Repository(identificador, hashedPassword)
+                    Log.d("CONTRASENYA", hashedPassword)
 
                     CoroutineScope(Dispatchers.IO).launch {
-                        val repository = Repository(correo, hashedPassword)
+                        val repository = Repository(identificador, hashedPassword)
                         val response = repository.login(viewModel.currentAlumno.value!!)
 
                         withContext(Dispatchers.Main) {
                             if (response.isSuccessful) {
-                                CoroutineScope(Dispatchers.IO).launch {
-                                    viewModel.getUsuario(correo)
-                                    navController.navigate("drawer")
-
-                                }
-                            }else{
-                                val toast = Toast(context)
-                                toast.duration = Toast.LENGTH_SHORT
-                                toast.setText("Error")
+                                viewModel.getUsuario(identificador)
+                                navController.navigate("drawer")
+                                Log.d("Usuario", viewModel.currentAlumno.value.toString())
+                            } else {
+                                val toast = Toast.makeText(context, "Error", Toast.LENGTH_SHORT)
                                 toast.show()
                             }
                         }
@@ -127,7 +124,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp),
+                    .padding(20.dp)
             ) {
                 Text("Accedeix")
             }
