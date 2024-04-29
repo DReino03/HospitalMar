@@ -37,40 +37,75 @@ import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-
 fun ProfileContent(navController: NavController) {
-    // Contenido de la pantalla
-    Column {
-        Row() {
-            Box(
-                modifier = Modifier.background(blueproject, shape = RoundedCornerShape(0.dp,0.dp,40.dp,40.dp))
-                    .padding(40.dp)
-                    .weight(1f)
-
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.TopCenter,
-
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        // Sección superior
+        Box(
+            modifier = Modifier
+                .background(
+                    color = blueproject,
+                    shape = RoundedCornerShape(0.dp, 0.dp, 40.dp, 40.dp)
+                )
+                .padding(40.dp)
+                .weight(0.60f) // 33% de la pantalla
+                .fillMaxWidth(),
+            contentAlignment = Alignment.TopCenter
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(top = 8.dp)
             ) {
-                Surface(
+                // Foto de perfil
+                Image(
+                    painter = painterResource(id = R.drawable.ic_person),
+                    contentDescription = null,
                     modifier = Modifier
-                        .size(150.dp)
-                        .padding(5.dp),
-                    shape = CircleShape,
-                    elevation = 10.dp,
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_person),
-                        contentDescription = "ic_person",
-                        modifier = Modifier.padding(20.dp)
-                    )
-                }
+                        .size(100.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+                // Nombre de usuario
+                Text(
+                    text = "Nom usuari",
+                    style = MaterialTheme.typography.h5,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+                // Identificador de usuario
+                Text(
+                    text = "ibax000",
+                    style = MaterialTheme.typography.subtitle1,
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
             }
         }
-        Row(){
-            Modifier.background(Color.Black)
 
+        // Sección inferior
+        Spacer(modifier = Modifier.height(16.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = "Cicle: Medicina",
+                style = MaterialTheme.typography.subtitle1,
+                color = Color.Gray,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }
+    }
+
+
+
+    @Composable
+    fun UserProfileDetailItem(title: String, value: String) {
+        Column {
+            Text(text = title, style = MaterialTheme.typography.body1)
+            Text(text = value, style = MaterialTheme.typography.body2)
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
-
 

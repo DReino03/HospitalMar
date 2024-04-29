@@ -23,11 +23,10 @@ import com.reinosa.hospitalmar.View.screens.HomeScreen
 import com.reinosa.hospitalmar.View.screens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.SettingsScreen
 import com.reinosa.hospitalmar.View.screens.evalScreen
-import com.reinosa.hospitalmar.ViewModel.CoevalViewModel
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
-import com.reinosa.hospitalmar.widgets.EvalResult.Result
 import com.reinosa.hospitalmar.widgets.Evaluacio.EvalScreen
+import com.reinosa.hospitalmar.widgets.Home.HomeContent
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
 
 
@@ -70,10 +69,9 @@ fun GreetingPreview() {
 @Composable
 fun Navigation(navController: NavHostController) {
     val loginViewModel : LoginViewModel = remember { LoginViewModel() }
-    val coevalViewModel : CoevalViewModel = remember { CoevalViewModel() }
     NavHost(
         navController = navController,
-        startDestination = NavigationGraph.HOME
+        startDestination = NavigationGraph.LOGIN
     ) {
         composable(NavigationGraph.HOME) {
             HomeScreen(navController)
@@ -99,14 +97,11 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationGraph.GRAPHICS){
             GraficsScreen(navController)
         }
-        composable("eval/{text}") { backStackEntry ->
-            EvalScreen(navController, backStackEntry.arguments?.getString("text"))
+        composable(NavigationGraph.EVAL){
+            EvalScreen(navController)
         }
         composable(NavigationGraph.COEVAL){
-            CoevalScreen(navController, coevalViewModel)
-        }
-        composable("result/{modul}/{rating}") { backStackEntry ->
-            Result(navController, backStackEntry.arguments?.getString("modul")!!, backStackEntry.arguments?.getString("rating")!!)
+            CoevalScreen(navController)
         }
     }
 }
@@ -122,5 +117,4 @@ object NavigationGraph {
     const val GRAPHICS = "graphics"
     const val EVAL = "eval"
     const val COEVAL = "coeval"
-    const val RESULT = "result"
 }
