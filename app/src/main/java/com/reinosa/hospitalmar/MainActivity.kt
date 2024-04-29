@@ -23,6 +23,7 @@ import com.reinosa.hospitalmar.View.screens.HomeScreen
 import com.reinosa.hospitalmar.View.screens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.SettingsScreen
 import com.reinosa.hospitalmar.View.screens.evalScreen
+import com.reinosa.hospitalmar.ViewModel.CoevalViewModel
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
 import com.reinosa.hospitalmar.widgets.Evaluacio.EvalScreen
@@ -98,10 +99,10 @@ fun Navigation(navController: NavHostController) {
             GraficsScreen(navController)
         }
         composable(NavigationGraph.EVAL){
-            EvalScreen(navController)
+            EvalScreen(navController, "Modul 1")
         }
         composable(NavigationGraph.COEVAL){
-            CoevalScreen(navController)
+            CoevalScreen(navController, CoevalViewModel())
         }
     }
 }
