@@ -20,11 +20,10 @@ interface ApiInterface {
     @GET
     suspend fun getAlumnos(@Url url: String): Response<Alumno>
 
-    @GET("/login/profesor")
-    suspend fun getProfesores(): List<Profesor>
+
 
     @POST("user/login/alumno")
-    suspend fun login(@Body alumno: Alumno): Response<ResponseBody>
+    suspend fun login(@Body alumno: String, password: String): Response<ResponseBody>
 
     companion object{
         val BASE_URL = "http://172.23.6.122:8080/"

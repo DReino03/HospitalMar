@@ -42,7 +42,8 @@ Card(
                 modifier = Modifier
                     .size(60.dp)
                     .clickable {
-                        navController.navigate("eval")
+                        //Passamos el nombre del modulo a la pantalla de evaluacion
+                        navController.navigate("eval/$text")
                         Log.e("ModulItem", "click")
                     }
             )

@@ -53,13 +53,13 @@ fun StudentItem(text:String ,navController: NavController, coevalViewModel: Coev
                             //selecciona a los estudiantes para la coevaluación y los añade a la lista de estudiantes seleccionados ademas marca el Card con un color de fondo
                             Log.e("StudentItem", "click")
 
-                            if (studentsSelected.contains(text)) {
+                            if (studentsSelected.value.contains(text)) {
                                 // If the student is already in the list, remove them and change the border color to transparent
-                                studentsSelected.remove(text)
+                                studentsSelected.value -= text
                                 borderColor.value = Color.Transparent
                             } else {
                                 // If the student is not in the list, add them and change the border color to blue
-                                studentsSelected.add(text)
+                                studentsSelected.value += text
                                 borderColor.value = Color.Blue
                             }
 

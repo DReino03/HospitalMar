@@ -1,5 +1,6 @@
 package com.reinosa.hospitalmar.Model.DataClass
 
+
 data class Profesor (
     val idPorfesor: Int,
     val contrasenya: String,

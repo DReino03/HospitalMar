@@ -6,6 +6,10 @@ import android.content.Intent
 import android.widget.Toast
 import com.reinosa.hospitalmar.MainActivity
 
-fun checkCredentials(creds: Credentials, context: String): Boolean {
-    return false
+fun checkCredentials(creds: String, context: String): Boolean {
+    if (creds == "correoalumno1@exaple.com" && context == "contrasena1") {
+        return true
+    }else{
+        return false
+    }
 }

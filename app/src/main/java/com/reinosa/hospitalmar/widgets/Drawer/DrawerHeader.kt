@@ -28,7 +28,7 @@ import com.reinosa.hospitalmar.ui.theme.blueproject
 fun DrawerHeader() {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(0.75f)
             .height(180.dp)
             .background(blueproject)
             .padding(16.dp)
@@ -48,7 +48,7 @@ fun DrawerHeader() {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Maria Lorente",
+                text = "username",
                 style = MaterialTheme.typography.h5,
                 color = Color.White,
             )
