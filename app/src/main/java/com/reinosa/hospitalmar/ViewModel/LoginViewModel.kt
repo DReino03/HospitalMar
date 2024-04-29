@@ -8,7 +8,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
-import com.reinosa.hospitalmar.Model.Credentials.checkCredentials
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.Model.DataClass.Modulo
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
@@ -35,10 +34,10 @@ class LoginViewModel(): ViewModel() {
         return hashedBytes.joinToString("") { "%02x".format(it) }
     }
 
-    fun getUsuario(identificador: String) {
+    fun getAlumno(identificador: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = repository.getAlumno("/usuario/$identificador")
+                val response = repository.getAlumno("/alumno/$identificador")
 
                 if (response.isSuccessful) {
                     if (Looper.myLooper() == Looper.getMainLooper()) {
@@ -49,6 +48,28 @@ class LoginViewModel(): ViewModel() {
                         }
                     }
                     Log.d("lista", "${currentAlumno.value}")
+                } else {
+                    Log.e("Error :", response.message())
+                }
+            } catch (e: Exception) {
+                Log.e("Error", "Excepción en la corrutina: ${e.message}", e)
+            }
+        }
+    }
+    fun getProfesor(identificador: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = repository.getProfesor("/profesor/$identificador")
+
+                if (response.isSuccessful) {
+                    if (Looper.myLooper() == Looper.getMainLooper()) {
+                        currentProfesor.value = response.body()
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            currentProfesor.value = response.body()
+                        }
+                    }
+                    Log.d("lista", "${currentProfesor.value}")
                 } else {
                     Log.e("Error :", response.message())
                 }

@@ -101,24 +101,36 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 onClick = {
                     hashedPassword = viewModel.hashPassword(password)
                     viewModel.currentAlumno.value = Alumno(0, "", "", "", "", "", identificador,0,0,hashedPassword,0)
+                    //HAY QUE CREAR UN COURRENT PROFESOR PARA PODER HACER EL LOGIN DEKL PROFESOR
                     viewModel.repository = Repository(identificador, hashedPassword)
                     Log.d("CONTRASENYA", hashedPassword)
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val repository = Repository(identificador, hashedPassword)
-                        val response = repository.login(viewModel.currentAlumno.value!!)
+                        val response = if (identificador == "ibap06932") {
+                            repository.loginAlumno(viewModel.currentAlumno.value!!)
+                        } else {
+                            repository.loginProfesor(viewModel.currentProfesor.value!!)
+                        }
 
                         withContext(Dispatchers.Main) {
                             if (response.isSuccessful) {
-                                viewModel.getUsuario(identificador)
-                                navController.navigate("drawer")
-                                Log.d("Usuario", viewModel.currentAlumno.value.toString())
+                                if (identificador == "ibap06932") {
+                                    viewModel.getAlumno(identificador)
+                                    navController.navigate("drawer")
+                                    Log.d("Usuario", viewModel.currentAlumno.value.toString())
+                                } else {
+                                    viewModel.getProfesor(identificador)
+                                    navController.navigate("evaluate")
+                                    Log.d("Usuario", viewModel.currentProfesor.value.toString())
+                                }
                             } else {
                                 val toast = Toast.makeText(context, "Error", Toast.LENGTH_SHORT)
                                 toast.show()
                             }
                         }
                     }
+
                 },
                 enabled = true,
                 shape = RoundedCornerShape(5.dp),
