@@ -105,7 +105,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val repository = Repository(correo, hashedPassword)
-                        val response = repository.login(correo, hashedPassword)
+                        val response = repository.login(viewModel.currentAlumno.value!!)
 
                         withContext(Dispatchers.Main) {
                             if (response.isSuccessful) {

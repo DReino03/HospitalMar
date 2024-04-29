@@ -26,10 +26,10 @@ class LoginViewModel(): ViewModel() {
 
     lateinit var repository: Repository
     fun login(email: String, password: String): Boolean {
-        val hashedPassword = password
+        val hashedPassword = hashPassword(password)
 
-        return checkCredentials(email, hashedPassword)
-
+        //return checkCredentials(email, hashedPassword)
+        return  false
     }
     fun hashPassword(password: String): String {
         val bytes = password.toByteArray()
