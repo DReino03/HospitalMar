@@ -1,6 +1,7 @@
 package com.reinosa.hospitalmar.widgets.Login
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,6 +32,7 @@ import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.Credentials.Credentials
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
+import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
@@ -43,6 +45,7 @@ import kotlinx.coroutines.withContext
 @Composable
 fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
     var correo by remember { mutableStateOf("") }
+    var identificador by remember { mutableStateOf("") }
     var password by remember {
         mutableStateOf("")
     }
@@ -65,8 +68,8 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 modifier = Modifier.size(350.dp)
             )
             loginField(
-                value = correo,
-                onChange = { correo = it },
+                value = identificador,
+                onChange = { identificador = it },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
@@ -98,36 +101,44 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
             Button(
                 onClick = {
                     hashedPassword = viewModel.hashPassword(password)
-                    credentials = credentials.copy(remember = !credentials.remember)
-                    viewModel.currentAlumno.value = Alumno(0, "", "", "", "", correo, "",0,0,password,0)
-                    viewModel.repository = Repository(correo, hashedPassword)
-
+                    viewModel.currentAlumno.value = Alumno(0, "", "", "", identificador, "", "","",hashedPassword,0)
+                    //HAY QUE CREAR UN COURRENT PROFESOR PARA PODER HACER EL LOGIN DEKL PROFESOR
+                    viewModel.currentProfesor.value = Profesor(0, "", "", "", identificador, "", "", "", hashedPassword, true, true)
+                    viewModel.repository = Repository(identificador, hashedPassword)
+                    Log.d("CONTRASENYA", hashedPassword)
 
                     CoroutineScope(Dispatchers.IO).launch {
-                        val repository = Repository(correo, hashedPassword)
-                        val response = repository.login(viewModel.currentAlumno.value!!)
+                        val repository = Repository(identificador, hashedPassword)
+                        val response = if (identificador == "ibap06932") {
+                            repository.loginAlumno(viewModel.currentAlumno.value!!)
+                        } else {
+                            repository.loginProfesor(viewModel.currentProfesor.value!!)
+                        }
 
                         withContext(Dispatchers.Main) {
                             if (response.isSuccessful) {
-                                CoroutineScope(Dispatchers.IO).launch {
-                                    viewModel.getUsuario(correo)
+                                if (identificador == "ibap06932") {
+                                    viewModel.getAlumno(identificador)
                                     navController.navigate("drawer")
-
+                                    Log.d("Usuario", viewModel.currentAlumno.value.toString())
+                                } else {
+                                    viewModel.getProfesor(identificador)
+                                    navController.navigate("evaluate")
+                                    Log.d("Usuario", viewModel.currentProfesor.value.toString())
                                 }
-                            }else{
-                                val toast = Toast(context)
-                                toast.duration = Toast.LENGTH_SHORT
-                                toast.setText("Error")
+                            } else {
+                                val toast = Toast.makeText(context, "Error", Toast.LENGTH_SHORT)
                                 toast.show()
                             }
                         }
                     }
+
                 },
                 enabled = true,
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp),
+                    .padding(20.dp)
             ) {
                 Text("Accedeix")
             }
