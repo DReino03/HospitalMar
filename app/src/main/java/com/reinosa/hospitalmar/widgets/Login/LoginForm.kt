@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.Credentials.Credentials
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
+import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
@@ -100,8 +101,9 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
             Button(
                 onClick = {
                     hashedPassword = viewModel.hashPassword(password)
-                    viewModel.currentAlumno.value = Alumno(0, "", "", "", "", "", identificador,0,0,hashedPassword,0)
+                    viewModel.currentAlumno.value = Alumno(0, "", "", "", identificador, "", "","",hashedPassword,0)
                     //HAY QUE CREAR UN COURRENT PROFESOR PARA PODER HACER EL LOGIN DEKL PROFESOR
+                    viewModel.currentProfesor.value = Profesor(0, "", "", "", identificador, "", "", "", hashedPassword, true, true)
                     viewModel.repository = Repository(identificador, hashedPassword)
                     Log.d("CONTRASENYA", hashedPassword)
 
