@@ -28,7 +28,7 @@ import com.reinosa.hospitalmar.ui.theme.blueproject
 fun DrawerHeader() {
     Box(
         modifier = Modifier
-            .fillMaxWidth(0.75f)
+            .fillMaxWidth(1f)
             .height(180.dp)
             .background(blueproject)
             .padding(16.dp)

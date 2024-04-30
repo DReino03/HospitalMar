@@ -42,6 +42,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
+import com.reinosa.hospitalmar.ui.theme.blueproject
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import com.reinosa.hospitalmar.widgets.Home.HomeButton
@@ -67,9 +68,10 @@ fun HomeScreen(navController: NavController) {
                     }) {
                         androidx.compose.material.Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
-                }
-
+                },
+                backgroundColor = blueproject
             )
+
         },
         drawerContent = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
