@@ -16,7 +16,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -28,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -39,7 +43,8 @@ import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 @Composable
 fun ProfileContent(navController: NavController) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally // Centra horizontalmente
     ) {
         // Sección superior
         Box(
@@ -62,21 +67,21 @@ fun ProfileContent(navController: NavController) {
                     painter = painterResource(id = R.drawable.ic_person),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(100.dp)
+                        .size(80.dp)
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop
                 )
                 // Nombre de usuario
                 Text(
                     text = "Nom usuari",
-                    style = MaterialTheme.typography.h5,
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(top = 8.dp)
+                    modifier = Modifier.padding(top = 20.dp)
                 )
                 // Identificador de usuario
                 Text(
                     text = "ibax000",
-                    style = MaterialTheme.typography.subtitle1,
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                     color = Color.Gray,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(top = 4.dp)
@@ -88,24 +93,60 @@ fun ProfileContent(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "Cicle: Medicina",
-                style = MaterialTheme.typography.subtitle1,
+                text = "Dades personals:", // Cambio de texto
+                style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 40.dp, vertical = 20.dp) // Añadir margen horizontal
+            )
+            Text(
+                text = "Cicle: M7867",
+                style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                 color = Color.Gray,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 4.dp)
+                modifier = Modifier.padding(horizontal = 40.dp) // Añadir margen horizontal y superior
             )
-        }
-    }
-
-
-
-    @Composable
-    fun UserProfileDetailItem(title: String, value: String) {
-        Column {
-            Text(text = title, style = MaterialTheme.typography.body1)
-            Text(text = value, style = MaterialTheme.typography.body2)
-            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Correu: nCognom@institutbonanova.cat",
+                style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                color = Color.Gray,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 40.dp, vertical = 8.dp) // Añadir margen horizontal
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Button(
+                    onClick = {
+                        // Lógica para salir de la aplicación
+                    },
+                    colors = ButtonDefaults.buttonColors(blueproject),
+                    modifier = Modifier.padding(end = 8.dp),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Text(text = "Canviar contrasenya")
+                }
+                Button(
+                    onClick = {
+                        // Lógica para cambiar la contraseña
+                    },
+                    colors = ButtonDefaults.buttonColors(blueproject),
+                    modifier = Modifier.padding(end = 8.dp),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Text(text = "Sortir")
+                }
+            }
         }
     }
 }
+
+
+
+
+
+
+
+
 

@@ -2,15 +2,15 @@
     <string name="app_name">HospitalMar</string>
     <string name="drawer_home">Inici</string>
     <string name="drawer_home_description">Ir a la pantalla de inicio</string>
-    <string name="drawer_settings">Configuración</string>
+    <string name="drawer_settings">Configuració</string>
     <string name="drawer_settings_description">Configurar la aplicación</string>
-    <string name="drawer_about">Acerca de</string>
+    <string name="drawer_about">Informació</string>
     <string name="drawer_info_description">Información sobre la aplicación</string>
-    <string name="drawer_graphics">Evaluación</string>
+    <string name="drawer_graphics">Avaluació</string>
     <string name="drawer_graphics_description">Evaluación\n</string>
-    <string name="drawer_profile">Cuenta</string>
+    <string name="drawer_profile">Perfil</string>
     <string name="drawer_profile_description">Pagina de la cuenta</string>
-    <string name="exit_app">Salida</string>
+    <string name="exit_app">Sortir</string>
     <string name="exit_app_description">Salir de la aplicacion</string>
     <string name="profile">Perfil</string>
 </resources>
