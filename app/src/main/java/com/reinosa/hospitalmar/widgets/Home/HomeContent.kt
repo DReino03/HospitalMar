@@ -43,7 +43,11 @@ fun HomeContent(navController: NavController){
         ) {
             HomeButton(navController, "Autoavaluació", imagePainter[0], "evaluate")
             Spacer(modifier = Modifier.padding(40.dp) )
-            HomeButton(navController, "Coavaluació" , imagePainter[1], "coeval")
+            if (!true){
+                HomeButton(navController, "Coavaluació" , imagePainter[1], "coeval")
+            }else{
+                HomeButton(navigation = navController, text = "Evaluar", imageRoute =imagePainter[1] , destination ="coeval" )
+            }
         }
         Spacer(modifier = Modifier.padding(30.dp))
         Row(

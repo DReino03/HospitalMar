@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.Credentials.checkCredentials
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
+import com.reinosa.hospitalmar.Model.DataClass.Modulo
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,15 +23,11 @@ class LoginViewModel(): ViewModel() {
     var currentAlumno = MutableLiveData<Alumno>()
     var currentProfesor = MutableLiveData<Profesor>()
     val success = MutableLiveData<Boolean>()
+    var modulos = MutableLiveData<List<Modulo>>()
 
 
     lateinit var repository: Repository
-    fun login(email: String, password: String): Boolean {
-        val hashedPassword = hashPassword(password)
 
-        //return checkCredentials(email, hashedPassword)
-        return  false
-    }
     fun hashPassword(password: String): String {
         val bytes = password.toByteArray()
         val digest = MessageDigest.getInstance("SHA-256")
@@ -38,10 +35,10 @@ class LoginViewModel(): ViewModel() {
         return hashedBytes.joinToString("") { "%02x".format(it) }
     }
 
-    fun getUsuario(correo: String) {
+    fun getUsuario(identificador: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = repository.getAlumnos("/user/alumno/$correo")
+                val response = repository.getAlumno("/usuario/$identificador")
 
                 if (response.isSuccessful) {
                     if (Looper.myLooper() == Looper.getMainLooper()) {
@@ -58,6 +55,22 @@ class LoginViewModel(): ViewModel() {
             } catch (e: Exception) {
                 Log.e("Error", "Excepción en la corrutina: ${e.message}", e)
             }
+        }
+    }
+
+    fun getModulos () {
+        success.postValue(false)
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getModulos("/modulos")
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful){
+                    modulos.postValue(response.body())
+                }
+                else{
+                    Log.e("Error:", response.message())
+                }
+            }
+            success.postValue(true)
         }
     }
 

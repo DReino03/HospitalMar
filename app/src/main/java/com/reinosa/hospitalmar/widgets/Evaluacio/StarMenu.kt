@@ -17,11 +17,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.reinosa.hospitalmar.Model.DataClass.EvalCard
 
-data class EvalCard(val text: String, var starRating: Int = 0)
 
 @Composable
-fun StarMenu(stars: Int) {
+fun starMenu(stars: Int, evalCard: EvalCard) {
     var selectedStar by remember { mutableStateOf(0) }
 
     Row(
@@ -29,7 +29,11 @@ fun StarMenu(stars: Int) {
     ) {
         for (i in 1..stars) {
             IconButton(
-                onClick = { selectedStar = i }
+                onClick = {
+                    selectedStar = i
+                    evalCard.starRating = i
+                    evalCard.rating = "Rating for ${evalCard.text}: $i"
+                }
             ) {
                 Icon(
                     imageVector = if (i <= selectedStar) Icons.Filled.Star else Icons.Outlined.Star,
@@ -41,17 +45,6 @@ fun StarMenu(stars: Int) {
     }
 }
 
-@Composable
-fun StarMenu(stars: List<Star>) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        stars.forEach { star ->
-            com.reinosa.hospitalmar.widgets.Evaluacio.Star(star)
-        }
-    }
-}
 
 fun generateReport(evalCards: List<EvalCard>) {
     evalCards.forEach { card ->

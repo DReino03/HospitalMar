@@ -35,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.reinosa.hospitalmar.Model.DataClass.EvalCard
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
@@ -42,8 +43,9 @@ import kotlinx.coroutines.launch
 import com.reinosa.hospitalmar.widgets.Evaluacio.StarMenu
 
 @Composable
-fun EvalItem(modul: String, ratings: MutableList<Int>) {
-
+fun EvalItem(modul: String) {
+    val ratings: MutableList<Pair<String, Int>> = mutableListOf()
+    val text = "stringResource(R.string.eval_text)"
     Column {
 
         LazyColumn {
@@ -52,6 +54,7 @@ fun EvalItem(modul: String, ratings: MutableList<Int>) {
                 Text("Iniciativa", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(16.dp)) }
 
             items(5) {index->
+                val evalCard = EvalCard(text)
                 val selectedStar = remember { mutableStateOf(0) }
                 Card(
                     modifier = Modifier
@@ -61,18 +64,19 @@ fun EvalItem(modul: String, ratings: MutableList<Int>) {
                 Spacer(modifier = Modifier.padding(8.dp))
                 Row() {
                     Text(
-                        text = "Actua amb rapidesa per a resoldre els problemes que es presenten a la tasca",
+                        text = text,
                         Modifier.padding(16.dp))
                 }
                 Spacer(modifier = Modifier.padding(8.dp))
                 Row(
                 ) {
-                    StarMenu(4)
+                    StarMenu(4, evalCard)
                 }
                 Spacer(modifier = Modifier.padding(8.dp))
 
             }
-                ratings.add(selectedStar.value)
+                var data = Pair(text, selectedStar.value)
+                ratings.add(index,data)
 
             }
 
@@ -82,13 +86,27 @@ fun EvalItem(modul: String, ratings: MutableList<Int>) {
 }
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun EvalScreen(navController: NavController, string: String?) {
+fun EvalScreen(navController: NavController) {
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-
-    val modul = string ?: "Modul"
+    val modul : String = remember {
+        navController.previousBackStackEntry!!.arguments?.getString("modul") ?: "No proporcionado"
+    }
+    val persona: List<String>? = remember {
+        navController.previousBackStackEntry?.arguments?.getStringArrayList("persona")?.toList()
+    }
+    val rating: List<Pair<String, Int>>? = remember {
+        navController.previousBackStackEntry?.arguments?.getString("rating")?.split(",")
+            ?.map { it.split(":").let { pair -> Pair(pair[0], pair[1].toInt()) } }
+    }
     Log.e("EvalScreen", modul)
+    data class InformeData(
+        val modul: String,
+        val persona: List<String>,
+        val rating: List<Pair<String, Int>>,
+        // Agrega aquí cualquier otro dato que necesites recolectar
+    )
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -111,11 +129,11 @@ fun EvalScreen(navController: NavController, string: String?) {
                 },
                 actions = {
                     IconButton(onClick = {
-                        navController.navigate("result")
                         val toast = Toast(context)
                         toast.duration = Toast.LENGTH_SHORT
                         toast.setText("Guardado Correctamente")
                         toast.show()
+                      //  navController.navigate("result/${InformeData}")
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Save,
@@ -134,7 +152,7 @@ fun EvalScreen(navController: NavController, string: String?) {
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        EvalItem(modul, mutableListOf())
+        EvalItem(modul)
     }
 
 }

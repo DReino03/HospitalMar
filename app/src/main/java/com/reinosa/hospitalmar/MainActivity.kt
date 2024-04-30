@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -100,17 +101,20 @@ fun Navigation(navController: NavHostController) {
             GraficsScreen(navController)
         }
         composable("eval/{text}") { backStackEntry ->
-            EvalScreen(navController, backStackEntry.arguments?.getString("text"))
+
+            EvalScreen(navController)
         }
         composable(NavigationGraph.COEVAL){
             CoevalScreen(navController, coevalViewModel)
         }
-        composable("result/{modul}/{rating}") { backStackEntry ->
-            backStackEntry.arguments?.getString("rating")
-                ?.let { Result(navController, backStackEntry.arguments?.getString("modul"), it) }
+        composable(NavigationGraph.RESULT) { backStackEntry ->
+
+            Result(navController)
         }
     }
 }
+
+
 
 object NavigationGraph {
     const val HOME = "home"

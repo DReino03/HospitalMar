@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.rememberDrawerState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,42 +28,58 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Result(navController: NavController, modulo: String?, rating: String) {
+fun Result(navController: NavController) {
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+    @Composable
+    fun Result(navController: NavController) {
+        val modul: String = remember {
+            navController.previousBackStackEntry!!.arguments?.getString("modul")
+                ?: "No proporcionado"
+        }
+        val persona: List<String>? = remember {
+            navController.previousBackStackEntry?.arguments?.getString("persona")?.split(",")
+        }
+        val rating: List<Pair<String, Int>>? = remember {
+            navController.previousBackStackEntry?.arguments?.getString("rating")?.split(",")
+                ?.map { it.split(":").let { pair -> Pair(pair[0], pair[1].toInt()) } }
+        }
+        // rest of the code...
 
-    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
-    val scope = rememberCoroutineScope()
+        val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+        val scope = rememberCoroutineScope()
 
-    androidx.compose.material.Scaffold(
-        scaffoldState = scaffoldState,
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(R.string.Result),
-                        textAlign = TextAlign.Justify
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        scope.launch {
-                            scaffoldState.drawerState.open()
+        androidx.compose.material.Scaffold(
+            scaffoldState = scaffoldState,
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(
+                            text = stringResource(R.string.Result),
+                            textAlign = TextAlign.Justify
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            scope.launch {
+                                scaffoldState.drawerState.open()
+                            }
+                        }) {
+                            Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                         }
-                    }) {
-                        Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
+                )
+            },
+            drawerContent = {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    DrawerHeader()
+                    DrawerItems(navController = navController)
+
                 }
-            )
-        },
-        drawerContent = {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                DrawerHeader()
-                DrawerItems(navController = navController)
+            },
+            drawerBackgroundColor = Color.White // Cambiar por el color deseado
+        ) {
+            ResultContent(navController)
+        }
 
-            }
-        },
-        drawerBackgroundColor = Color.White // Cambiar por el color deseado
-    ) {
-        ResultContent()
     }
-
 }
