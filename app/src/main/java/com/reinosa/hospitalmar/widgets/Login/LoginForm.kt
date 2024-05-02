@@ -108,15 +108,17 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                     Log.d("CONTRASENYA", hashedPassword)
 
                     CoroutineScope(Dispatchers.IO).launch {
+                        val validarUsuario = identificador.contains(Regex(".*pr.*"))
+
                         val repository = Repository(identificador, hashedPassword)
-                        val response = if (identificador == "ibap06932") {
-                            repository.loginAlumno(viewModel.currentAlumno.value!!)
-                        } else {
+                        val response = if (validarUsuario) {
                             repository.loginProfesor(viewModel.currentProfesor.value!!)
+                        } else {
+                            repository.loginAlumno(viewModel.currentAlumno.value!!)
+
                         }
 
                         withContext(Dispatchers.Main) {
-                            val validarUsuario = identificador.contains(Regex(".*pr.*"))
                             if (response.isSuccessful) {
                                 if (validarUsuario) {
                                     viewModel.getProfesor(identificador)
