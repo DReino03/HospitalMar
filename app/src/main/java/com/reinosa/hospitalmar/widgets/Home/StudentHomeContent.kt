@@ -17,9 +17,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
-fun HomeContent(navController: NavController){
+fun StudentHomeContent(navController: NavController, loginViewModel: LoginViewModel){
     val imagePainter = listOf<Int>(R.drawable.ic_evaluacio,R.drawable.ic_autoavaluacio,R.drawable.ic_person,R.drawable.ic_informes )
     Column(modifier = Modifier
         .fillMaxSize()
@@ -43,11 +44,10 @@ fun HomeContent(navController: NavController){
         ) {
             HomeButton(navController, "Autoavaluació", imagePainter[0], "evaluate")
             Spacer(modifier = Modifier.padding(40.dp) )
-            if (!true){
-                HomeButton(navController, "Coavaluació" , imagePainter[1], "coeval")
-            }else{
-                HomeButton(navigation = navController, text = "Evaluar", imageRoute =imagePainter[1] , destination ="coeval" )
-            }
+            //cambiar
+
+            HomeButton(navController, "Coavaluació" , imagePainter[1], "coeval")
+
         }
         Spacer(modifier = Modifier.padding(30.dp))
         Row(

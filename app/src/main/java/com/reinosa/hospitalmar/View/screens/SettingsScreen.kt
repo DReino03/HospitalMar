@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.DrawerValue
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -23,8 +21,6 @@ import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
-import com.reinosa.hospitalmar.widgets.Evaluacio.EvalScreen
-import com.reinosa.hospitalmar.widgets.Home.HomeContent
 import com.reinosa.hospitalmar.widgets.Settings.settingsContent
 import kotlinx.coroutines.launch
 

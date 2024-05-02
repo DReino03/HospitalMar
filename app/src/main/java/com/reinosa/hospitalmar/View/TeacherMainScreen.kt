@@ -1,12 +1,14 @@
-package com.reinosa.hospitalmar.View.screens
+package com.reinosa.hospitalmar.View
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.DrawerValue
+import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -17,30 +19,36 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.reinosa.hospitalmar.R
-import com.reinosa.hospitalmar.widgets.About.aboutContent
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
+import com.reinosa.hospitalmar.widgets.Home.StudentHomeContent
+import com.reinosa.hospitalmar.widgets.Home.TeacherHomeContent
 import kotlinx.coroutines.launch
+
+//Profesor
+
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun AboutScreen(navController: NavController) {
+fun TeacherDrawerAppScreen(navController: NavHostController) {
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
+
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { androidx.compose.material.Text(text = stringResource(R.string.drawer_about)) },
+                title = { Text(text = stringResource(R.string.app_name)) },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {
                             scaffoldState.drawerState.open()
                         }
                     }) {
-                        androidx.compose.material.Icon(Icons.Filled.Menu, contentDescription = "Localized description")
+                        Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
                 }
             )
@@ -54,6 +62,9 @@ fun AboutScreen(navController: NavController) {
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        aboutContent()
+        TeacherHomeContent(navController = navController, loginViewModel = LoginViewModel())
     }
 }
+
+
+

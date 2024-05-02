@@ -15,15 +15,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.reinosa.hospitalmar.R
-import com.reinosa.hospitalmar.View.screens.HomeScreen
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
-import com.reinosa.hospitalmar.widgets.Home.HomeContent
+import com.reinosa.hospitalmar.widgets.Home.StudentHomeContent
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun DrawerAppScreen(navController: NavHostController) {
+fun StudentDrawerAppScreen(navController: NavHostController) {
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
 
@@ -52,9 +52,7 @@ fun DrawerAppScreen(navController: NavHostController) {
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        HomeContent(navController = navController)
+        StudentHomeContent(navController = navController, loginViewModel = LoginViewModel())
     }
 }
-
-
 

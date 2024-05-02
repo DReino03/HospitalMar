@@ -11,12 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.reinosa.hospitalmar.View.DrawerAppScreen
+import com.reinosa.hospitalmar.View.StudentDrawerAppScreen
+import com.reinosa.hospitalmar.View.TeacherDrawerAppScreen
 import com.reinosa.hospitalmar.View.screens.AboutScreen
 import com.reinosa.hospitalmar.View.screens.CoevalScreen
 import com.reinosa.hospitalmar.View.screens.GraficsScreen
@@ -89,7 +89,7 @@ fun Navigation(navController: NavHostController) {
             LoginForm(navController, loginViewModel)
         }
         composable(NavigationGraph.DRAWER){
-            DrawerAppScreen(navController)
+            StudentDrawerAppScreen(navController)
         }
         composable(NavigationGraph.EVALUATE){
             evalScreen(navController)
@@ -101,7 +101,6 @@ fun Navigation(navController: NavHostController) {
             GraficsScreen(navController)
         }
         composable("eval/{text}") { backStackEntry ->
-
             EvalScreen(navController)
         }
         composable(NavigationGraph.COEVAL){
@@ -111,6 +110,10 @@ fun Navigation(navController: NavHostController) {
 
             Result(navController)
         }
+        composable(NavigationGraph.TEACHER){
+            TeacherDrawerAppScreen(navController)
+        }
+
     }
 }
 
@@ -128,4 +131,5 @@ object NavigationGraph {
     const val EVAL = "eval"
     const val COEVAL = "coeval"
     const val RESULT = "result"
+    const val TEACHER = "teacher"
 }

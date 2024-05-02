@@ -25,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -122,7 +123,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                             if (response.isSuccessful) {
                                 if (validarUsuario) {
                                     viewModel.getProfesor(identificador)
-                                    navController.navigate("evaluate")
+                                    navController.navigate("teacher")
                                     Log.d("Usuario", viewModel.currentProfesor.value.toString())
 
                                 } else {
