@@ -11,18 +11,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HmViewmodel : ViewModel(){
+class HmViewmodel (): ViewModel(){
 
     var studentsSelected = mutableStateOf(listOf<String>())
     val modulList = MutableLiveData<List<Modulo>?>()
     val success = MutableLiveData<Boolean>()
-    lateinit var repository: Repository
 
+
+    lateinit var repository: Repository
 
     fun getModulos () {
         success.postValue(false)
         CoroutineScope(Dispatchers.IO).launch {
-            val response = repository.getModulos("/modulos")
+            val response = repository.getModulos("/modulo")
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful){
                     modulList.postValue(response.body())

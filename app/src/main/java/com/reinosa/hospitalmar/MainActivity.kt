@@ -91,7 +91,7 @@ fun Navigation(navController: NavHostController) {
             DrawerAppScreen(navController)
         }
         composable(NavigationGraph.EVALUATE){
-            evalScreen(navController)
+            evalScreen(navController, coevalViewModel)
         }
         composable(NavigationGraph.PROFILE){
             ProfileScreen(navController)

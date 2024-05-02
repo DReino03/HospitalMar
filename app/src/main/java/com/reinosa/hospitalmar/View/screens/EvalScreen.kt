@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
+import com.reinosa.hospitalmar.ViewModel.HmViewmodel
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import com.reinosa.hospitalmar.widgets.Evaluacio.EvalScreen
@@ -36,7 +37,7 @@ import com.reinosa.hospitalmar.widgets.Home.HomeContent
 import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun evalScreen(navController: NavController){
+fun evalScreen(navController: NavController, viewmodel: HmViewmodel){
 
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
@@ -66,7 +67,7 @@ fun evalScreen(navController: NavController){
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        ModulScreen(navController = navController)
+        ModulScreen(navController = navController, viewmodel )
     }
 }
 
