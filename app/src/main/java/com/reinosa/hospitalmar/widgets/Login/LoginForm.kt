@@ -116,15 +116,17 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                         }
 
                         withContext(Dispatchers.Main) {
+                            val validarUsuario = identificador.contains(Regex(".*pr.*"))
                             if (response.isSuccessful) {
-                                if (identificador == "ibap06932") {
-                                    viewModel.getAlumno(identificador)
-                                    navController.navigate("drawer")
-                                    Log.d("Usuario", viewModel.currentAlumno.value.toString())
-                                } else {
+                                if (validarUsuario) {
                                     viewModel.getProfesor(identificador)
                                     navController.navigate("evaluate")
                                     Log.d("Usuario", viewModel.currentProfesor.value.toString())
+
+                                } else {
+                                    viewModel.getAlumno(identificador)
+                                    navController.navigate("drawer")
+                                    Log.d("Usuario", viewModel.currentAlumno.value.toString())
                                 }
                             } else {
                                 val toast = Toast.makeText(context, "Error", Toast.LENGTH_SHORT)

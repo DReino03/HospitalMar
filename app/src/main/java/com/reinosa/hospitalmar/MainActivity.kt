@@ -74,7 +74,7 @@ fun Navigation(navController: NavHostController) {
     val coevalViewModel : CoevalViewModel = remember { CoevalViewModel() }
     NavHost(
         navController = navController,
-        startDestination = NavigationGraph.HOME
+        startDestination = NavigationGraph.LOGIN
     ) {
         composable(NavigationGraph.HOME) {
             HomeScreen(navController)
