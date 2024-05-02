@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ui.theme.blueproject
+import com.reinosa.hospitalmar.ui.theme.gris
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -50,11 +51,11 @@ fun ProfileContent(navController: NavController) {
         Box(
             modifier = Modifier
                 .background(
-                    color = blueproject,
+                    color = blueproject.copy(alpha = 0.8f),
                     shape = RoundedCornerShape(0.dp, 0.dp, 40.dp, 40.dp)
                 )
-                .padding(40.dp)
-                .weight(0.60f) // 33% de la pantalla
+                .padding(30.dp)
+                .weight(0.60f)
                 .fillMaxWidth(),
             contentAlignment = Alignment.TopCenter
         ) {
@@ -82,71 +83,79 @@ fun ProfileContent(navController: NavController) {
                 Text(
                     text = "ibax000",
                     style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
-                    color = Color.Gray,
+                    color = Color.White,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(top = 4.dp)
                 )
+                Button(
+                    onClick = {
+                        //
+                    },
+                    colors = ButtonDefaults.buttonColors(Color.White),
+                    modifier = Modifier.padding(8.dp),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Text(text = "Canviar contrasenya")
+                }
             }
         }
 
         // Sección inferior
         Spacer(modifier = Modifier.height(16.dp))
-        Column(modifier = Modifier.weight(1f)) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 40.dp)
+        ) {
             Text(
                 text = "Dades personals:", // Cambio de texto
                 style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 40.dp, vertical = 20.dp) // Añadir margen horizontal
+                modifier = Modifier.padding(vertical = 20.dp)
             )
             Text(
                 text = "Cicle: M7867",
                 style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                 color = Color.Gray,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 40.dp) // Añadir margen horizontal y superior
+                modifier = Modifier.padding(vertical = 4.dp)
             )
             Text(
                 text = "Correu: nCognom@institutbonanova.cat",
                 style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                 color = Color.Gray,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 40.dp, vertical = 8.dp) // Añadir margen horizontal
+                modifier = Modifier.padding(vertical = 8.dp)
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Button(
                     onClick = {
-                        // Lógica para salir de la aplicación
+                        // Navegar al login y limpiar la pila de atrás
+                        navController.navigate("login") {
+
+                        }
                     },
-                    colors = ButtonDefaults.buttonColors(blueproject),
-                    modifier = Modifier.padding(end = 8.dp),
+                    colors = ButtonDefaults.buttonColors(blueproject.copy(alpha = 0.8f)),
+                    modifier = Modifier.padding(end = 8.dp, bottom = 100.dp),
+
+
                     shape = RoundedCornerShape(20.dp)
                 ) {
-                    Text(text = "Canviar contrasenya")
-                }
-                Button(
-                    onClick = {
-                        // Lógica para cambiar la contraseña
-                    },
-                    colors = ButtonDefaults.buttonColors(blueproject),
-                    modifier = Modifier.padding(end = 8.dp),
-                    shape = RoundedCornerShape(20.dp)
-                ) {
-                    Text(text = "Sortir")
+                    Text(
+                        text = "Tancar sessió",
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                        color = Color.White,
+                    )
+
+
                 }
             }
         }
     }
 }
-
-
-
-
-
-
-
 
 

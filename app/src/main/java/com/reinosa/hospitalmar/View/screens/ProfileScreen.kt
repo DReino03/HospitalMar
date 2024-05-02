@@ -3,6 +3,9 @@ package com.reinosa.hospitalmar.View.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+
+
+
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.DrawerValue
@@ -29,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
+import com.reinosa.hospitalmar.ui.theme.blueproject
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import com.reinosa.hospitalmar.widgets.Home.HomeContent
@@ -55,14 +59,14 @@ fun ProfileScreen(navController: NavController) {
                     }) {
                         Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
-                }
+                },
+                backgroundColor = blueproject
             )
         },
         drawerContent = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 DrawerHeader()
                 DrawerItems(navController = navController)
-
             }
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado

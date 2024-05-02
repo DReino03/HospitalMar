@@ -20,21 +20,21 @@ object DrawerParams {
             R.string.drawer_profile_description,
             "profile"
         ),
-        AppDrawerItemInfo(
-            MainNavOption.EvaluateScreen,
-            R.string.drawer_graphics,
-            R.drawable.ic_graphics,
-            R.string.drawer_graphics_description,
-            "evaluate"
-        ),
+//        AppDrawerItemInfo(
+//            MainNavOption.EvaluateScreen,
+//            R.string.drawer_graphics,
+//            R.drawable.ic_graphics,
+//            R.string.drawer_graphics_description,
+//            "evaluate"
+//        ),
 
-        AppDrawerItemInfo(
-            MainNavOption.SettingsScreen,
-            R.string.drawer_settings,
-            R.drawable.ic_settings,
-            R.string.drawer_settings_description,
-            "settings"
-        ),
+//        AppDrawerItemInfo(
+//            MainNavOption.SettingsScreen,
+//            R.string.drawer_settings,
+//            R.drawable.ic_settings,
+//            R.string.drawer_settings_description,
+//            "settings"
+//        ),
         AppDrawerItemInfo(
             MainNavOption.AboutScreen,
             R.string.drawer_about,

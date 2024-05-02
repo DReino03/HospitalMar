@@ -60,7 +60,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
             modifier = Modifier
                 .fillMaxSize()
                 .fillMaxWidth()
-                .background(blueproject)
+                .background(blueproject.copy(alpha = 0.8f))
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_hospitalne),
