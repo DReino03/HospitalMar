@@ -78,25 +78,4 @@ class LoginViewModel(): ViewModel() {
             }
         }
     }
-
-    fun getModulos () {
-        success.postValue(false)
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = repository.getModulos("/modulos")
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful){
-                    modulos.postValue(response.body())
-                }
-                else{
-                    Log.e("Error:", response.message())
-                }
-            }
-            success.postValue(true)
-        }
-    }
-
-
-
-
-
 }

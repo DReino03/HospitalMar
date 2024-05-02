@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,7 +23,7 @@ import com.reinosa.hospitalmar.View.screens.HomeScreen
 import com.reinosa.hospitalmar.View.screens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.SettingsScreen
 import com.reinosa.hospitalmar.View.screens.evalScreen
-import com.reinosa.hospitalmar.ViewModel.CoevalViewModel
+import com.reinosa.hospitalmar.ViewModel.HmViewmodel
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
 import com.reinosa.hospitalmar.widgets.EvalResult.Result
@@ -71,7 +70,7 @@ fun GreetingPreview() {
 @Composable
 fun Navigation(navController: NavHostController) {
     val loginViewModel : LoginViewModel = remember { LoginViewModel() }
-    val coevalViewModel : CoevalViewModel = remember { CoevalViewModel() }
+    val coevalViewModel : HmViewmodel = remember { HmViewmodel() }
     NavHost(
         navController = navController,
         startDestination = NavigationGraph.LOGIN

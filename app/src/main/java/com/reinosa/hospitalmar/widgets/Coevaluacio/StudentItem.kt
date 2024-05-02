@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -23,11 +22,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
-import com.reinosa.hospitalmar.ViewModel.CoevalViewModel
+import com.reinosa.hospitalmar.ViewModel.HmViewmodel
 
 
 @Composable
-fun StudentItem(text:String ,navController: NavController, coevalViewModel: CoevalViewModel) {
+fun StudentItem(text:String ,navController: NavController, coevalViewModel: HmViewmodel) {
     var borderColor = remember { mutableStateOf(Color.Transparent) } // Inicialmente transparente
     val studentsSelected = coevalViewModel.studentsSelected
     Card(
