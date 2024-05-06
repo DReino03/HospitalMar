@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -54,7 +55,7 @@ fun ProfileContent(navController: NavController) {
                     color = blueproject.copy(alpha = 0.8f),
                     shape = RoundedCornerShape(0.dp, 0.dp, 40.dp, 40.dp)
                 )
-                .padding(30.dp)
+                .padding(20.dp)
                 .weight(0.60f)
                 .fillMaxWidth(),
             contentAlignment = Alignment.TopCenter
