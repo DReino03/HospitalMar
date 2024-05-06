@@ -70,7 +70,7 @@ fun GreetingPreview() {
 @Composable
 fun Navigation(navController: NavHostController) {
     val loginViewModel : LoginViewModel = remember { LoginViewModel() }
-    val coevalViewModel : HmViewmodel = remember { HmViewmodel() }
+    val coevalViewModel : LoginViewModel = remember { LoginViewModel() }
     NavHost(
         navController = navController,
         startDestination = NavigationGraph.LOGIN

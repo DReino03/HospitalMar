@@ -1,5 +1,6 @@
 package com.reinosa.hospitalmar.widgets.Evaluacio
 
+import android.util.Log
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,12 +11,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.ViewModel.HmViewmodel
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 
 @Composable
-fun ModulScreen(navController: NavController, viewModel: HmViewmodel) {
-    viewModel.getModulos()
-    val modulList = viewModel.modulList.value
+fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
+    Log.d("PROFESOR ACTUAL", viewModel.currentProfesor.value.toString())
+    Log.d("ALUMNO ACTUAL", viewModel.currentAlumno.value.toString())
+
+    viewModel.getAlumnosIdProfesor()
+    val alummnoList = viewModel.alumnosPorIdProfesor.value
 
     LazyColumn {
         item {
@@ -26,10 +31,10 @@ fun ModulScreen(navController: NavController, viewModel: HmViewmodel) {
                 modifier = Modifier.padding(16.dp)
             )
         }
-        modulList?.let { list ->
+        alummnoList?.let { list ->
             items(list.size) { index ->
-                val modulo = list[index]
-                ModulItem(text = modulo.nombreModul, navController = navController)
+                val alumno = list[index]
+                ModulItem(text = alumno.nombre, navController = navController)
             }
         }
     }

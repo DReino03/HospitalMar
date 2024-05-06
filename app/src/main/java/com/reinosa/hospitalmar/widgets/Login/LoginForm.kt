@@ -100,8 +100,9 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
 
             Button(
                 onClick = {
-                    hashedPassword = viewModel.hashPassword(password)
+                    hashedPassword = viewModel.getMd5DigestForPassword(password)
                     viewModel.currentAlumno.value = Alumno(0, "", "", "", identificador, "", "","",hashedPassword,0)
+                    Log.d("HASHPASSWORD", viewModel.currentAlumno.value!!.contrasenya.toString())
                     //HAY QUE CREAR UN COURRENT PROFESOR PARA PODER HACER EL LOGIN DEKL PROFESOR
                     viewModel.currentProfesor.value = Profesor(0, "", "", "", identificador, "", "", "", hashedPassword, true, true)
                     viewModel.repository = Repository(identificador, hashedPassword)
@@ -109,7 +110,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val repository = Repository(identificador, hashedPassword)
-                        val response = if (identificador == "ibap06932") {
+                        val response = if (identificador == "ibai07061") {
                             repository.loginAlumno(viewModel.currentAlumno.value!!)
                         } else {
                             repository.loginProfesor(viewModel.currentProfesor.value!!)
@@ -117,13 +118,14 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
 
                         withContext(Dispatchers.Main) {
                             if (response.isSuccessful) {
+                                Log.d("HOLAAAAAAAAAAAA", "fof")
                                 if (identificador == "ibap06932") {
                                     viewModel.getAlumno(identificador)
                                     navController.navigate("drawer")
-                                    Log.d("Usuario", viewModel.currentAlumno.value.toString())
+                                    Log.d("Usuario tocho", viewModel.currentAlumno.value.toString())
                                 } else {
                                     viewModel.getProfesor(identificador)
-                                    navController.navigate("evaluate")
+                                    navController.navigate("drawer")
                                     Log.d("Usuario", viewModel.currentProfesor.value.toString())
                                 }
                             } else {

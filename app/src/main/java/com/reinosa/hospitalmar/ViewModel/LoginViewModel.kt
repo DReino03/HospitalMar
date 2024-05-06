@@ -22,24 +22,28 @@ class LoginViewModel(): ViewModel() {
     var currentAlumno = MutableLiveData<Alumno>()
     var currentProfesor = MutableLiveData<Profesor>()
     val success = MutableLiveData<Boolean>()
-    var modulos = MutableLiveData<List<Modulo>>()
+    var studentsSelected = mutableStateOf(listOf<String>())
+    val modulList = MutableLiveData<List<Modulo>?>()
+    val alumnosPorIdProfesor = MutableLiveData<List<Alumno>?>()
+    var repository: Repository
 
-
-    lateinit var repository: Repository
-
-    fun hashPassword(password: String): String {
-        val bytes = password.toByteArray()
-        val digest = MessageDigest.getInstance("SHA-256")
-        val hashedBytes = digest.digest(bytes)
-        return hashedBytes.joinToString("") { "%02x".format(it) }
+    init {
+        // Aquí podrías inicializar repository
+        repository = Repository(contrasenya = "", correo = "")
+    }
+    fun getMd5DigestForPassword(password: String): String {
+        val digest = MessageDigest.getInstance("MD5").digest(password.toByteArray(Charsets.UTF_8))
+        return digest.joinToString("") { "%02x".format(it) }
     }
 
     fun getAlumno(identificador: String) {
+        Log.d("ENTRAAA?", "SOD")
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = repository.getAlumno("/alumno/$identificador")
 
                 if (response.isSuccessful) {
+                    Log.d("ENTRAAA2", "SOD")
                     if (Looper.myLooper() == Looper.getMainLooper()) {
                         currentAlumno.value = response.body()
                     } else {
@@ -47,7 +51,7 @@ class LoginViewModel(): ViewModel() {
                             currentAlumno.value = response.body()
                         }
                     }
-                    Log.d("lista", "${currentAlumno.value}")
+                    Log.d("ALUMNO", "${currentAlumno.value}")
                 } else {
                     Log.e("Error :", response.message())
                 }
@@ -78,4 +82,36 @@ class LoginViewModel(): ViewModel() {
             }
         }
     }
+
+    fun getModulos () {
+        success.postValue(false)
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getModulos("/modulo")
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful){
+                    modulList.postValue(response.body())
+                }
+                else{
+                    Log.e("Error:", response.message())
+                }
+            }
+            success.postValue(true)
+        }
+    }
+    fun getAlumnosIdProfesor() {
+        success.postValue(false)
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.selectAlumnosPorProfesor(currentProfesor.value!!.idPorfesor)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful){
+                    alumnosPorIdProfesor.postValue(response.body())
+                }
+                else{
+                    Log.e("Error:", response.message())
+                }
+            }
+            success.postValue(true)
+        }
+    }
+
 }

@@ -10,17 +10,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.ViewModel.HmViewmodel
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
 
-fun CoevaluacioContent(navController: NavController, coevalViewModel: HmViewmodel) {
+fun CoevaluacioContent(navController: NavController, coevalViewModel: LoginViewModel) {
 
     LazyColumn {
         item {
             Spacer(modifier = Modifier.padding(12.dp))
             Text("Alumnes", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(16.dp)) }
         items(10) {
-            StudentItem(text = "Persona", navController = navController, coevalViewModel = HmViewmodel())
+            StudentItem(text = "Persona", navController = navController, coevalViewModel = LoginViewModel())
         }
     }
 

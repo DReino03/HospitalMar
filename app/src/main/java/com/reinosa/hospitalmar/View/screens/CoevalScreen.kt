@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.HmViewmodel
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.widgets.Coevaluacio.CoevaluacioContent
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
@@ -31,7 +32,7 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun CoevalScreen(navController: NavController, coevalViewModel: HmViewmodel){
+fun CoevalScreen(navController: NavController, coevalViewModel: LoginViewModel){
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
     // Observa studentsSelected y actualiza studentList cuando cambie
@@ -74,7 +75,7 @@ fun CoevalScreen(navController: NavController, coevalViewModel: HmViewmodel){
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        CoevaluacioContent(navController = navController, coevalViewModel = HmViewmodel())
+        CoevaluacioContent(navController = navController, coevalViewModel = LoginViewModel())
     }
 }
 

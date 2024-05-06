@@ -23,10 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.HmViewmodel
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 
 @Composable
-fun StudentItem(text:String ,navController: NavController, coevalViewModel: HmViewmodel) {
+fun StudentItem(text:String ,navController: NavController, coevalViewModel: LoginViewModel) {
     var borderColor = remember { mutableStateOf(Color.Transparent) } // Inicialmente transparente
     val studentsSelected = coevalViewModel.studentsSelected
     Card(
