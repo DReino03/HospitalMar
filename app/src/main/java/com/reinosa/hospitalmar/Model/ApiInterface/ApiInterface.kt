@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Url
 
 interface ApiInterface {
@@ -26,6 +27,8 @@ interface ApiInterface {
 
     @GET
     suspend fun getModulos (@Url url: String): Response<List<Modulo>>
+    @GET ("alumno/profesor/{idProfesor}/alumnos")
+    suspend fun selectAlumnosPorProfesor (@Path("idProfesor") idProfesor: Int): Response<List<Alumno>>
 
     @POST("user/login/alumno")
     suspend fun loginAlumno(@Body alumno: Alumno): Response<ResponseBody>

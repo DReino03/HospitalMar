@@ -13,4 +13,5 @@ class Repository(correo: String, contrasenya: String) {
     suspend fun loginAlumno(alumno: Alumno) = apiInterface.loginAlumno(alumno)
     suspend fun loginProfesor(profesor: Profesor) = apiInterface.loginProfesor(profesor)
     suspend fun getModulos(url: String) = apiInterface.getModulos(url)
+    suspend fun selectAlumnosPorProfesor(idProfesor: Int) = apiInterface.selectAlumnosPorProfesor(idProfesor)
 }
