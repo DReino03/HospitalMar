@@ -15,19 +15,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.reinosa.hospitalmar.View.StudentDrawerAppScreen
-import com.reinosa.hospitalmar.View.TeacherDrawerAppScreen
-import com.reinosa.hospitalmar.View.screens.AboutScreen
-import com.reinosa.hospitalmar.View.screens.CoevalScreen
-import com.reinosa.hospitalmar.View.screens.GraficsScreen
-import com.reinosa.hospitalmar.View.screens.HomeScreen
-import com.reinosa.hospitalmar.View.screens.ProfileScreen
-import com.reinosa.hospitalmar.View.screens.SettingsScreen
+import com.reinosa.hospitalmar.View.screens.StudentScreens.StudentDrawerAppScreen
+import com.reinosa.hospitalmar.View.screens.TeacherScreens.TeacherDrawerAppScreen
+import com.reinosa.hospitalmar.View.screens.GlobalScreens.AboutScreen
+import com.reinosa.hospitalmar.View.screens.StudentScreens.CoevalScreen
+import com.reinosa.hospitalmar.View.screens.GlobalScreens.ProfileScreen
+import com.reinosa.hospitalmar.View.screens.GlobalScreens.SettingsScreen
 import com.reinosa.hospitalmar.View.screens.evalScreen
-import com.reinosa.hospitalmar.ViewModel.HmViewmodel
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
-import com.reinosa.hospitalmar.widgets.EvalResult.Result
+import com.reinosa.hospitalmar.widgets.Informe.Result
 import com.reinosa.hospitalmar.widgets.Evaluacio.EvalScreen
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
 
@@ -76,9 +73,7 @@ fun Navigation(navController: NavHostController) {
         navController = navController,
         startDestination = NavigationGraph.TEACHER
     ) {
-        composable(NavigationGraph.HOME) {
-            HomeScreen(navController)
-        }
+
         composable(NavigationGraph.SETTINGS) {
             SettingsScreen(navController)
         }
@@ -97,10 +92,7 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationGraph.PROFILE){
             ProfileScreen(navController)
         }
-        composable(NavigationGraph.GRAPHICS){
-            GraficsScreen(navController)
-        }
-        composable("eval/{text}") { backStackEntry ->
+        composable(NavigationGraph.MODULO) {
             EvalScreen(navController)
         }
         composable(NavigationGraph.COEVAL){
@@ -117,18 +109,14 @@ fun Navigation(navController: NavHostController) {
     }
 }
 
-
-
 object NavigationGraph {
-    const val HOME = "home"
     const val SETTINGS = "settings"
     const val ABOUT = "about"
     const val LOGIN = "login"
     const val DRAWER = "drawer"
     const val EVALUATE = "evaluate"
     const val PROFILE = "profile"
-    const val GRAPHICS = "graphics"
-    const val EVAL = "eval"
+    const val MODULO = "modulo"
     const val COEVAL = "coeval"
     const val RESULT = "result"
     const val TEACHER = "teacher"
