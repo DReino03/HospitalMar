@@ -73,7 +73,7 @@ fun CoevalScreen(navController: NavController, coevalViewModel: LoginViewModel){
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        CoevaluacioContent(navController = navController, coevalViewModel = LoginViewModel())
+        CoevaluacioContent(navController = navController, viewModel = LoginViewModel())
     }
 }
 

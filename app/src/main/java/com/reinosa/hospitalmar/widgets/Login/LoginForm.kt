@@ -78,7 +78,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
             Spacer(modifier = Modifier.height(10.dp))
             passwordField(
                 value = password,
-                onChange = { data -> credentials = credentials.copy(pwd = data) },
+                onChange = { password = it },
                 submit = { /* if (!checkCredentials(credentials, context)) credentials = Credentials()*/},
                 modifier = Modifier
                     .fillMaxWidth()
@@ -103,7 +103,6 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                     hashedPassword = viewModel.getMd5DigestForPassword(password)
                     viewModel.currentAlumno.value = Alumno(0, "", "", "", identificador, "", "","",hashedPassword,0)
                     Log.d("HASHPASSWORD", viewModel.currentAlumno.value!!.contrasenya.toString())
-                    //HAY QUE CREAR UN COURRENT PROFESOR PARA PODER HACER EL LOGIN DEKL PROFESOR
                     viewModel.currentProfesor.value = Profesor(0, "", "", "", identificador, "", "", "", hashedPassword, true, true)
                     viewModel.repository = Repository(identificador, hashedPassword)
                     Log.d("CONTRASENYA", hashedPassword)
