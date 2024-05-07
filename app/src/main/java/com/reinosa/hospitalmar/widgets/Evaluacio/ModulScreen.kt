@@ -19,8 +19,8 @@ fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
     Log.d("PROFESOR ACTUAL", viewModel.currentProfesor.value.toString())
     Log.d("ALUMNO ACTUAL", viewModel.currentAlumno.value.toString())
 
-    viewModel.getAlumnosIdProfesor()
-    val alummnoList = viewModel.alumnosPorIdProfesor.value
+    viewModel.getModulos()
+    val modulList = viewModel.modulList.value
 
     LazyColumn {
         item {
@@ -31,10 +31,10 @@ fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
                 modifier = Modifier.padding(16.dp)
             )
         }
-        alummnoList?.let { list ->
+        modulList?.let { list ->
             items(list.size) { index ->
-                val alumno = list[index]
-                ModulItem(text = alumno.nombre, navController = navController)
+                val modulo = list[index]
+                ModulItem(text = modulo.nombreModul, navController = navController)
             }
         }
     }
