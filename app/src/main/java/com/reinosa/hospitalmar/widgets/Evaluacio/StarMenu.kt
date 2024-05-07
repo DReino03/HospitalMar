@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.reinosa.hospitalmar.Model.DataClass.EvalCard
 
-
+//Esto no se usa
 @Composable
 fun starMenu(stars: Int, evalCard: EvalCard) {
     var selectedStar by remember { mutableStateOf(0) }
