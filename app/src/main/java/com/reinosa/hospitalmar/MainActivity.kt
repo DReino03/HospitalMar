@@ -24,7 +24,7 @@ import com.reinosa.hospitalmar.View.screens.HomeScreen
 import com.reinosa.hospitalmar.View.screens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.SettingsScreen
 import com.reinosa.hospitalmar.View.screens.evalScreen
-import com.reinosa.hospitalmar.ViewModel.CoevalViewModel
+import com.reinosa.hospitalmar.ViewModel.HmViewmodel
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
 import com.reinosa.hospitalmar.widgets.EvalResult.Result
@@ -71,7 +71,7 @@ fun GreetingPreview() {
 @Composable
 fun Navigation(navController: NavHostController) {
     val loginViewModel : LoginViewModel = remember { LoginViewModel() }
-    val coevalViewModel : CoevalViewModel = remember { CoevalViewModel() }
+    val coevalViewModel : LoginViewModel = remember { LoginViewModel() }
     NavHost(
         navController = navController,
         startDestination = NavigationGraph.TEACHER
@@ -92,7 +92,7 @@ fun Navigation(navController: NavHostController) {
             StudentDrawerAppScreen(navController)
         }
         composable(NavigationGraph.EVALUATE){
-            evalScreen(navController)
+            evalScreen(navController, coevalViewModel)
         }
         composable(NavigationGraph.PROFILE){
             ProfileScreen(navController)

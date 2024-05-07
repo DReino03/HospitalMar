@@ -25,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -101,8 +100,9 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
 
             Button(
                 onClick = {
-                    hashedPassword = viewModel.hashPassword(password)
+                    hashedPassword = viewModel.getMd5DigestForPassword(password)
                     viewModel.currentAlumno.value = Alumno(0, "", "", "", identificador, "", "","",hashedPassword,0)
+                    Log.d("HASHPASSWORD", viewModel.currentAlumno.value!!.contrasenya.toString())
                     //HAY QUE CREAR UN COURRENT PROFESOR PARA PODER HACER EL LOGIN DEKL PROFESOR
                     viewModel.currentProfesor.value = Profesor(0, "", "", "", identificador, "", "", "", hashedPassword, true, true)
                     viewModel.repository = Repository(identificador, hashedPassword)
