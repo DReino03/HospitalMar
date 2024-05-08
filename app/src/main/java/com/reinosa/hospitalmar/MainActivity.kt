@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.reinosa.hospitalmar.View.screens.StudentScreens.StudentDrawerAppScreen
 import com.reinosa.hospitalmar.View.screens.TeacherScreens.TeacherDrawerAppScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.AboutScreen
+import com.reinosa.hospitalmar.View.screens.GlobalScreens.ModuloScreen
 import com.reinosa.hospitalmar.View.screens.StudentScreens.CoevalScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.SettingsScreen
@@ -25,7 +26,6 @@ import com.reinosa.hospitalmar.View.screens.evalScreen
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
 import com.reinosa.hospitalmar.widgets.Informe.Result
-import com.reinosa.hospitalmar.widgets.Evaluacio.EvalScreen
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
 
 
@@ -71,37 +71,45 @@ fun Navigation(navController: NavHostController) {
     val coevalViewModel : LoginViewModel = remember { LoginViewModel() }
     NavHost(
         navController = navController,
-        startDestination = NavigationGraph.TEACHER
+        startDestination = NavigationGraph.LOGIN
     ) {
-
+        // Pantalla de settings
         composable(NavigationGraph.SETTINGS) {
             SettingsScreen(navController)
         }
+        // Pantalla de about
         composable(NavigationGraph.ABOUT) {
             AboutScreen(navController)
         }
+        // Pantalla de login
         composable(NavigationGraph.LOGIN) {
             LoginForm(navController, loginViewModel)
         }
+        // Pantalla principal como alumno
         composable(NavigationGraph.DRAWER){
             StudentDrawerAppScreen(navController)
         }
+        // Pantalla de evaluacion para profesor
         composable(NavigationGraph.EVALUATE){
             evalScreen(navController, coevalViewModel)
         }
+        // Pantalla de perfil
         composable(NavigationGraph.PROFILE){
             ProfileScreen(navController)
         }
+        // Lista de modulos
         composable(NavigationGraph.MODULO) {
-            EvalScreen(navController)
+            ModuloScreen(navController)
         }
+        // Pantalla de coevaluacion como alumno
         composable(NavigationGraph.COEVAL){
             CoevalScreen(navController, coevalViewModel)
         }
-        composable(NavigationGraph.RESULT) { backStackEntry ->
-
+        // Pantalla de resultados o informes
+        composable(NavigationGraph.RESULT) {
             Result(navController)
         }
+        // Pantalla principal como profesor
         composable(NavigationGraph.TEACHER){
             TeacherDrawerAppScreen(navController)
         }

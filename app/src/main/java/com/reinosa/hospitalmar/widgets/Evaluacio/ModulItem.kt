@@ -43,7 +43,7 @@ Card(
                     .size(60.dp)
                     .clickable {
                         //Passamos el nombre del modulo a la pantalla de evaluacion
-                        navController.navigate("eval/$text")
+                        navController.navigate("evaluate")
                         Log.e("ModulItem", "click")
                     }
             )
