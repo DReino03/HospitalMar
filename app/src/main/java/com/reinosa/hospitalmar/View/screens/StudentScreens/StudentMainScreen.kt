@@ -1,19 +1,13 @@
-package com.reinosa.hospitalmar.View
+package com.reinosa.hospitalmar.View.screens.StudentScreens
+
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.DrawerValue
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.rememberDrawerState
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -25,15 +19,11 @@ import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import com.reinosa.hospitalmar.widgets.Home.StudentHomeContent
-import com.reinosa.hospitalmar.widgets.Home.TeacherHomeContent
 import kotlinx.coroutines.launch
-
-//Profesor
-
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun TeacherDrawerAppScreen(navController: NavHostController) {
+fun StudentDrawerAppScreen(navController: NavHostController) {
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
 
@@ -62,9 +52,7 @@ fun TeacherDrawerAppScreen(navController: NavHostController) {
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        TeacherHomeContent(navController = navController, loginViewModel = LoginViewModel())
+        StudentHomeContent(navController = navController, loginViewModel = LoginViewModel())
     }
 }
-
-
 

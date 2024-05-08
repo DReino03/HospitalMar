@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.widgets.EvalResult
+package com.reinosa.hospitalmar.widgets.Informe
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

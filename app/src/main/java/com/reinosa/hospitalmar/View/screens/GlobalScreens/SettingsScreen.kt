@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.View.screens
+package com.reinosa.hospitalmar.View.screens.GlobalScreens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column

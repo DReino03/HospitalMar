@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.widgets.Coevaluacio
+package com.reinosa.hospitalmar.widgets.ProfEvaluate
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -27,7 +27,7 @@ import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 
 @Composable
-fun StudentItem(text:String ,navController: NavController, coevalViewModel: LoginViewModel) {
+fun StudentCard(text:String ,navController: NavController, coevalViewModel: LoginViewModel) {
     var borderColor = remember { mutableStateOf(Color.Transparent) } // Inicialmente transparente
     val studentsSelected = coevalViewModel.studentsSelected
     Card(

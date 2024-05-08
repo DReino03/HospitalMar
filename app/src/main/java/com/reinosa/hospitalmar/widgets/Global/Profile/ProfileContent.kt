@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.widgets.Profile
+package com.reinosa.hospitalmar.widgets.Global.Profile
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke

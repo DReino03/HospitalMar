@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.widgets.EvalResult
+package com.reinosa.hospitalmar.widgets.Informe
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
