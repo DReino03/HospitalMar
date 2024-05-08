@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ModuloScreen(navController: NavController) {
+fun EvaluarScreen(navController: NavController) {
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -93,7 +93,7 @@ fun ModuloScreen(navController: NavController) {
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        EvalItem(modul)
+        EvalItem()
     }
 
 }

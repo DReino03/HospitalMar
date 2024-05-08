@@ -51,7 +51,7 @@ import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import kotlinx.coroutines.launch
 import com.reinosa.hospitalmar.widgets.Evaluacio.StarMenu
 @Composable
-fun EvalItem(modul: String) {
+fun EvalItem() {
     val ratings: MutableList<Pair<String, Int>> = mutableListOf()
     val text = "stringResource(R.string.eval_text)"
     val comment = remember { mutableStateOf("") }
@@ -80,6 +80,7 @@ fun EvalItem(modul: String) {
                             Text(
                                 text = text,
                                 Modifier.padding(16.dp))
+                            Spacer(modifier = Modifier.weight(0.6f))
                             IconButton(onClick = { selectedCardIndex.value = index }) {
                                 Icon(Icons.Filled.Comment, contentDescription = "Comment")
                             }
