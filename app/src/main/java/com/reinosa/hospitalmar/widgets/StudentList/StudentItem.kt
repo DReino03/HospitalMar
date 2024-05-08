@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.widgets.Coevaluacio
+package com.reinosa.hospitalmar.widgets.StudentList
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -22,14 +22,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
-import com.reinosa.hospitalmar.ViewModel.HmViewmodel
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 
 @Composable
-fun StudentItem(text:String ,navController: NavController, coevalViewModel: LoginViewModel) {
+fun StudentItem(text:String ,navController: NavController, viewModel: LoginViewModel) {
     var borderColor = remember { mutableStateOf(Color.Transparent) } // Inicialmente transparente
-    val studentsSelected = coevalViewModel.studentsSelected
     Card(
         modifier = Modifier
             .background(Color.White)

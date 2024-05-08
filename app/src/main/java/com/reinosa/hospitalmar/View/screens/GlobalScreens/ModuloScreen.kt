@@ -41,13 +41,6 @@ fun ModuloScreen(navController: NavController) {
     val modul : String = remember {
         navController.previousBackStackEntry!!.arguments?.getString("modul") ?: "No proporcionado"
     }
-    val persona: List<String>? = remember {
-        navController.previousBackStackEntry?.arguments?.getStringArrayList("persona")?.toList()
-    }
-    val rating: List<Pair<String, Int>>? = remember {
-        navController.previousBackStackEntry?.arguments?.getString("rating")?.split(",")
-            ?.map { it.split(":").let { pair -> Pair(pair[0], pair[1].toInt()) } }
-    }
     Log.e("EvalScreen", modul)
     data class InformeData(
         val modul: String,

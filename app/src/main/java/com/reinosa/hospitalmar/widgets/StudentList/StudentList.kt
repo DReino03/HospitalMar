@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.widgets.Coevaluacio
+package com.reinosa.hospitalmar.widgets.StudentList
 
 import android.util.Log
 import androidx.compose.foundation.layout.Spacer
@@ -35,7 +35,7 @@ fun StudentList(navController: NavController, viewModel: LoginViewModel) {
         alummnoList?.let { list ->
             items(list.size) { index ->
                 val alumno = list[index]
-                ModulItem(text = alumno.nombre, navController = navController)
+                StudentItem(text = alumno.nombre, navController = navController, viewModel = LoginViewModel())
             }
         }
     }

@@ -22,6 +22,7 @@ import com.reinosa.hospitalmar.View.screens.GlobalScreens.ModuloScreen
 import com.reinosa.hospitalmar.View.screens.StudentScreens.CoevalScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.SettingsScreen
+import com.reinosa.hospitalmar.View.screens.TeacherScreens.EvaluateScreen
 import com.reinosa.hospitalmar.View.screens.evalScreen
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
@@ -91,7 +92,7 @@ fun Navigation(navController: NavHostController) {
         }
         // Pantalla de evaluacion para profesor
         composable(NavigationGraph.EVALUATE){
-            evalScreen(navController, coevalViewModel)
+            EvaluateScreen(navController, coevalViewModel)
         }
         // Pantalla de perfil
         composable(NavigationGraph.PROFILE){

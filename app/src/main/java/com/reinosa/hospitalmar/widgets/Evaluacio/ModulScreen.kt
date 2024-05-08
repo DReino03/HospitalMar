@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.ViewModel.HmViewmodel
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import com.reinosa.hospitalmar.widgets.StudentList.StudentItem
 
 
 @Composable
@@ -34,7 +35,7 @@ fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
         alummnoList?.let { list ->
             items(list.size) { index ->
                 val alumno = list[index]
-                ModulItem(text = alumno.nombre, navController = navController)
+                StudentItem(text = alumno.nombre, navController = navController, viewModel = LoginViewModel())
             }
         }
     }

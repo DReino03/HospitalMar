@@ -1,6 +1,5 @@
 package com.reinosa.hospitalmar.widgets.ProfEvaluate
 
-import com.reinosa.hospitalmar.widgets.Coevaluacio.StudentItem
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,8 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.reinosa.hospitalmar.Model.DataClass.EvalCard
-import com.reinosa.hospitalmar.ViewModel.HmViewmodel
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
