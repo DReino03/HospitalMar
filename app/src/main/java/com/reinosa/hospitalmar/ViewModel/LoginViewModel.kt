@@ -43,7 +43,6 @@ class LoginViewModel(): ViewModel() {
                 val response = repository.getAlumno("/alumno/$identificador")
 
                 if (response.isSuccessful) {
-                    Log.d("ENTRAAA2", "SOD")
                     if (Looper.myLooper() == Looper.getMainLooper()) {
                         currentAlumno.value = response.body()
                     } else {
@@ -102,6 +101,7 @@ class LoginViewModel(): ViewModel() {
     fun getAlumnosIdProfesor() {
         success.postValue(false)
         CoroutineScope(Dispatchers.IO).launch {
+            Log.d("COMPTOBACION", currentProfesor.value.toString())
             val response = repository.selectAlumnosPorProfesor(currentProfesor.value!!.idPorfesor)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful){
