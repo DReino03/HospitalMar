@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
-import com.reinosa.hospitalmar.widgets.Coevaluacio.CoevaluacioContent
+import com.reinosa.hospitalmar.widgets.Coevaluacio.StudentList
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import kotlinx.coroutines.launch
@@ -73,7 +73,7 @@ fun CoevalScreen(navController: NavController, coevalViewModel: LoginViewModel){
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        CoevaluacioContent(navController = navController, viewModel = LoginViewModel())
+        StudentList(navController = navController, viewModel = LoginViewModel())
     }
 }
 
