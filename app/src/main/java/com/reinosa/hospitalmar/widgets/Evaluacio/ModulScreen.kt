@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.reinosa.hospitalmar.ViewModel.HmViewmodel
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.widgets.StudentList.StudentItem
 
@@ -20,8 +19,8 @@ fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
     Log.d("PROFESOR ACTUAL", viewModel.currentProfesor.value.toString())
     Log.d("ALUMNO ACTUAL", viewModel.currentAlumno.value.toString())
 
-    viewModel.getAlumnosIdProfesor()
-    val alummnoList = viewModel.alumnosPorIdProfesor.value
+    viewModel.getModulos()
+    val modulList = viewModel.modulList.value
 
     LazyColumn {
         item {
@@ -32,10 +31,10 @@ fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
                 modifier = Modifier.padding(16.dp)
             )
         }
-        alummnoList?.let { list ->
+        modulList?.let { list ->
             items(list.size) { index ->
-                val alumno = list[index]
-                StudentItem(text = alumno.nombre, navController = navController, viewModel = LoginViewModel())
+                val modul = list[index]
+                ModulItem(text = modul.nombreModul, navController = navController)
             }
         }
     }
