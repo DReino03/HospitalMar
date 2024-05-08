@@ -123,12 +123,12 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                                 if (validarUsuario) {
                                     viewModel.getProfesor(identificador)
                                     navController.navigate("teacher")
-                                    Log.d("Usuario", viewModel.currentProfesor.value.toString())
+                                    Log.d("Usuarionv", viewModel.currentProfesor.value.toString())
 
                                 } else {
                                     viewModel.getAlumno(identificador)
                                     navController.navigate("drawer")
-                                    Log.d("Usuario", viewModel.currentAlumno.value.toString())
+                                    Log.d("Usuario66", viewModel.currentAlumno.value.toString())
                                 }
                             } else {
                                 val toast = Toast.makeText(context, "Error", Toast.LENGTH_SHORT)
