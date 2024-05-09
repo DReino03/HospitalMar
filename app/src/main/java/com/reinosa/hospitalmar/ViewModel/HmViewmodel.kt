@@ -14,12 +14,4 @@ import kotlinx.coroutines.withContext
 
 class HmViewmodel (): ViewModel(){
 
-    val success = MutableLiveData<Boolean>()
-    var repository: Repository
-
-    init {
-        // Aquí podrías inicializar repository
-        repository = Repository(contrasenya = "", correo = "")
-    }
-
 }

@@ -9,13 +9,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.widgets.StudentList.StudentItem
 
 
 @Composable
-fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
+fun ModulScreen(navController: NavController) {
+    val viewModel: LoginViewModel = viewModel()
+
     Log.d("PROFESOR ACTUAL", viewModel.currentProfesor.value.toString())
     Log.d("ALUMNO ACTUAL", viewModel.currentAlumno.value.toString())
 

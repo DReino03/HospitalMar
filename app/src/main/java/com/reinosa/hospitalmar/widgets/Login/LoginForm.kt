@@ -122,7 +122,9 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                             if (response.isSuccessful) {
                                 if (validarUsuario) {
                                     viewModel.getProfesor(identificador)
-                                    navController.navigate("teacher")
+//                                    if (viewModel.success == true) {
+                                        navController.navigate("teacher")
+//                                    }
                                     Log.d("Usuarionv", viewModel.currentProfesor.value.toString())
 
                                 } else {

@@ -19,7 +19,6 @@ fun StudentList(navController: NavController, viewModel: LoginViewModel) {
 
     Log.d("PROFESOR ACTUAL", viewModel.currentProfesor.value.toString())
     Log.d("ALUMNO ACTUAL", viewModel.currentAlumno.value.toString())
-//    viewModel.getProfesor(viewModel.currentProfesor.value?.idProfesor.toString())
     viewModel.getAlumnosIdProfesor()
     val alummnoList = viewModel.alumnosPorIdProfesor.value
 

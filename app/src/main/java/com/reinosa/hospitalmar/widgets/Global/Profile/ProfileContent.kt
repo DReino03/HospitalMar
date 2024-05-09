@@ -35,8 +35,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 import com.reinosa.hospitalmar.ui.theme.gris
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
@@ -44,6 +46,8 @@ import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ProfileContent(navController: NavController) {
+    val viewModel: LoginViewModel = viewModel()
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally // Centra horizontalmente
@@ -75,7 +79,7 @@ fun ProfileContent(navController: NavController) {
                 )
                 // Nombre de usuario
                 Text(
-                    text = "Nom usuari",
+                    text = viewModel.currentProfesor.value!!.nombre,
                     style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(top = 20.dp)

@@ -62,7 +62,7 @@ fun TeacherDrawerAppScreen(navController: NavHostController) {
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        TeacherHomeContent(navController = navController, loginViewModel = LoginViewModel())
+        TeacherHomeContent(navController = navController)
     }
 }
 

@@ -20,7 +20,7 @@ import java.security.MessageDigest
 class LoginViewModel(): ViewModel() {
     var isChecked by mutableStateOf(false)
     var currentAlumno = MutableLiveData<Alumno>()
-    var currentProfesor = MutableLiveData<Profesor>()
+    var currentProfesor: MutableLiveData<Profesor> = MutableLiveData()
     val success = MutableLiveData<Boolean>()
     var studentsSelected = mutableStateOf(listOf<String>())
     val modulList = MutableLiveData<List<Modulo>?>()
@@ -60,6 +60,8 @@ class LoginViewModel(): ViewModel() {
         }
     }
     fun getProfesor(identificador: String) {
+        success.postValue(false)
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = repository.getProfesor("/profesor/$identificador")
@@ -67,9 +69,12 @@ class LoginViewModel(): ViewModel() {
                 if (response.isSuccessful) {
                     if (Looper.myLooper() == Looper.getMainLooper()) {
                         currentProfesor.value = response.body()
+                        success.postValue(true)
+
                     } else {
                         withContext(Dispatchers.Main) {
                             currentProfesor.value = response.body()
+                            success.postValue(true)
                         }
                     }
                     Log.d("lista", "${currentProfesor.value}")
@@ -84,7 +89,6 @@ class LoginViewModel(): ViewModel() {
 
 
     fun getModulos () {
-        success.postValue(false)
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getModulos("/modulo")
             withContext(Dispatchers.Main) {
@@ -95,24 +99,28 @@ class LoginViewModel(): ViewModel() {
                     Log.e("Error:", response.message())
                 }
             }
-            success.postValue(true)
         }
     }
     fun getAlumnosIdProfesor() {
         success.postValue(false)
-        CoroutineScope(Dispatchers.IO).launch {
-            Log.d("COMPTOBACION", currentProfesor.value.toString())
-            val response = repository.selectAlumnosPorProfesor(currentProfesor.value!!.idPorfesor)
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful){
-                    alumnosPorIdProfesor.postValue(response.body())
+        val currentProf = currentProfesor.value
+        if (currentProf != null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                Log.d("COMPROBACION", currentProf.toString())
+                val response = repository.selectAlumnosPorProfesor(currentProf.idPorfesor)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        alumnosPorIdProfesor.postValue(response.body())
+                    } else {
+                        Log.e("Error:", response.message())
+                    }
                 }
-                else{
-                    Log.e("Error:", response.message())
-                }
+                success.postValue(true)
             }
-            success.postValue(true)
+        } else {
+            Log.e("Error:", "currentProfesor.value es null")
         }
     }
+
 
 }

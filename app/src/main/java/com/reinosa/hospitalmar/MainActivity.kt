@@ -102,7 +102,7 @@ fun Navigation(navController: NavHostController) {
         }
         // Lista de modulos
         composable(NavigationGraph.MODULO) {
-            ModulScreen(navController, loginViewModel)
+            ModulScreen(navController)
         }
 
         // Pantalla de resultados o informes
