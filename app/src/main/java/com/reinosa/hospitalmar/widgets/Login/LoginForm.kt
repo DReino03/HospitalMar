@@ -38,6 +38,7 @@ import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -121,13 +122,13 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                         withContext(Dispatchers.Main) {
                             if (response.isSuccessful) {
                                 if (validarUsuario) {
-                                    viewModel.getProfesor(identificador)
-//                                    if (viewModel.success == true) {
+                                    async {
+                                        viewModel.getProfesor(identificador).await()
                                         navController.navigate("teacher")
-//                                    }
+                                    }
                                     Log.d("Usuarionv", viewModel.currentProfesor.value.toString())
-
-                                } else {
+                                }
+                                else {
                                     viewModel.getAlumno(identificador)
                                     navController.navigate("drawer")
                                     Log.d("Usuario66", viewModel.currentAlumno.value.toString())

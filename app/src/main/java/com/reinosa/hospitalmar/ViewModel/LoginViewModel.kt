@@ -4,6 +4,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,10 @@ import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.Model.DataClass.Modulo
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.security.MessageDigest
@@ -59,9 +63,7 @@ class LoginViewModel(): ViewModel() {
             }
         }
     }
-    fun getProfesor(identificador: String) {
-        success.postValue(false)
-
+    fun getProfesor(identificador: String) = CoroutineScope(Dispatchers.IO).async {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = repository.getProfesor("/profesor/$identificador")
@@ -69,15 +71,19 @@ class LoginViewModel(): ViewModel() {
                 if (response.isSuccessful) {
                     if (Looper.myLooper() == Looper.getMainLooper()) {
                         currentProfesor.value = response.body()
-                        success.postValue(true)
+
+                        Log.d("VALUE SUCCESS", "SI")
 
                     } else {
                         withContext(Dispatchers.Main) {
                             currentProfesor.value = response.body()
+                            Log.d("VALUE SUCCESS", "SiiiiI")
                             success.postValue(true)
                         }
                     }
                     Log.d("lista", "${currentProfesor.value}")
+
+
                 } else {
                     Log.e("Error :", response.message())
                 }
