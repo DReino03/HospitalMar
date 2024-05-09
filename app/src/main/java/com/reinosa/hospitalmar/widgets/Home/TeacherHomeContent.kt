@@ -44,7 +44,7 @@ fun TeacherHomeContent(navController: NavController, loginViewModel: LoginViewMo
             HomeButton(navController, "Autoavaluació", imagePainter[0], "evaluate")
             Spacer(modifier = Modifier.padding(40.dp) )
             //Cambia esto
-            HomeButton(navigation = navController, text = "Evaluar", imageRoute =imagePainter[1] , destination ="evaluate" )
+            HomeButton(navigation = navController, text = "Evaluar", imageRoute =imagePainter[1] , destination ="student" )
 
         }
         Spacer(modifier = Modifier.padding(30.dp))

@@ -18,7 +18,6 @@ import androidx.navigation.compose.rememberNavController
 import com.reinosa.hospitalmar.View.screens.StudentScreens.StudentDrawerAppScreen
 import com.reinosa.hospitalmar.View.screens.TeacherScreens.TeacherDrawerAppScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.AboutScreen
-import com.reinosa.hospitalmar.View.screens.GlobalScreens.ModuloScreen
 import com.reinosa.hospitalmar.View.screens.StudentScreens.CoevalScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.SettingsScreen
@@ -27,8 +26,11 @@ import com.reinosa.hospitalmar.View.screens.evalScreen
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
 import com.reinosa.hospitalmar.widgets.Global.Profile.SplashScreen
+import com.reinosa.hospitalmar.widgets.Evaluacio.EvalItem
+import com.reinosa.hospitalmar.widgets.Evaluacio.ModulScreen
 import com.reinosa.hospitalmar.widgets.Informe.Result
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
+import com.reinosa.hospitalmar.widgets.StudentList.StudentList
 
 
 class MainActivity : ComponentActivity() {
@@ -93,7 +95,7 @@ fun Navigation(navController: NavHostController) {
         }
         // Pantalla de evaluacion para profesor
         composable(NavigationGraph.EVALUATE){
-            EvaluateScreen(navController, coevalViewModel)
+            EvalItem()
         }
         // Pantalla de perfil
         composable(NavigationGraph.PROFILE){
@@ -101,12 +103,9 @@ fun Navigation(navController: NavHostController) {
         }
         // Lista de modulos
         composable(NavigationGraph.MODULO) {
-            ModuloScreen(navController)
+            ModulScreen(navController, loginViewModel)
         }
-        // Pantalla de coevaluacion como alumno
-        composable(NavigationGraph.COEVAL){
-            CoevalScreen(navController, coevalViewModel)
-        }
+
         // Pantalla de resultados o informes
         composable(NavigationGraph.RESULT) {
             Result(navController)
@@ -118,6 +117,10 @@ fun Navigation(navController: NavHostController) {
         // Pantalla splashscreen
         composable(NavigationGraph.SPLASH){
             SplashScreen(navController)
+        }
+        //Lista alumnos
+        composable(NavigationGraph.STUDENT){
+            StudentList(navController, coevalViewModel)
         }
 
     }
