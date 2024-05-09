@@ -134,8 +134,9 @@ object NavigationGraph {
     const val EVALUATE = "evaluate"
     const val PROFILE = "profile"
     const val MODULO = "modulo"
-    const val COEVAL = "coeval"
+    const val STUDENT = "student"
     const val RESULT = "result"
     const val TEACHER = "teacher"
     const val SPLASH = "splash"
+
 }

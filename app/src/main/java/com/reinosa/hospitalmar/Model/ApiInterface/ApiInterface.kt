@@ -37,10 +37,10 @@ interface ApiInterface {
 
 
     companion object{
-        val BASE_URL = "http://172.30.5.46:8080/"
+        val BASE_URL = "http://172.23.6.122:8080/"
         //url pc alex: 192.168.1.104
         //url pc jordi: 192.168.56.1
-        //url pc clase alex: 172.23.6.123:8080
+        //url pc clase alex: 172.23.6.122
         //url api aws 34.192.34.148:8081
         fun create(username: String, password: String): ApiInterface {
             val credentials = Credentials.basic(username, password)
