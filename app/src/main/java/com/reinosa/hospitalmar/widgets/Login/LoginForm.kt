@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,8 +26,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
@@ -40,20 +45,29 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.compose.material.Surface
+import com.reinosa.hospitalmar.Model.SharedPreferences.UserPreferences
+import androidx.compose.runtime.*
 
-@SuppressLint("CoroutineCreationDuringComposition")
+
 @Composable
 fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
-    var correo by remember { mutableStateOf("") }
     var identificador by remember { mutableStateOf("") }
-    var password by remember {
-        mutableStateOf("")
-    }
-    var hashedPassword by remember { mutableStateOf("") }
-
-    var isChecked by remember { mutableStateOf(viewModel.isChecked) }
-    var credentials by remember { mutableStateOf(Credentials()) }
+    var password by remember { mutableStateOf("") }
+    var isChecked by remember { mutableStateOf(false) }
     val context = LocalContext.current
+
+    // Recuperar credenciales guardadas al cargar la pantalla
+    LaunchedEffect(key1 = context) {
+        val savedUsername = UserPreferences.getSavedUsername(context)
+        val savedPassword = UserPreferences.getSavedPassword(context)
+        if (savedUsername != null && savedPassword != null) {
+            identificador = savedUsername
+            password = savedPassword
+            isChecked = true
+        }
+    }
+
     Surface {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -65,7 +79,8 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
             Image(
                 painter = painterResource(id = R.drawable.ic_hospitalne),
                 contentDescription = "Logo",
-                modifier = Modifier.size(350.dp)
+                modifier = Modifier.size(350.dp),
+                colorFilter = ColorFilter.tint(Color.White)
             )
             loginField(
                 value = identificador,
@@ -73,7 +88,6 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
-
             )
             Spacer(modifier = Modifier.height(10.dp))
             passwordField(
@@ -85,23 +99,24 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                     .padding(20.dp)
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .wrapContentSize(Alignment.Center)) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .wrapContentSize(Alignment.Center)
+            ) {
                 LabeledCheckbox(
                     label = "Recorda'm",
-                    onCheckChanged = {
-                        credentials = credentials.copy(remember = !credentials.remember)
-                    },
-                    isChecked = credentials.remember
+                    onCheckChanged = { isChecked = !isChecked },
+                    isChecked = isChecked
                 )
             }
+            Spacer(modifier = Modifier.height(20.dp))
 
             Button(
                 onClick = {
-                    hashedPassword = viewModel.getMd5DigestForPassword(password)
-                    viewModel.currentAlumno.value = Alumno(0, "", "", "", identificador, "", "","",hashedPassword,0)
+                    val hashedPassword = viewModel.getMd5DigestForPassword(password)
+                    viewModel.currentAlumno.value = Alumno(0, "", "", "", identificador, "", "", "", hashedPassword, 0)
                     Log.d("HASHPASSWORD", viewModel.currentAlumno.value!!.contrasenya.toString())
                     viewModel.currentProfesor.value = Profesor(0, "", "", "", identificador, "", "", "", hashedPassword, true, true)
                     viewModel.repository = Repository(identificador, hashedPassword)
@@ -115,16 +130,19 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                             repository.loginProfesor(viewModel.currentProfesor.value!!)
                         } else {
                             repository.loginAlumno(viewModel.currentAlumno.value!!)
-
                         }
 
                         withContext(Dispatchers.Main) {
                             if (response.isSuccessful) {
+                                if (isChecked) {
+                                    // Guardar las credenciales en SharedPreferences
+                                    UserPreferences.saveCredentials(context, identificador, password)
+                                }
+
                                 if (validarUsuario) {
                                     viewModel.getProfesor(identificador)
                                     navController.navigate("teacher")
                                     Log.d("Usuarionv", viewModel.currentProfesor.value.toString())
-
                                 } else {
                                     viewModel.getAlumno(identificador)
                                     navController.navigate("drawer")
@@ -136,20 +154,16 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                             }
                         }
                     }
-
                 },
                 enabled = true,
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp)
+                    .padding(20.dp),
+                colors = ButtonDefaults.buttonColors(blueproject)
             ) {
-                Text("Accedeix")
+                Text("Accedeix", style = TextStyle(fontWeight = FontWeight.Bold))
             }
         }
     }
-
-
-
-
 }
+
