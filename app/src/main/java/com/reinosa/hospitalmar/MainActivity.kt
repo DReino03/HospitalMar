@@ -26,6 +26,7 @@ import com.reinosa.hospitalmar.View.screens.TeacherScreens.EvaluateScreen
 import com.reinosa.hospitalmar.View.screens.evalScreen
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
+import com.reinosa.hospitalmar.widgets.Global.Profile.SplashScreen
 import com.reinosa.hospitalmar.widgets.Informe.Result
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
 
@@ -72,7 +73,7 @@ fun Navigation(navController: NavHostController) {
     val coevalViewModel : LoginViewModel = remember { LoginViewModel() }
     NavHost(
         navController = navController,
-        startDestination = NavigationGraph.LOGIN
+        startDestination = NavigationGraph.SPLASH
     ) {
         // Pantalla de settings
         composable(NavigationGraph.SETTINGS) {
@@ -114,6 +115,10 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationGraph.TEACHER){
             TeacherDrawerAppScreen(navController)
         }
+        // Pantalla splashscreen
+        composable(NavigationGraph.SPLASH){
+            SplashScreen(navController)
+        }
 
     }
 }
@@ -129,4 +134,5 @@ object NavigationGraph {
     const val COEVAL = "coeval"
     const val RESULT = "result"
     const val TEACHER = "teacher"
+    const val SPLASH = "splash"
 }
