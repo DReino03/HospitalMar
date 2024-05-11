@@ -45,7 +45,6 @@ import kotlinx.coroutines.withContext
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
-    var correo by remember { mutableStateOf("") }
     var identificador by remember { mutableStateOf("") }
     var password by remember {
         mutableStateOf("")
@@ -105,7 +104,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                     viewModel.currentAlumno.value = Alumno(0, "", "", "", identificador, "", "","",hashedPassword,0)
                     Log.d("HASHPASSWORD", viewModel.currentAlumno.value!!.contrasenya.toString())
                     viewModel.currentProfesor.value = Profesor(0, "", "", "", identificador, "", "", "", hashedPassword, true, true)
-                    viewModel.repository = Repository(identificador, hashedPassword)
+                    viewModel.repository.value = Repository(identificador, hashedPassword)
                     Log.d("CONTRASENYA", hashedPassword)
 
                     CoroutineScope(Dispatchers.IO).launch {
@@ -122,11 +121,14 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                         withContext(Dispatchers.Main) {
                             if (response.isSuccessful) {
                                 if (validarUsuario) {
-                                    async {
-                                        viewModel.getProfesor(identificador).await()
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        val job = async(Dispatchers.IO) {
+                                            viewModel.getProfesor(identificador)
+                                        }
+                                        job.await() // Esperar a que se complete la función getProfesor
                                         navController.navigate("teacher")
+                                        Log.d("Usuarionv", viewModel.currentProfesor.value.toString())
                                     }
-                                    Log.d("Usuarionv", viewModel.currentProfesor.value.toString())
                                 }
                                 else {
                                     viewModel.getAlumno(identificador)

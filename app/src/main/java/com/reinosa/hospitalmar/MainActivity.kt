@@ -30,6 +30,7 @@ import com.reinosa.hospitalmar.widgets.Evaluacio.ModulScreen
 import com.reinosa.hospitalmar.widgets.Informe.Result
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
 import com.reinosa.hospitalmar.widgets.StudentList.StudentList
+import kotlin.math.log
 
 
 class MainActivity : ComponentActivity() {
@@ -71,7 +72,7 @@ fun GreetingPreview() {
 @Composable
 fun Navigation(navController: NavHostController) {
     val loginViewModel : LoginViewModel = remember { LoginViewModel() }
-    val coevalViewModel : LoginViewModel = remember { LoginViewModel() }
+//    val coevalViewModel : LoginViewModel = remember { LoginViewModel() }
     NavHost(
         navController = navController,
         startDestination = NavigationGraph.LOGIN
@@ -102,7 +103,7 @@ fun Navigation(navController: NavHostController) {
         }
         // Lista de modulos
         composable(NavigationGraph.MODULO) {
-            ModulScreen(navController)
+            ModulScreen(navController, loginViewModel)
         }
 
         // Pantalla de resultados o informes
@@ -111,11 +112,11 @@ fun Navigation(navController: NavHostController) {
         }
         // Pantalla principal como profesor
         composable(NavigationGraph.TEACHER){
-            TeacherDrawerAppScreen(navController)
+            TeacherDrawerAppScreen(navController, loginViewModel)
         }
         //Lista alumnos
         composable(NavigationGraph.STUDENT){
-            StudentList(navController, coevalViewModel)
+            StudentList(navController, loginViewModel)
         }
 
     }

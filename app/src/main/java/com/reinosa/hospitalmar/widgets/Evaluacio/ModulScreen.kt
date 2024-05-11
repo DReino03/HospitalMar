@@ -16,14 +16,15 @@ import com.reinosa.hospitalmar.widgets.StudentList.StudentItem
 
 
 @Composable
-fun ModulScreen(navController: NavController) {
-    val viewModel: LoginViewModel = viewModel()
+fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
 
     Log.d("PROFESOR ACTUAL", viewModel.currentProfesor.value.toString())
     Log.d("ALUMNO ACTUAL", viewModel.currentAlumno.value.toString())
 
     viewModel.getModulos()
     val modulList = viewModel.modulList.value
+
+    Log.d("Modulos", viewModel.modulList.value.toString())
 
     LazyColumn {
         item {

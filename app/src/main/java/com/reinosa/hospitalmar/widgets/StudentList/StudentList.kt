@@ -17,8 +17,6 @@ import com.reinosa.hospitalmar.widgets.Evaluacio.ModulItem
 
 fun StudentList(navController: NavController, viewModel: LoginViewModel) {
 
-    Log.d("PROFESOR ACTUAL", viewModel.currentProfesor.value.toString())
-    Log.d("ALUMNO ACTUAL", viewModel.currentAlumno.value.toString())
     viewModel.getAlumnosIdProfesor()
     val alummnoList = viewModel.alumnosPorIdProfesor.value
 

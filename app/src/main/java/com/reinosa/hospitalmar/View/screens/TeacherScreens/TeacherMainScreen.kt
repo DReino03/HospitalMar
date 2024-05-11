@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun TeacherDrawerAppScreen(navController: NavHostController) {
+fun TeacherDrawerAppScreen(navController: NavHostController, viewModel: LoginViewModel) {
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
 
@@ -62,7 +62,7 @@ fun TeacherDrawerAppScreen(navController: NavHostController) {
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        TeacherHomeContent(navController = navController)
+        TeacherHomeContent(navController = navController, viewModel)
     }
 }
 

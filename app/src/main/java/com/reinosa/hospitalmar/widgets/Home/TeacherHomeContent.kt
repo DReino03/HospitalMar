@@ -15,14 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
-fun TeacherHomeContent(navController: NavController){
-    val viewModel: LoginViewModel = viewModel()
+fun TeacherHomeContent(navController: NavController, viewModel: LoginViewModel){
 
 
     Log.d("PROFESOR PANTALLA INCIO", viewModel.currentProfesor.value.toString())
@@ -52,7 +52,7 @@ fun TeacherHomeContent(navController: NavController){
             HomeButton(navController, "Autoavaluació", imagePainter[0], "evaluate")
             Spacer(modifier = Modifier.padding(40.dp) )
             //Cambia esto
-            HomeButton(navigation = navController, text = "Evaluar", imageRoute =imagePainter[1] , destination ="student" )
+            HomeButton(navigation = navController, text = "Evaluar", imageRoute =imagePainter[1] , destination ="modulo" )
 
         }
         Spacer(modifier = Modifier.padding(30.dp))
