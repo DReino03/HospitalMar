@@ -59,7 +59,7 @@ fun evalScreen(navController: NavController, viewmodel: LoginViewModel){
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        ModulScreen(navController = navController, viewmodel )
+        ModulScreen(navController = navController, viewmodel)
     }
 }
 

@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
@@ -62,6 +63,6 @@ fun ProfileScreen(navController: NavController) {
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ) {
-        ProfileContent(navController = navController)
+        ProfileContent(navController = navController )
     }
 }

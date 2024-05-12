@@ -38,13 +38,13 @@ import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
-    var correo by remember { mutableStateOf("") }
     var identificador by remember { mutableStateOf("") }
     var password by remember {
         mutableStateOf("")
@@ -104,7 +104,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                     viewModel.currentAlumno.value = Alumno(0, "", "", "", identificador, "", "","",hashedPassword,0)
                     Log.d("HASHPASSWORD", viewModel.currentAlumno.value!!.contrasenya.toString())
                     viewModel.currentProfesor.value = Profesor(0, "", "", "", identificador, "", "", "", hashedPassword, true, true)
-                    viewModel.repository = Repository(identificador, hashedPassword)
+                    viewModel.repository.value = Repository(identificador, hashedPassword)
                     Log.d("CONTRASENYA", hashedPassword)
 
                     CoroutineScope(Dispatchers.IO).launch {
@@ -121,11 +121,16 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                         withContext(Dispatchers.Main) {
                             if (response.isSuccessful) {
                                 if (validarUsuario) {
-                                    viewModel.getProfesor(identificador)
-                                    navController.navigate("teacher")
-                                    Log.d("Usuarionv", viewModel.currentProfesor.value.toString())
-
-                                } else {
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        val job = async(Dispatchers.IO) {
+                                            viewModel.getProfesor(identificador)
+                                        }
+                                        job.await() // Esperar a que se complete la función getProfesor
+                                        navController.navigate("teacher")
+                                        Log.d("Usuarionv", viewModel.currentProfesor.value.toString())
+                                    }
+                                }
+                                else {
                                     viewModel.getAlumno(identificador)
                                     navController.navigate("drawer")
                                     Log.d("Usuario66", viewModel.currentAlumno.value.toString())
