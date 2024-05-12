@@ -56,7 +56,7 @@ fun TeacherHomeContent(navController: NavController, loginViewModel: LoginViewMo
         ) {
             HomeButton(navController, "Perfil", imagePainter[2], "profile")
             Spacer(modifier = Modifier.padding(40.dp) )
-            HomeButton(navController, "Informes" ,imagePainter[3], "graphics")
+            HomeButton(navController, "Informes" ,imagePainter[3], "informe")
         }
     }
 }
