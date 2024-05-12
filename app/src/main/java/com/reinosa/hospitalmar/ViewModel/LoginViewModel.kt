@@ -2,6 +2,7 @@ package com.reinosa.hospitalmar.ViewModel
 
 import android.os.Looper
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -101,7 +102,7 @@ class LoginViewModel(): ViewModel() {
     fun getAlumnosIdProfesor() {
         success.postValue(false)
         CoroutineScope(Dispatchers.IO).launch {
-            Log.d("COMPTOBACION", currentProfesor.value.toString())
+            Log.d("COMPROBACION", currentProfesor.value.toString())
             val response = repository.selectAlumnosPorProfesor(currentProfesor.value!!.idPorfesor)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful){
@@ -114,5 +115,22 @@ class LoginViewModel(): ViewModel() {
             success.postValue(true)
         }
     }
+
+    data class InformeData(
+        val modul: String,
+        val persona: MutableState<List<String>>,
+        val rating: List<Pair<String, Int>>,
+        val observaciones: List<String>,
+    )
+    // Agrega una nueva variable de estado mutable para almacenar los datos de InformeData
+    var informeDataList = MutableLiveData<List<InformeData>>()
+
+    // Agrega una función para actualizar los datos de InformeData
+    fun updateInformeDataList(data: List<InformeData>) {
+        informeDataList.value = data
+    }
+
+
+
 
 }
