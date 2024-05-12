@@ -21,12 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 
 @Composable
-fun StudentItem(text:String ,navController: NavController, viewModel: LoginViewModel) {
+fun StudentItem(text:String ,navController: NavController, viewModel: LoginViewModel, alumno: Alumno) {
     var borderColor = remember { mutableStateOf(Color.Transparent) } // Inicialmente transparente
     Card(
         modifier = Modifier
@@ -35,9 +36,10 @@ fun StudentItem(text:String ,navController: NavController, viewModel: LoginViewM
             .fillMaxWidth()
             .border(2.dp, borderColor.value)
             .clickable {
+                viewModel.setSelectedAlumno(alumno)
                 //selecciona a los estudiantes para la coevaluación y los añade a la lista de estudiantes seleccionados ademas marca el Card con un color de fondo
                 Log.e("StudentItem", "click")
-                navController.navigate("evaluate")
+                navController.navigate("modulo")
             },
     ) {
         Spacer(modifier = Modifier.padding(8.dp))

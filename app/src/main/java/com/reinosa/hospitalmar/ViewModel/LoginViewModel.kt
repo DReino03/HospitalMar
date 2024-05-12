@@ -30,6 +30,7 @@ class LoginViewModel(): ViewModel() {
     val modulList = MutableLiveData<List<Modulo>?>()
     val alumnosPorIdProfesor = MutableLiveData<List<Alumno>?>()
     var repository= MutableLiveData<Repository>()
+    var alumnoSelected: Alumno? = null
 
 
     fun getMd5DigestForPassword(password: String): String {
@@ -123,6 +124,10 @@ class LoginViewModel(): ViewModel() {
         } else {
             Log.e("Error:", "currentProfesor.value es null")
         }
+    }
+
+    fun setSelectedAlumno (alumno: Alumno) {
+        alumnoSelected = alumno
     }
 
 
