@@ -37,7 +37,7 @@ interface ApiInterface {
 
 
     companion object{
-        val BASE_URL = "http://172.30.3.48:8080/"
+        val BASE_URL = "http://10.111.156.250:8080/"
         //url pc alex: 192.168.1.104
         //url pc jordi: 192.168.56.1
         //url pc clase alex: 172.23.6.123:8080

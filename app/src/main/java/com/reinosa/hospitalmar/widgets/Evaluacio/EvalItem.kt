@@ -11,15 +11,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Comment
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -40,7 +37,7 @@ fun EvalItem(loginViewModel: LoginViewModel) {
     val ratings: MutableList<Pair<String, Int>> = mutableListOf()
     val text = "stringResource(R.string.eval_text)"
     val comment = remember { mutableStateOf("") }
-    val comments = remember { mutableStateListOf<String>() }
+    val comments = remember { mutableStateListOf<MutableList<String>>() }
     val selectedCardIndex = remember { mutableStateOf(-1) }
 
     // Crea una nueva instancia de InformeData
@@ -53,6 +50,11 @@ fun EvalItem(loginViewModel: LoginViewModel) {
 
     // Añade la nueva instancia de InformeData a la lista de InformeData en LoginViewModel
     loginViewModel.updateInformeDataList(listOf(informeData))
+    //Inicializa la lista de cometartios para cada item(ha de ser igual de largo que la lista de items)
+
+    repeat(5) {
+        comments.add(mutableListOf())
+    }
 
 
     Column {
@@ -95,11 +97,11 @@ fun EvalItem(loginViewModel: LoginViewModel) {
                         }
                         Spacer(modifier = Modifier.padding(8.dp))
                         if (selectedCardIndex.value == index) {
-                            comments.forEachIndexed { commentIndex, commentText ->
+                            comments[index].forEachIndexed { commentIndex, commentText ->
                                 Row {
                                     Text(commentText, modifier = Modifier.padding(16.dp), style = LocalTextStyle.current.copy(color = Color.Gray))
                                     Spacer(modifier = Modifier.weight(1f))
-                                    IconButton(onClick = { comments.removeAt(commentIndex) }) {
+                                    IconButton(onClick = { comments[index].removeAt(commentIndex) }) {
                                         Icon(Icons.Filled.Delete, contentDescription = "Delete")
                                     }
                                 }
@@ -114,9 +116,9 @@ fun EvalItem(loginViewModel: LoginViewModel) {
                                     label = { Text("Comment") },
 
                                 )
-                                if (comment.value.isNotEmpty() && comment.value !in comments) {
+                                if (comment.value.isNotEmpty() && comment.value !in comments[index]) {
                                     IconButton(onClick = {
-                                        comments.add(comment.value)
+                                        comments[index].add(comment.value)
                                         comment.value = ""
                                     }) {
                                         Icon(Icons.Filled.Send, contentDescription = "Send", tint = Color.White)

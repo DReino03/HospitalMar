@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.widgets.Evaluacio
+package com.reinosa.hospitalmar.widgets.Modulos
 
 import android.util.Log
 import androidx.compose.foundation.background
