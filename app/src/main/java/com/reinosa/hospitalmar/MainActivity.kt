@@ -18,19 +18,17 @@ import androidx.navigation.compose.rememberNavController
 import com.reinosa.hospitalmar.View.screens.StudentScreens.StudentDrawerAppScreen
 import com.reinosa.hospitalmar.View.screens.TeacherScreens.TeacherDrawerAppScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.AboutScreen
-import com.reinosa.hospitalmar.View.screens.GlobalScreens.EvaluarScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.SettingsScreen
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
 import com.reinosa.hospitalmar.widgets.Competencias.CompetenciasContainer
 import com.reinosa.hospitalmar.widgets.Global.Profile.SplashScreen
-import com.reinosa.hospitalmar.widgets.Evaluacio.EvalItem
-import com.reinosa.hospitalmar.widgets.Evaluacio.ModulScreen
+import com.reinosa.hospitalmar.widgets.Evaluacio.EvaluarScreen
 import com.reinosa.hospitalmar.widgets.Informe.InformeScreen
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
+import com.reinosa.hospitalmar.widgets.Modulos.ModulContainer
 import com.reinosa.hospitalmar.widgets.StudentList.StudentList
-import kotlin.math.log
 
 
 class MainActivity : ComponentActivity() {
@@ -103,7 +101,7 @@ fun Navigation(navController: NavHostController) {
         }
         // Lista de modulos
         composable(NavigationGraph.MODULO) {
-            ModulScreen(navController, loginViewModel)
+            ModulContainer(navController, loginViewModel)
         }
 
         // Pantalla de resultados o informes
@@ -139,7 +137,6 @@ object NavigationGraph {
     const val PROFILE = "profile"
     const val MODULO = "modulo"
     const val STUDENT = "student"
-    const val RESULT = "result"
     const val INFORME = "informe"
     const val TEACHER = "teacher"
     const val SPLASH = "splash"
