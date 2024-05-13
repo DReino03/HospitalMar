@@ -28,54 +28,54 @@ import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
-@Composable
-fun CoevalScreen(navController: NavController, coevalViewModel: LoginViewModel){
-    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
-    val scope = rememberCoroutineScope()
-    // Observa studentsSelected y actualiza studentList cuando cambie
-    val studentList = coevalViewModel.studentsSelected.value.joinToString(", ")
-    Scaffold(
-        scaffoldState = scaffoldState,
-        topBar = {
-            TopAppBar(
-                title = { Text(text = stringResource(R.string.Coevaluació), textAlign = TextAlign.Justify) },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        scope.launch {
-                            scaffoldState.drawerState.open()
-                        }
-                    }) {
-                        Icon(Icons.Filled.Menu, contentDescription = "Localized description")
-                    }
-
-                },
-                actions = {
+//@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+//@Composable
+//fun CoevalScreen(navController: NavController, coevalViewModel: LoginViewModel){
+//    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+//    val scope = rememberCoroutineScope()
+//    // Observa studentsSelected y actualiza studentList cuando cambie
+//    val studentList = coevalViewModel.studentsSelected.value.joinToString(", ")
+//    Scaffold(
+//        scaffoldState = scaffoldState,
+//        topBar = {
+//            TopAppBar(
+//                title = { Text(text = stringResource(R.string.Coevaluació), textAlign = TextAlign.Justify) },
+//                navigationIcon = {
 //                    IconButton(onClick = {
-//                        navController.navigate("evaluate")
+//                        scope.launch {
+//                            scaffoldState.drawerState.open()
+//                        }
+//                    }) {
+//                        Icon(Icons.Filled.Menu, contentDescription = "Localized description")
 //                    }
-//                    )
-//                    {
-//                        Icon(Icons.Filled.ArrowForwardIos, contentDescription = "Localized description")
-//                    }
-                }
-
-
-            )
-        },
-
-        drawerContent = {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                DrawerHeader()
-                DrawerItems(navController = navController)
-
-            }
-        },
-        drawerBackgroundColor = Color.White // Cambiar por el color deseado
-    ){
-        StudentList(navController = navController, viewModel = LoginViewModel())
-    }
-}
-
-
-
+//
+//                },
+//                actions = {
+////                    IconButton(onClick = {
+////                        navController.navigate("evaluate")
+////                    }
+////                    )
+////                    {
+////                        Icon(Icons.Filled.ArrowForwardIos, contentDescription = "Localized description")
+////                    }
+//                }
+//
+//
+//            )
+//        },
+//
+//        drawerContent = {
+//            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+//                DrawerHeader()
+//                DrawerItems(navController = navController)
+//
+//            }
+//        },
+//        drawerBackgroundColor = Color.White // Cambiar por el color deseado
+//    ){
+//        StudentList(navController = navController, viewModel = LoginViewModel())
+//    }
+//}
+//
+//
+//

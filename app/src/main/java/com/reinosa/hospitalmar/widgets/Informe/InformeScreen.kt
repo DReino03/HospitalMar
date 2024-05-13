@@ -57,7 +57,7 @@ fun InformeScreen(navController: NavController, loginViewModel: LoginViewModel) 
             },
             drawerContent = {
                 Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                    DrawerHeader()
+                    DrawerHeader(loginViewModel)
                     DrawerItems(navController = navController)
 
                 }

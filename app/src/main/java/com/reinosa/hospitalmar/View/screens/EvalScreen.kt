@@ -53,7 +53,7 @@ fun evalScreen(navController: NavController, viewmodel: LoginViewModel){
         },
         drawerContent = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                DrawerHeader()
+                DrawerHeader(viewmodel)
                 DrawerItems(navController = navController)
 
             }
