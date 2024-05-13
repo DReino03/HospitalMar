@@ -43,7 +43,7 @@ fun CompetenciasItem(navController: NavController, viewModel: LoginViewModel) {
             .clickable {
                 //selecciona a los estudiantes para la coevaluación y los añade a la lista de estudiantes seleccionados ademas marca el Card con un color de fondo
                 Log.e("StudentItem", "click")
-                navController.navigate("modulo")
+                navController.navigate("evaluate")
             },
     ) {
         Spacer(modifier = Modifier.padding(8.dp))

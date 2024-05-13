@@ -88,7 +88,7 @@ fun ProfileContent(navController: NavController) {
                 )
                 // Nombre de usuario
                 Text(
-                    text = viewModel.currentProfesor.value!!.nombre,
+                    text ="si",
                     style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(top = 20.dp)
