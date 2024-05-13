@@ -11,12 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Comment
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,10 +32,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.reinosa.hospitalmar.Model.DataClass.EvalCard
+import com.reinosa.hospitalmar.Model.Informe.InformeData
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
-fun   EvalItem(loginViewModel: LoginViewModel) {
+fun EvalItem(loginViewModel: LoginViewModel) {
     val ratings: MutableList<Pair<String, Int>> = mutableListOf()
     val text = "stringResource(R.string.eval_text)"
     val comment = remember { mutableStateOf("") }
@@ -40,7 +44,7 @@ fun   EvalItem(loginViewModel: LoginViewModel) {
     val selectedCardIndex = remember { mutableStateOf(-1) }
 
     // Crea una nueva instancia de InformeData
-    val informeData = LoginViewModel.InformeData(
+    val informeData = InformeData(
         modul = "Modul",
         persona = loginViewModel.studentsSelected,
         rating = ratings,
@@ -69,7 +73,6 @@ fun   EvalItem(loginViewModel: LoginViewModel) {
                 ) {
                     Column(
                         modifier = Modifier
-                            .background(MaterialTheme.colorScheme.primary)
                             .padding(8.dp)
                     ) {
                         Spacer(modifier = Modifier.padding(8.dp))
@@ -79,7 +82,8 @@ fun   EvalItem(loginViewModel: LoginViewModel) {
                                 Modifier
                                     .padding(16.dp),
                                 style = MaterialTheme.typography.bodyLarge,
-                                color = MaterialTheme.colorScheme.primary)
+                                color = Color.White
+                            )
                             Spacer(modifier = Modifier.weight(0.6f))
                             IconButton(onClick = { selectedCardIndex.value = index }) {
                                 Icon(Icons.Filled.Comment, contentDescription = "Comment", tint = Color.White)

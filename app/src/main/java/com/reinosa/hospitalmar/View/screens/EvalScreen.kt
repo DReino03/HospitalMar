@@ -8,6 +8,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.DrawerValue
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -38,7 +39,7 @@ fun evalScreen(navController: NavController, viewmodel: LoginViewModel){
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { androidx.compose.material.Text(text = stringResource(R.string.drawer_graphics), textAlign = TextAlign.Justify) },
+                title = { Text(text = stringResource(R.string.drawer_graphics), textAlign = TextAlign.Justify) },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {

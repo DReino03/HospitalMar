@@ -13,6 +13,7 @@ import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.Model.DataClass.Modulo
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
+import com.reinosa.hospitalmar.Model.Informe.InformeData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -132,12 +133,7 @@ class LoginViewModel(): ViewModel() {
     }
 
 
-    data class InformeData(
-        val modul: String,
-        val persona: MutableState<List<String>>,
-        val rating: List<Pair<String, Int>>,
-        val observaciones: List<String>,
-    )
+
     // Agrega una nueva variable de estado mutable para almacenar los datos de InformeData
     var informeDataList = MutableLiveData<List<InformeData>>()
 

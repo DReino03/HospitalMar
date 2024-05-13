@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
@@ -40,6 +41,7 @@ fun StarMenu(stars: Int, evalCard: EvalCard) {
                 }
             ) {
                 Icon(
+                    modifier = Modifier.size(34.dp),
                     imageVector = if (i <= selectedStar) Icons.Filled.Star else Icons.Outlined.Star,
                     contentDescription = "Star" ,
                     tint = if (i <= selectedStar) Color.Yellow else Color.Black
