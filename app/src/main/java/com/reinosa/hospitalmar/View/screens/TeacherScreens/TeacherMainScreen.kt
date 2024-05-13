@@ -55,7 +55,7 @@ fun TeacherDrawerAppScreen(navController: NavHostController, viewModel: LoginVie
         },
         drawerContent = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                DrawerHeader()
+                DrawerHeader(viewModel)
                 DrawerItems(navController = navController)
 
             }
