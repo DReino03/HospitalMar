@@ -1,4 +1,5 @@
-package com.reinosa.hospitalmar.widgets.StudentList
+package com.reinosa.hospitalmar.widgets.Competencias
+
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -32,7 +33,7 @@ import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
-fun StudentItem(text:String ,navController: NavController, viewModel: LoginViewModel, alumno: Alumno) {
+fun CompetenciasItem(navController: NavController, viewModel: LoginViewModel) {
     var borderColor = remember { mutableStateOf(Color.Transparent) } // Inicialmente transparente
     Card(
         modifier = Modifier
@@ -40,7 +41,6 @@ fun StudentItem(text:String ,navController: NavController, viewModel: LoginViewM
             .padding(16.dp)
             //.border(2.dp, borderColor.value)
             .clickable {
-                viewModel.setSelectedAlumno(alumno)
                 //selecciona a los estudiantes para la coevaluación y los añade a la lista de estudiantes seleccionados ademas marca el Card con un color de fondo
                 Log.e("StudentItem", "click")
                 navController.navigate("modulo")
@@ -52,24 +52,24 @@ fun StudentItem(text:String ,navController: NavController, viewModel: LoginViewM
         ) {
 
             Text(
-                text = text,
+                text = "Competencias",
                 modifier = Modifier
                     .padding(16.dp)
                     .weight(1f)
             )
-                Icon(
-                    Icons.Filled.ArrowForwardIos,
-                    contentDescription ="Continue",
-                    modifier = Modifier
-                        .weight(0.2f) // Asigna un peso al icono
-                        .padding(16.dp)
-                        .align(Alignment.CenterVertically)
-                )
-            }
-        Spacer(modifier = Modifier.padding(8.dp))
+            Icon(
+                Icons.Filled.ArrowForwardIos,
+                contentDescription ="Continue",
+                modifier = Modifier
+                    .weight(0.2f) // Asigna un peso al icono
+                    .padding(16.dp)
+                    .align(Alignment.CenterVertically)
+            )
         }
-
-
+        Spacer(modifier = Modifier.padding(8.dp))
     }
+
+
+}
 
 

@@ -23,6 +23,7 @@ import com.reinosa.hospitalmar.View.screens.GlobalScreens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.SettingsScreen
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
+import com.reinosa.hospitalmar.widgets.Competencias.CompetenciasContainer
 import com.reinosa.hospitalmar.widgets.Global.Profile.SplashScreen
 import com.reinosa.hospitalmar.widgets.Evaluacio.EvalItem
 import com.reinosa.hospitalmar.widgets.Evaluacio.ModulScreen
@@ -121,6 +122,10 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationGraph.STUDENT){
             StudentList(navController, loginViewModel)
         }
+        //Competencias
+        composable(NavigationGraph.COMPETENCIAS){
+            CompetenciasContainer(navController = navController, viewModel = loginViewModel)
+        }
 
     }
 }
@@ -138,5 +143,6 @@ object NavigationGraph {
     const val INFORME = "informe"
     const val TEACHER = "teacher"
     const val SPLASH = "splash"
+    const val COMPETENCIAS = "competencias"
 
 }
