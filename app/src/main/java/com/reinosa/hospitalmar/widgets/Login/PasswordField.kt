@@ -1,5 +1,6 @@
 package com.reinosa.hospitalmar.widgets.Login
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -18,10 +19,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import com.reinosa.hospitalmar.ui.theme.blueproject
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,18 +42,18 @@ fun passwordField(
     var isPasswordVisible by remember { mutableStateOf(false) }
 
     val leadingIcon = @Composable {
-        Icon(
+        Image(
             Icons.Default.Key,
             contentDescription = "",
-            tint = MaterialTheme.colorScheme.primary
+            colorFilter = ColorFilter.tint(blueproject)
         )
     }
     val trailingIcon = @Composable {
         IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
-            Icon(
+            Image(
                 if (isPasswordVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
                 contentDescription = "",
-                tint = MaterialTheme.colorScheme.primary
+                colorFilter = ColorFilter.tint(blueproject)
             )
         }
     }

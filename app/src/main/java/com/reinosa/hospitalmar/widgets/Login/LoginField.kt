@@ -1,5 +1,6 @@
 package com.reinosa.hospitalmar.widgets.Login
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -12,9 +13,11 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
+import com.reinosa.hospitalmar.ui.theme.blueproject
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,10 +31,10 @@ fun loginField(
 
     val focusManager = LocalFocusManager.current
     val leadingIcon = @Composable {
-        Icon(
+        Image(
             Icons.Default.Person,
             contentDescription = "",
-            tint = MaterialTheme.colorScheme.primary
+            colorFilter = ColorFilter.tint(blueproject)
         )
     }
 

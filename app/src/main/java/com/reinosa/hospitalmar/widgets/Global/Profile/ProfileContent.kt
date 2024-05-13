@@ -25,29 +25,38 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.reinosa.hospitalmar.Model.SharedPreferences.UserPreferences
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 import com.reinosa.hospitalmar.ui.theme.gris
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 
+
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ProfileContent(navController: NavController) {
-    val viewModel: LoginViewModel = viewModel()
-
+    var identificador by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var isChecked by remember { mutableStateOf(false) }
+    val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally // Centra horizontalmente
@@ -139,7 +148,10 @@ fun ProfileContent(navController: NavController) {
             ) {
                 Button(
                     onClick = {
-                        // Navegar al login y limpiar la pila de atrás
+                        UserPreferences.clearCredentials(context)
+                        identificador = ""
+                        password = ""
+                        isChecked = false
                         navController.navigate("login") {
 
                         }
