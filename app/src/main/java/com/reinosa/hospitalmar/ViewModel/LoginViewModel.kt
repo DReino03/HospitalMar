@@ -32,6 +32,7 @@ class LoginViewModel(): ViewModel() {
     val alumnosPorIdProfesor = MutableLiveData<List<Alumno>?>()
     var repository= MutableLiveData<Repository>()
     var alumnoSelected: Alumno? = null
+    var isAlumno: Boolean = false
 
 
     fun getMd5DigestForPassword(password: String): String {
@@ -39,9 +40,7 @@ class LoginViewModel(): ViewModel() {
         return digest.joinToString("") { "%02x".format(it) }
     }
 
-    fun getAlumno(identificador: String) {
-        Log.d("ENTRAAA?", "SOD")
-        CoroutineScope(Dispatchers.IO).launch {
+    suspend fun getAlumno(identificador: String) {
             try {
                 val response = repository.value?.getAlumno("/alumno/$identificador")
 
@@ -62,7 +61,6 @@ class LoginViewModel(): ViewModel() {
             } catch (e: Exception) {
                 Log.e("Error", "Excepción en la corrutina: ${e.message}", e)
             }
-        }
     }
     suspend fun getProfesor(identificador: String) {
         try {

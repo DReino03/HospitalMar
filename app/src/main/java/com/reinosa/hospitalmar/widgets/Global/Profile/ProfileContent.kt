@@ -45,8 +45,7 @@ import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ProfileContent(navController: NavController) {
-    val viewModel: LoginViewModel = viewModel()
+fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -77,62 +76,128 @@ fun ProfileContent(navController: NavController) {
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop
                 )
-                // Nombre de usuario
-                Text(
-                    text = viewModel.currentProfesor.value!!.nombre,
-                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(top = 20.dp)
-                )
-                // Identificador de usuario
-                Text(
-                    text = "ibax000",
-                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
-                Button(
-                    onClick = {
-                        //
-                    },
-                    colors = ButtonDefaults.buttonColors(Color.White),
-                    modifier = Modifier.padding(8.dp),
-                    shape = RoundedCornerShape(20.dp)
-                ) {
-                    Text(text = "Canviar contrasenya")
+                if (!viewModel.isAlumno) {
+                    // Nombre de usuario
+                    Text(
+                        text = viewModel.currentProfesor.value!!.nombre,
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(top = 20.dp)
+                    )
+                    // Identificador de usuario
+                    Text(
+                        text = viewModel.currentProfesor.value!!.identificador,
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                    Button(
+                        onClick = {
+                            //
+                        },
+                        colors = ButtonDefaults.buttonColors(Color.White),
+                        modifier = Modifier.padding(8.dp),
+                        shape = RoundedCornerShape(20.dp)
+                    ) {
+                        Text(text = "Canviar contrasenya")
+                    }
+                }
+                else{
+                    // Nombre de usuario
+                    Text(
+                        text = viewModel.currentAlumno.value!!.nombre,
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(top = 20.dp)
+                    )
+                    // Identificador de usuario
+                    Text(
+                        text = viewModel.currentAlumno.value!!.identificador,
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                    Button(
+                        onClick = {
+                            //
+                        },
+                        colors = ButtonDefaults.buttonColors(Color.White),
+                        modifier = Modifier.padding(8.dp),
+                        shape = RoundedCornerShape(20.dp)
+                    ) {
+                        Text(text = "Canviar contrasenya")
+                    }
                 }
             }
         }
+        if (!viewModel.isAlumno) {
+            // Sección inferior
+            Spacer(modifier = Modifier.height(16.dp))
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 40.dp)
+            ) {
+                Text(
+                    text = "Dades personals:", // Cambio de texto
+                    style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(vertical = 20.dp)
+                )
+                Text(
+                    text = "-",
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(vertical = 4.dp)
+                )
+                Text(
+                    text = "Correu: ${viewModel.currentProfesor.value!!.correo}",
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Spacer(modifier = Modifier.weight(1f))
 
-        // Sección inferior
-        Spacer(modifier = Modifier.height(16.dp))
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 40.dp)
-        ) {
-            Text(
-                text = "Dades personals:", // Cambio de texto
-                style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(vertical = 20.dp)
-            )
-            Text(
-                text = "Cicle: M7867",
-                style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
-                color = Color.Gray,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(vertical = 4.dp)
-            )
-            Text(
-                text = "Correu: nCognom@institutbonanova.cat",
-                style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
-                color = Color.Gray,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-            Spacer(modifier = Modifier.weight(1f))
+            }
+        }
+        else{
+            // Sección inferior
+            Spacer(modifier = Modifier.height(16.dp))
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 40.dp)
+            ) {
+                Text(
+                    text = "Dades personals:", // Cambio de texto
+                    style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(vertical = 20.dp)
+                )
+                Text(
+                    text = "Cicle: ${viewModel.currentAlumno.value!!.especialidad}",
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(vertical = 4.dp)
+                )
+                Text(
+                    text = "Correu: ${viewModel.currentAlumno.value!!.correo}",
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Spacer(modifier = Modifier.weight(1f))
+
+            }
+        }
+
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
@@ -155,11 +220,8 @@ fun ProfileContent(navController: NavController) {
                         style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                         color = Color.White,
                     )
-
-
                 }
             }
-        }
     }
 }
 

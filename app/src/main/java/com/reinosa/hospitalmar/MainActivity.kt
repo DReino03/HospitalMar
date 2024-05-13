@@ -78,11 +78,11 @@ fun Navigation(navController: NavHostController) {
     ) {
         // Pantalla de settings
         composable(NavigationGraph.SETTINGS) {
-            SettingsScreen(navController)
+            SettingsScreen(navController, loginViewModel)
         }
         // Pantalla de about
         composable(NavigationGraph.ABOUT) {
-            AboutScreen(navController)
+            AboutScreen(navController, loginViewModel)
         }
         // Pantalla de login
         composable(NavigationGraph.LOGIN) {
@@ -90,7 +90,7 @@ fun Navigation(navController: NavHostController) {
         }
         // Pantalla principal como alumno
         composable(NavigationGraph.DRAWER){
-            StudentDrawerAppScreen(navController)
+            StudentDrawerAppScreen(navController, loginViewModel)
         }
         // Pantalla de evaluacion para profesor
         composable(NavigationGraph.EVALUATE){
@@ -98,7 +98,7 @@ fun Navigation(navController: NavHostController) {
         }
         // Pantalla de perfil
         composable(NavigationGraph.PROFILE){
-            ProfileScreen(navController)
+            ProfileScreen(navController, loginViewModel)
         }
         // Lista de modulos
         composable(NavigationGraph.MODULO) {

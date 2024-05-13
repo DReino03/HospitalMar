@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun ProfileScreen(navController: NavController, viewModel: LoginViewModel) {
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
 
@@ -57,12 +57,12 @@ fun ProfileScreen(navController: NavController) {
         },
         drawerContent = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                DrawerHeader()
+                DrawerHeader(viewModel)
                 DrawerItems(navController = navController)
             }
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ) {
-        ProfileContent(navController = navController )
+        ProfileContent(navController = navController, viewModel )
     }
 }

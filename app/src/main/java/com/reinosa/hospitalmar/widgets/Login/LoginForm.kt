@@ -131,9 +131,15 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                                     }
                                 }
                                 else {
-                                    viewModel.getAlumno(identificador)
-                                    navController.navigate("drawer")
-                                    Log.d("Usuario66", viewModel.currentAlumno.value.toString())
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        val job = async(Dispatchers.IO){
+                                            viewModel.isAlumno = true
+                                            viewModel.getAlumno(identificador)
+                                        }
+                                        job.await()
+                                        navController.navigate("drawer")
+                                        Log.d("Usuario66", viewModel.currentAlumno.value.toString())
+                                    }
                                 }
                             } else {
                                 val toast = Toast.makeText(context, "Error", Toast.LENGTH_SHORT)

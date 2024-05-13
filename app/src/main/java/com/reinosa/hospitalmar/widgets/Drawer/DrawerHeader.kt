@@ -22,10 +22,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.reinosa.hospitalmar.R
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 
 @Composable
-fun DrawerHeader() {
+fun DrawerHeader(viewModel: LoginViewModel) {
     Box(
         modifier = Modifier
             .fillMaxWidth(1f)
@@ -47,12 +48,24 @@ fun DrawerHeader() {
                     .border(2.dp, Color.Gray, CircleShape)   // add a border (optional)
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "username",
-                style = MaterialTheme.typography.h5,
-                color = Color.White,
-            )
-            Text(text = "ibaux00xxx", style = MaterialTheme.typography.h6)
+            if (!viewModel.isAlumno){
+                Text(
+                    text = viewModel.currentProfesor.value!!.nombre,
+                    style = MaterialTheme.typography.h5,
+                    color = Color.White,
+                )
+                Text(text = viewModel.currentProfesor.value!!.identificador, style = MaterialTheme.typography.h6)
+            }
+            else{
+                Text(
+                    text = viewModel.currentAlumno.value!!.nombre,
+                    style = MaterialTheme.typography.h5,
+                    color = Color.White,
+                )
+                Text(text = viewModel.currentAlumno.value!!.identificador, style = MaterialTheme.typography.h6)
+            }
+
+
         }
     }
 }
