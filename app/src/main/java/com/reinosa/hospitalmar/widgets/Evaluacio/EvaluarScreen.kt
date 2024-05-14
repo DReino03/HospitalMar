@@ -107,7 +107,7 @@ fun EvaluarScreen(navController: NavController, loginViewModel: LoginViewModel) 
     },
     drawerBackgroundColor = Color(0xFFF5F5F5) // Color de fondo del cajón
 ){
-    EvalItem(loginViewModel)
+    EvalItem(text = "", loginViewModel)
 }
 
 }

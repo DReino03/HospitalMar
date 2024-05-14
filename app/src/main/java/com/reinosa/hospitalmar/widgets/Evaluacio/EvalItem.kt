@@ -11,12 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Comment
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,7 +36,7 @@ import com.reinosa.hospitalmar.Model.Informe.InformeData
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
-fun EvalItem(loginViewModel: LoginViewModel) {
+fun EvalItem(text: String, viewModel: LoginViewModel) {
     val ratings: MutableList<Pair<String, Int>> = mutableListOf()
     val text = "stringResource(R.string.eval_text)"
     val comment = remember { mutableStateOf("") }
@@ -61,7 +64,7 @@ fun EvalItem(loginViewModel: LoginViewModel) {
         LazyColumn {
             item {
                 Spacer(modifier = Modifier.padding(12.dp))
-                Text("Iniciativa", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(16.dp))
+                Text(viewModel.competenciaSelected!!.nombreCompetencia, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(16.dp))
             }
 
             items(5) {index->
