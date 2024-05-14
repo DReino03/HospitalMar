@@ -50,7 +50,7 @@ fun StudentContainer(navController : NavController, viewModel: LoginViewModel){
         },
         drawerContent = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                DrawerHeader()
+                DrawerHeader(viewModel)
                 DrawerItems(navController = navController)
 
             }

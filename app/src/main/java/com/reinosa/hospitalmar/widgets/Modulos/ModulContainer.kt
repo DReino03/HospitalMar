@@ -24,6 +24,7 @@ import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
+import com.reinosa.hospitalmar.widgets.Evaluacio.ModulScreen
 import com.reinosa.hospitalmar.widgets.StudentList.StudentList
 import kotlinx.coroutines.launch
 
@@ -50,13 +51,13 @@ fun ModulContainer(navController: NavController, viewModel: LoginViewModel){
             },
             drawerContent = {
                 Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                    DrawerHeader()
+                    DrawerHeader(viewModel)
                     DrawerItems(navController = navController)
 
                 }
             },
             drawerBackgroundColor = Color.White // Cambiar por el color deseado
         ){
-            ModulScreen(navController = navController, viewModel = viewModel)
+            ModulScreen(navController = navController, viewModel)
         }
 }

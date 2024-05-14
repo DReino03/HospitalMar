@@ -31,109 +31,77 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.DataClass.EvalCard
 import com.reinosa.hospitalmar.Model.Informe.InformeData
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
-fun EvalItem(text: String, viewModel: LoginViewModel) {
-    val ratings: MutableList<Pair<String, Int>> = mutableListOf()
-    val text = "stringResource(R.string.eval_text)"
-    val comment = remember { mutableStateOf("") }
-    val comments = remember { mutableStateListOf<MutableList<String>>() }
+fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>>) {
     val selectedCardIndex = remember { mutableStateOf(-1) }
-
-    // Crea una nueva instancia de InformeData
-    val informeData = InformeData(
-        modul = "Modul",
-        persona = loginViewModel.studentsSelected,
-        rating = ratings,
-        observaciones = comments
-    )
-
-    // Añade la nueva instancia de InformeData a la lista de InformeData en LoginViewModel
-    loginViewModel.updateInformeDataList(listOf(informeData))
-    //Inicializa la lista de cometartios para cada item(ha de ser igual de largo que la lista de items)
-
-    repeat(5) {
-        comments.add(mutableListOf())
-    }
+    val comment = remember { mutableStateOf("") }
+    val evalCard = EvalCard(text)
 
 
-    Column {
-        LazyColumn {
-            item {
-                Spacer(modifier = Modifier.padding(12.dp))
-                Text(viewModel.competenciaSelected!!.nombreCompetencia, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(16.dp))
+    Card(
+        modifier = Modifier
+            .background(Color.White)
+            .padding(16.dp)
+            .clickable { selectedCardIndex.value = index },
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(8.dp)
+        ) {
+            Spacer(modifier = Modifier.padding(8.dp))
+            Row() {
+                androidx.compose.material3.Text(
+                    text = text,
+                    Modifier
+                        .padding(16.dp),
+                    style = androidx.compose.material3.MaterialTheme.typography.bodyLarge,
+                    color = Color.White
+                )
+                Spacer(modifier = Modifier.weight(0.6f))
+                IconButton(onClick = { selectedCardIndex.value = index }) {
+                    Icon(Icons.Filled.Comment, contentDescription = "Comment", tint = Color.White)
+                }
             }
-
-            items(5) {index->
-                val evalCard = EvalCard(text)
-                val selectedStar = remember { mutableIntStateOf(0) }
-                Card(
-                    modifier = Modifier
-                        .background(Color.White)
-                        .padding(16.dp)
-                        .clickable { selectedCardIndex.value = index },
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(8.dp)
-                    ) {
-                        Spacer(modifier = Modifier.padding(8.dp))
-                        Row() {
-                            Text(
-                                text = text,
-                                Modifier
-                                    .padding(16.dp),
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.weight(0.6f))
-                            IconButton(onClick = { selectedCardIndex.value = index }) {
-                                Icon(Icons.Filled.Comment, contentDescription = "Comment", tint = Color.White)
-                            }
-                        }
-                        Spacer(modifier = Modifier.padding(8.dp))
-                        Row {
-                            StarMenu(4, evalCard)
-                        }
-                        Spacer(modifier = Modifier.padding(8.dp))
-                        if (selectedCardIndex.value == index) {
-                            comments[index].forEachIndexed { commentIndex, commentText ->
-                                Row {
-                                    Text(commentText, modifier = Modifier.padding(16.dp), style = LocalTextStyle.current.copy(color = Color.Gray))
-                                    Spacer(modifier = Modifier.weight(1f))
-                                    IconButton(onClick = { comments[index].removeAt(commentIndex) }) {
-                                        Icon(Icons.Filled.Delete, contentDescription = "Delete")
-                                    }
-                                }
-                            }
-                            Row(Modifier.fillMaxWidth()) {
-                                TextField(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .navigationBarsPadding(),
-                                    value = comment.value,
-                                    onValueChange = { comment.value = it },
-                                    label = { Text("Comment") },
-
-                                )
-                                if (comment.value.isNotEmpty() && comment.value !in comments[index]) {
-                                    IconButton(onClick = {
-                                        comments[index].add(comment.value)
-                                        comment.value = ""
-                                    }) {
-                                        Icon(Icons.Filled.Send, contentDescription = "Send", tint = Color.White)
-                                    }
-                                }
-                            }
-
+            Spacer(modifier = Modifier.padding(8.dp))
+            Row {
+                StarMenu(4, evalCard)
+            }
+            Spacer(modifier = Modifier.padding(8.dp))
+            if (selectedCardIndex.value == index) {
+                comments[index].forEachIndexed { commentIndex, commentText ->
+                    Row {
+                        androidx.compose.material3.Text(commentText, modifier = Modifier.padding(16.dp), style = LocalTextStyle.current.copy(color = Color.Gray))
+                        Spacer(modifier = Modifier.weight(1f))
+                        IconButton(onClick = { comments[index].removeAt(commentIndex) }) {
+                            Icon(Icons.Filled.Delete, contentDescription = "Delete")
                         }
                     }
                 }
-                val data = Pair(text, selectedStar.intValue)
-                ratings.add(index,data)
+                Row(Modifier.fillMaxWidth()) {
+                    TextField(
+                        modifier = Modifier
+                            .weight(1f)
+                            .navigationBarsPadding(),
+                        value = comment.value,
+                        onValueChange = { comment.value = it },
+                        label = { androidx.compose.material3.Text("Comment") },
+
+                        )
+                    if (comment.value.isNotEmpty() && comment.value !in comments[index]) {
+                        IconButton(onClick = {
+                            comments[index].add(comment.value)
+                            comment.value = ""
+                        }) {
+                            Icon(Icons.Filled.Send, contentDescription = "Send", tint = Color.White)
+                        }
+                    }
+                }
+
             }
         }
     }

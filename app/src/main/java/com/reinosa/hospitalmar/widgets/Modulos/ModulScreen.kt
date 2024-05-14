@@ -21,6 +21,7 @@ import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
+import com.reinosa.hospitalmar.widgets.Modulos.ModulItem
 
 @Composable
 fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
