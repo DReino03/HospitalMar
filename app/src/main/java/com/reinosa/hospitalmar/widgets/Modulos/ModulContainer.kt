@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.widgets.Competencias
+package com.reinosa.hospitalmar.widgets.Modulos
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -29,8 +29,7 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun CompetenciasContainer(navController: NavController, viewModel: LoginViewModel){
-
+fun ModulContainer(navController: NavController, viewModel: LoginViewModel){
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
         val scope = rememberCoroutineScope()
         Scaffold(
@@ -58,6 +57,6 @@ fun CompetenciasContainer(navController: NavController, viewModel: LoginViewMode
             },
             drawerBackgroundColor = Color.White // Cambiar por el color deseado
         ){
-            CompetenciasScreen(navController = navController, viewModel)
+            ModulScreen(navController = navController, viewModel = viewModel)
         }
 }

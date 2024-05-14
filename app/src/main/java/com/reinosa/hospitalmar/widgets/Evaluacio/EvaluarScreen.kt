@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.View.screens.GlobalScreens
+package com.reinosa.hospitalmar.widgets.Evaluacio
 
 import android.annotation.SuppressLint
 import android.util.Log
