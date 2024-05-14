@@ -146,7 +146,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                                             viewModel.getProfesor(identificador)
                                         }
                                         job.await() // Esperar a que se complete la función getProfesor
-                                        navController.navigate("teacher")
+                                        navController.navigate("home")
                                         Log.d("Usuarionv", viewModel.currentProfesor.value.toString())
                                     }
                                 }
@@ -157,7 +157,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                                             viewModel.getAlumno(identificador)
                                         }
                                         job.await()
-                                        navController.navigate("drawer")
+                                        navController.navigate("home")
                                         Log.d("Usuario66", viewModel.currentAlumno.value.toString())
                                     }
                                 }

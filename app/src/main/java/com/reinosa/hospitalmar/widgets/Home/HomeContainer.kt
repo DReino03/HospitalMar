@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.View.screens.TeacherScreens
+package com.reinosa.hospitalmar.widgets.Home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -19,21 +19,18 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import com.reinosa.hospitalmar.ui.theme.blueproject
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
-import com.reinosa.hospitalmar.widgets.Home.StudentHomeContent
-import com.reinosa.hospitalmar.widgets.Home.TeacherHomeContent
+import com.reinosa.hospitalmar.widgets.Global.Profile.ProfileContent
 import kotlinx.coroutines.launch
-
-//Profesor
-
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun TeacherDrawerAppScreen(navController: NavHostController, viewModel: LoginViewModel) {
+fun HomeContainer(navController: NavController, viewModel: LoginViewModel){
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
 
@@ -41,7 +38,7 @@ fun TeacherDrawerAppScreen(navController: NavHostController, viewModel: LoginVie
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.app_name)) },
+                title = { Text(text = stringResource(R.string.profile)) },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {
@@ -50,21 +47,18 @@ fun TeacherDrawerAppScreen(navController: NavHostController, viewModel: LoginVie
                     }) {
                         Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
-                }
+                },
+                backgroundColor = blueproject
             )
         },
         drawerContent = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 DrawerHeader(viewModel)
                 DrawerItems(navController = navController)
-
             }
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
-    ){
-        TeacherHomeContent(navController = navController, viewModel)
+    ) {
+        HomeContent(navController = navController, viewModel )
     }
 }
-
-
-

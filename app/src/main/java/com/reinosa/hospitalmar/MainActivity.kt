@@ -15,8 +15,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.reinosa.hospitalmar.View.screens.StudentScreens.StudentDrawerAppScreen
-import com.reinosa.hospitalmar.View.screens.TeacherScreens.TeacherDrawerAppScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.AboutScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.SettingsScreen
@@ -26,6 +24,9 @@ import com.reinosa.hospitalmar.widgets.Competencias.CompetenciasContainer
 import com.reinosa.hospitalmar.widgets.Evaluacio.EvalContainer
 import com.reinosa.hospitalmar.widgets.Global.Profile.SplashScreen
 import com.reinosa.hospitalmar.widgets.Evaluacio.EvaluarScreen
+import com.reinosa.hospitalmar.widgets.Home.HomeContainer
+import com.reinosa.hospitalmar.widgets.Home.HomeContent
+import com.reinosa.hospitalmar.widgets.Informe.InformeContainer
 import com.reinosa.hospitalmar.widgets.Informe.InformeScreen
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
 import com.reinosa.hospitalmar.widgets.Modulos.ModulContainer
@@ -88,9 +89,9 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationGraph.LOGIN) {
             LoginForm(navController, loginViewModel)
         }
-        // Pantalla principal como alumno
-        composable(NavigationGraph.DRAWER){
-            StudentDrawerAppScreen(navController, loginViewModel)
+        // Pantalla principal
+        composable(NavigationGraph.HOME){
+            HomeContainer(navController, loginViewModel)
         }
         // Pantalla de evaluacion para profesor
         composable(NavigationGraph.EVALUATE){
@@ -107,12 +108,9 @@ fun Navigation(navController: NavHostController) {
 
         // Pantalla de resultados o informes
         composable(NavigationGraph.INFORME) {
-            InformeScreen(navController, loginViewModel)
+            InformeContainer(navController, loginViewModel)
         }
-        // Pantalla principal como profesor
-        composable(NavigationGraph.TEACHER){
-            TeacherDrawerAppScreen(navController, loginViewModel)
-        }
+
         // Pantalla splashscreen
         composable(NavigationGraph.SPLASH){
             SplashScreen(navController)
@@ -133,13 +131,12 @@ object NavigationGraph {
     const val SETTINGS = "settings"
     const val ABOUT = "about"
     const val LOGIN = "login"
-    const val DRAWER = "drawer"
+    const val HOME = "home"
     const val EVALUATE = "evaluate"
     const val PROFILE = "profile"
     const val MODULO = "modulo"
     const val STUDENT = "student"
     const val INFORME = "informe"
-    const val TEACHER = "teacher"
     const val SPLASH = "splash"
     const val COMPETENCIAS = "competencias"
 

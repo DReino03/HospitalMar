@@ -1,29 +1,36 @@
-package com.reinosa.hospitalmar.View.screens.StudentScreens
-
+package com.reinosa.hospitalmar.widgets.Informe
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.DrawerValue
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.rememberDrawerState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavHostController
+import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
-import com.reinosa.hospitalmar.widgets.Home.StudentHomeContent
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun StudentDrawerAppScreen(navController: NavHostController, viewModel: LoginViewModel) {
+fun InformeContainer(navController: NavController, loginViewModel: LoginViewModel) {
+
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
 
@@ -31,7 +38,12 @@ fun StudentDrawerAppScreen(navController: NavHostController, viewModel: LoginVie
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.app_name)) },
+                title = {
+                    androidx.compose.material.Text(
+                        text = stringResource(R.string.Result),
+                        textAlign = TextAlign.Justify
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {
@@ -45,14 +57,14 @@ fun StudentDrawerAppScreen(navController: NavHostController, viewModel: LoginVie
         },
         drawerContent = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                DrawerHeader(viewModel)
+                DrawerHeader(loginViewModel)
                 DrawerItems(navController = navController)
 
             }
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
-    ){
-        StudentHomeContent(navController = navController, loginViewModel = LoginViewModel())
+    ) {
+        InformeScreen(navController, loginViewModel)
     }
-}
 
+}
