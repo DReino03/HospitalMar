@@ -143,6 +143,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                                 if (validarUsuario) {
                                     CoroutineScope(Dispatchers.Main).launch {
                                         val job = async(Dispatchers.IO) {
+                                            viewModel.isAlumno = false
                                             viewModel.getProfesor(identificador)
                                         }
                                         job.await() // Esperar a que se complete la función getProfesor

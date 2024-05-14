@@ -218,7 +218,9 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                         identificador = ""
                         password = ""
                         isChecked = false
-                        navController.navigate("login") {
+                        navController.navigate("login")
+                        viewModel.isAlumno = false
+                        {
 
                         }
                     },

@@ -47,7 +47,7 @@ object DrawerParams {
             R.string.exit_app,
             R.drawable.ic_exit,
             R.string.exit_app_description,
-            "Salir"
+            "login"
         ),
     )
 }
