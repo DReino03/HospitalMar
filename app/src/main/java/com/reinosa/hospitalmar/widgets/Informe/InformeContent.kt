@@ -15,7 +15,6 @@ import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
 fun InformeContent(navController: NavController, loginViewModel: LoginViewModel) {
-    val informeDataList = loginViewModel.informeDataList.value
 
     Column(
         modifier = Modifier

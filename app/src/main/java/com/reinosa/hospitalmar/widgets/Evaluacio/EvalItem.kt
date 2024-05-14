@@ -36,30 +36,17 @@ import com.reinosa.hospitalmar.Model.Informe.InformeData
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
-fun EvalItem(loginViewModel: LoginViewModel) {
+fun EvalItem(text: String, viewModel: LoginViewModel) {
     val ratings: MutableList<Pair<String, Int>> = mutableListOf()
-    val text = "stringResource(R.string.eval_text)"
     val comment = remember { mutableStateOf("") }
     val comments = remember { mutableStateListOf<String>() }
     val selectedCardIndex = remember { mutableStateOf(-1) }
-
-    // Crea una nueva instancia de InformeData
-    val informeData = InformeData(
-        modul = "Modul",
-        persona = loginViewModel.studentsSelected,
-        rating = ratings,
-        observaciones = comments
-    )
-
-    // Añade la nueva instancia de InformeData a la lista de InformeData en LoginViewModel
-    loginViewModel.updateInformeDataList(listOf(informeData))
-
 
     Column {
         LazyColumn {
             item {
                 Spacer(modifier = Modifier.padding(12.dp))
-                Text("Iniciativa", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(16.dp))
+                Text(viewModel.competenciaSelected!!.nombreCompetencia, style = MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(16.dp))
             }
 
             items(5) {index->

@@ -23,38 +23,25 @@ import androidx.navigation.NavController
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 
 @Composable
+
 fun StudentList(navController: NavController, viewModel: LoginViewModel) {
-    var loading by remember { mutableStateOf(true) } // Estado de carga inicial
 
-    LaunchedEffect(viewModel.alumnosPorIdProfesor) {
+//    viewModel.getAlumnosIdProfesor()
+    val alummnoList = viewModel.alumnosPorIdProfesor.value
 
-        // Observa cambios en alumnosPorIdProfesor y actualiza el estado de carga
-        loading = viewModel.alumnosPorIdProfesor.value == null
-    }
-
-    if (loading) {
-        // Muestra un CircularProgressIndicator mientras se carga
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
+    LazyColumn {
+        item {
+            Spacer(modifier = Modifier.padding(12.dp))
+            Text(
+                "Alumnos",
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(16.dp)
+            )
         }
-    } else {
-        // Mostrar la lista de alumnos cuando los datos están disponibles
-        val alumnosList = viewModel.alumnosPorIdProfesor.value ?: emptyList()
-
-        LazyColumn {
-            item {
-                Spacer(modifier = Modifier.padding(12.dp))
-                Text(
-                    "Alumnos",
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.padding(16.dp)
-                )
-            }
-            items(alumnosList) { alumno ->
-                StudentItem(text = alumno.nombre, navController = navController, viewModel = viewModel, alumno)
+        alummnoList?.let { list ->
+            items(list.size) { index ->
+                val alumno = list[index]
+                StudentItem(text = alumno.nombre, navController = navController, viewModel, alumno)
             }
         }
     }

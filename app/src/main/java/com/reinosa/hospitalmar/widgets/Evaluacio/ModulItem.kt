@@ -22,18 +22,31 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.reinosa.hospitalmar.Model.DataClass.Modulo
 import com.reinosa.hospitalmar.R
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
 @Composable
-fun ModulItem(text:String ,navController: NavController) {
+fun ModulItem(text:String ,navController: NavController, viewModel: LoginViewModel, modulo: Modulo) {
 Card(
         modifier = Modifier
             .background(Color.White)
             .padding(16.dp)
             .clickable {
+                viewModel.setSelectedModulo(modulo)
+                CoroutineScope(Dispatchers.Main).launch {
+                    val job = async(Dispatchers.IO) {
+                        viewModel.selectAllCompetencias()
+                    }
+                    job.await()
+                    navController.navigate("competencias")
+                }
                 //Passamos el nombre del modulo a la pantalla de evaluacion
-                navController.navigate("competencias")
                 Log.e("ModulItem", "click")
             }
     ) {

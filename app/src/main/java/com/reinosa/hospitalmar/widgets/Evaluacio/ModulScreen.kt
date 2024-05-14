@@ -19,14 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
 fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
 
     Log.d("current alumno", viewModel.alumnoSelected.toString())
 
-
-    viewModel.getModulos()
     val modulList = viewModel.modulList.value
 
     Log.d("Modulos", viewModel.modulList.value.toString())
@@ -35,15 +35,22 @@ fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
         item {
             Spacer(modifier = Modifier.padding(12.dp))
             Text(
-                "Módulos",
+                text = viewModel.alumnoSelected!!.especialidad,
                 style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+            )
+            Text(
+                "Módulos",
+                style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(16.dp)
             )
         }
         modulList?.let { list ->
             items(list.size) { index ->
                 val modul = list[index]
-                ModulItem(text = modul.nombreModulo, navController = navController)
+                ModulItem(text = modul.nombreModulo, navController = navController, viewModel, modul)
             }
         }
     }

@@ -2,6 +2,7 @@ package com.reinosa.hospitalmar.Model.ApiInterface
 
 import com.google.gson.GsonBuilder
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
+import com.reinosa.hospitalmar.Model.DataClass.Competencia
 import com.reinosa.hospitalmar.Model.DataClass.Modulo
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import okhttp3.Credentials
@@ -27,8 +28,13 @@ interface ApiInterface {
 
     @GET
     suspend fun getModulos (@Url url: String): Response<List<Modulo>>
+    @GET
+    suspend fun getAllCompetencias (@Url url: String): Response<List<Competencia>>
     @GET ("alumno/profesor/{idProfesor}/alumnos")
     suspend fun selectAlumnosPorProfesor (@Path("idProfesor") idProfesor: Int): Response<List<Alumno>>
+
+    @GET
+    suspend fun selectModuloPorCiclo(@Url url: String): Response<List<Modulo>>
 
     @POST("user/login/alumno")
     suspend fun loginAlumno(@Body alumno: Alumno): Response<ResponseBody>
@@ -37,7 +43,7 @@ interface ApiInterface {
 
 
     companion object{
-        val BASE_URL = "http://172.30.3.48:8080/"
+        val BASE_URL = "http://192.168.1.25:8080/"
         //url pc alex: 192.168.1.104
         //url pc jordi: 192.168.56.1
         //url pc clase alex: 172.23.6.123:8080

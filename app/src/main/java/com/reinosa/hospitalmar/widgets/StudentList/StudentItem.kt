@@ -30,6 +30,10 @@ import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 @Composable
 fun StudentItem(text:String ,navController: NavController, viewModel: LoginViewModel, alumno: Alumno) {
@@ -41,9 +45,13 @@ fun StudentItem(text:String ,navController: NavController, viewModel: LoginViewM
             //.border(2.dp, borderColor.value)
             .clickable {
                 viewModel.setSelectedAlumno(alumno)
-                //selecciona a los estudiantes para la coevaluación y los añade a la lista de estudiantes seleccionados ademas marca el Card con un color de fondo
-                Log.e("StudentItem", "click")
-                navController.navigate("modulo")
+                CoroutineScope(Dispatchers.Main).launch {
+                    val job = async(Dispatchers.IO) {
+                        viewModel.selectModuloPorCiclo(viewModel.alumnoSelected!!.etiqueta)
+                    }
+                    job.await() // Esperar a que se complete la función getProfesor
+                    navController.navigate("modulo")
+                }
             },
     ) {
         Spacer(modifier = Modifier.padding(8.dp))

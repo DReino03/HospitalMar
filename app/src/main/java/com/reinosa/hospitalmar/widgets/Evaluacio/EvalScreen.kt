@@ -1,4 +1,4 @@
-package com.reinosa.hospitalmar.View.screens
+package com.reinosa.hospitalmar.widgets.Evaluacio
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -32,6 +32,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun evalScreen(navController: NavController, viewmodel: LoginViewModel){
 
+    val competenciaList = viewmodel.competenciaList.value
+
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
 
@@ -60,7 +62,7 @@ fun evalScreen(navController: NavController, viewmodel: LoginViewModel){
         },
         drawerBackgroundColor = Color.White // Cambiar por el color deseado
     ){
-        ModulScreen(navController = navController, viewmodel)
+        EvalItem(text = "", viewmodel)
     }
 }
 

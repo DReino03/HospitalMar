@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
+import com.reinosa.hospitalmar.Model.DataClass.Competencia
 import com.reinosa.hospitalmar.Model.DataClass.Modulo
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import com.reinosa.hospitalmar.Model.Informe.InformeData
@@ -30,9 +31,12 @@ class LoginViewModel(): ViewModel() {
     val success = MutableLiveData<Boolean>()
     var studentsSelected = mutableStateOf(listOf<String>())
     val modulList = MutableLiveData<List<Modulo>?>()
+    val competenciaList = MutableLiveData<List<Competencia>>()
     val alumnosPorIdProfesor = MutableLiveData<List<Alumno>?>()
     var repository= MutableLiveData<Repository>()
     var alumnoSelected: Alumno? = null
+    var moduloSelected: Modulo? = null
+    var competenciaSelected: Competencia? = null
     var isAlumno: Boolean = false
 
 
@@ -88,19 +92,17 @@ class LoginViewModel(): ViewModel() {
     }
 
 
-    fun getModulos () {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = repository.value?.getModulos("/modulo")
+    suspend fun selectAllCompetencias () {
+            val response = repository.value?.selectAllCompetencias("/competencia")
             withContext(Dispatchers.Main) {
                 if (response?.isSuccessful == true){
-                    modulList.postValue(response.body())
+                    competenciaList.postValue(response.body())
                 }
                 else{
                     if (response != null) {
                         Log.e("Error:", response.message())
                     }
                 }
-            }
         }
     }
     fun getAlumnosIdProfesor() {
@@ -126,19 +128,33 @@ class LoginViewModel(): ViewModel() {
         }
     }
 
+    suspend fun selectModuloPorCiclo(etiqueta: String){
+            val response = repository.value?.selectModuloPorCiclo("/modulo/$etiqueta")
+            withContext(Dispatchers.Main) {
+                if (response?.isSuccessful == true){
+                    modulList.postValue(response.body())
+                }
+                else{
+                    if (response != null) {
+                        Log.e("Error:", response.message())
+                    }
+                }
+            }
+
+    }
+
     fun setSelectedAlumno (alumno: Alumno) {
         alumnoSelected = alumno
     }
 
-
-
-    // Agrega una nueva variable de estado mutable para almacenar los datos de InformeData
-    var informeDataList = MutableLiveData<List<InformeData>>()
-
-    // Agrega una función para actualizar los datos de InformeData
-    fun updateInformeDataList(data: List<InformeData>) {
-        informeDataList.value = data
+    fun setSelectedModulo (modulo: Modulo){
+        moduloSelected = modulo
     }
+    fun setSelectedCompetencia (competencia: Competencia){
+        competenciaSelected = competencia
+    }
+
+
 
 
 
