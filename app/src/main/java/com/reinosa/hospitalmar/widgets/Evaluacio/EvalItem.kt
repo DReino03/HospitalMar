@@ -1,5 +1,6 @@
 package com.reinosa.hospitalmar.widgets.Evaluacio
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,16 +19,13 @@ import androidx.compose.material.icons.filled.Comment
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,13 +34,14 @@ import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.DataClass.EvalCard
 import com.reinosa.hospitalmar.Model.Informe.InformeData
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import kotlinx.coroutines.launch
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>>) {
-    val selectedCardIndex = remember { mutableStateOf(-1) }
+    val selectedCardIndex =  remember{mutableStateOf(-1)}
     val comment = remember { mutableStateOf("") }
     val evalCard = EvalCard(text)
-
 
     Card(
         modifier = Modifier
@@ -66,7 +65,13 @@ fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.Black
                 )
-                IconButton(onClick = { selectedCardIndex.value = index }) {
+                IconButton(onClick = {
+                    if (selectedCardIndex.value == index) {
+                        selectedCardIndex.value = -1
+                    } else {
+                        selectedCardIndex.value = index
+                    }
+                }) {
                     Icon(Icons.Filled.Comment,
                         contentDescription = "Comment",
                         tint = Color.White,
@@ -91,8 +96,10 @@ fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>
                             modifier = Modifier.padding(16.dp),
                             style = LocalTextStyle.current.copy(color = Color.Gray))
                         Spacer(modifier = Modifier.weight(1f))
-                        IconButton(onClick = { if (commentIndex < comments[index].size){
-                            comments[index].removeAt(commentIndex) } }) {
+                        IconButton(
+                            onClick = { comments[commentIndex].removeAt(commentIndex)
+
+                                    } ) {
                             Icon(Icons.Filled.Delete, contentDescription = "Delete")
                         }
 
@@ -105,13 +112,17 @@ fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>
                             .navigationBarsPadding(),
                         value = comment.value,
                         onValueChange = { comment.value = it },
-                        label = { androidx.compose.material3.Text("Comment") },
+                        label = {
+                            Text("Comment")
+                                },
 
                         )
                     if (comment.value.isNotEmpty() && comment.value !in comments[index]) {
                         IconButton(onClick = {
                             comments[index].add(comment.value)
                             comment.value = ""
+
+
                         }) {
                             Icon(Icons.Filled.Send, contentDescription = "Send", tint = Color.White)
                         }
