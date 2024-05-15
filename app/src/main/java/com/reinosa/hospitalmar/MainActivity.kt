@@ -30,6 +30,7 @@ import com.reinosa.hospitalmar.widgets.Informe.InformeContainer
 import com.reinosa.hospitalmar.widgets.Informe.InformeScreen
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
 import com.reinosa.hospitalmar.widgets.Modulos.ModulContainer
+import com.reinosa.hospitalmar.widgets.StudentList.StudentContainer
 import com.reinosa.hospitalmar.widgets.StudentList.StudentList
 
 
@@ -117,7 +118,7 @@ fun Navigation(navController: NavHostController) {
         }
         //Lista alumnos
         composable(NavigationGraph.STUDENT){
-            StudentList(navController, loginViewModel)
+            StudentContainer(navController, loginViewModel)
         }
         //Competencias
         composable(NavigationGraph.COMPETENCIAS){

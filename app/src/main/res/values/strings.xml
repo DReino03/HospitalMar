@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HospitalMar</string>
+    <string name="app_name">Hospital Mar</string>
     <string name="drawer_home">Inici</string>
     <string name="drawer_home_description">Ir a la pantalla de inicio</string>
     <string name="drawer_settings">Configuració</string>

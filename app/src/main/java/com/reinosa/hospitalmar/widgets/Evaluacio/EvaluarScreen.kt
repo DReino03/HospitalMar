@@ -58,9 +58,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun EvaluarScreen(navController: NavController, viewModel: LoginViewModel) {
     val ratings: MutableList<Pair<String, Int>> = mutableListOf()
-    val comment = remember { mutableStateOf("") }
     val comments = remember { mutableStateListOf<MutableList<String>>() }
-    val selectedCardIndex = remember { mutableStateOf(-1) }
     val competenciaList = viewModel.competenciaList.value
 
 
@@ -73,86 +71,32 @@ fun EvaluarScreen(navController: NavController, viewModel: LoginViewModel) {
         LazyColumn {
             item {
                 Spacer(modifier = Modifier.padding(12.dp))
-                androidx.compose.material3.Text(viewModel.competenciaSelected!!.nombreCompetencia, style = androidx.compose.material3.MaterialTheme.typography.headlineMedium, modifier = Modifier.padding(16.dp))
+                Text(viewModel.competenciaSelected!!.nombreCompetencia,
+                    style = androidx.compose.material3.MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.padding(16.dp)
+                )
             }
 
-            items(5) {index->
-                val evalCard = EvalCard(viewModel.competenciaSelected!!.descripcion)
-                val selectedStar = remember { mutableIntStateOf(0) }
-                var newIndex = index
-                Card(
-                    modifier = Modifier
-                        .background(Color.White)
-                        .padding(16.dp)
-                        .clickable { selectedCardIndex.value = index },
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(8.dp)
-                    ) {
-                        Spacer(modifier = Modifier.padding(8.dp))
-                        Row() {
-                            androidx.compose.material3.Text(
-                                text = viewModel.competenciaSelected!!.descripcion,
-                                Modifier
-                                    .padding(16.dp),
-                                style = androidx.compose.material3.MaterialTheme.typography.bodyLarge,
-                                color = Color.White
-                            )
-                            Spacer(modifier = Modifier.weight(0.6f))
-                            IconButton(onClick = { selectedCardIndex.value = index }) {
-                                Icon(Icons.Filled.Comment, contentDescription = "Comment", tint = Color.White)
-                            }
-                        }
-                        Spacer(modifier = Modifier.padding(8.dp))
-                        Row {
-                            StarMenu(4, evalCard)
-                        }
-                        Spacer(modifier = Modifier.padding(8.dp))
-                        if (selectedCardIndex.value == index) {
-                            comments[index].forEachIndexed { commentIndex, commentText ->
-                                Row {
-                                    androidx.compose.material3.Text(commentText, modifier = Modifier.padding(16.dp), style = LocalTextStyle.current.copy(color = Color.Gray))
-                                    Spacer(modifier = Modifier.weight(1f))
-                                    IconButton(onClick = { comments[index].removeAt(commentIndex) }) {
-                                        Icon(Icons.Filled.Delete, contentDescription = "Delete")
-                                    }
-                                }
-                            }
-                            Row(Modifier.fillMaxWidth()) {
-                                TextField(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .navigationBarsPadding(),
-                                    value = comment.value,
-                                    onValueChange = { comment.value = it },
-                                    label = { androidx.compose.material3.Text("Comment") },
-
-                                    )
-                                if (comment.value.isNotEmpty() && comment.value !in comments[index]) {
-                                    IconButton(onClick = {
-                                        comments[index].add(comment.value)
-                                        comment.value = ""
-                                    }) {
-                                        Icon(Icons.Filled.Send, contentDescription = "Send", tint = Color.White)
-                                    }
-                                }
-                            }
-
-                        }
+            viewModel.competenciaSelected?.let { competencia ->
+                items(4) { index ->
+                    val pregunta = when (index) {
+                        0 -> competencia.pregunta1
+                        1 -> competencia.pregunta2
+                        2 -> competencia.pregunta3
+                        3 -> competencia.pregunta4
+                        else -> ""
                     }
-                }
-                val data = Pair(viewModel.competenciaSelected!!.descripcion, selectedStar.intValue)
-                ratings.add(index,data)
-            }
-            competenciaList?.let { list ->
-                items(list.size) { index ->
-                    val competencia = list[index]
-                    EvalItem(text = competencia.descripcion, index, comments)
+                    EvalItem(text = pregunta, index, comments)
                 }
             }
 
+            // Añade las calificaciones a la lista
+            viewModel.competenciaSelected?.descripcion?.let { descripcion ->
+                repeat(5) {
+                    val data = Pair(descripcion, 0)
+                    ratings.add(data)
+                }
+            }
         }
     }
-
 }

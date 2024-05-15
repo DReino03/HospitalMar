@@ -55,12 +55,12 @@ fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>
         ) {
             Spacer(modifier = Modifier.padding(8.dp))
             Row() {
-                androidx.compose.material3.Text(
+                Text(
                     text = text,
                     Modifier
                         .padding(16.dp),
-                    style = androidx.compose.material3.MaterialTheme.typography.bodyLarge,
-                    color = Color.White
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.Black
                 )
                 Spacer(modifier = Modifier.weight(0.6f))
                 IconButton(onClick = { selectedCardIndex.value = index }) {
