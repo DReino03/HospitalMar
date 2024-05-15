@@ -44,7 +44,7 @@ fun passwordField(
         Image(
             Icons.Default.Key,
             contentDescription = "",
-            colorFilter = ColorFilter.tint(blueproject)
+            colorFilter = ColorFilter.tint(blueproject.copy(alpha = 0.8f))
         )
     }
     val trailingIcon = @Composable {
@@ -52,7 +52,7 @@ fun passwordField(
             Image(
                 if (isPasswordVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
                 contentDescription = "",
-                colorFilter = ColorFilter.tint(blueproject)
+                colorFilter = ColorFilter.tint(blueproject.copy(alpha = 0.8f))
             )
         }
     }

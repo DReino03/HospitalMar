@@ -40,7 +40,7 @@ fun CompetenciasScreen(navController: NavController, viewModel: LoginViewModel) 
                 maxLines = 1
             )
             Text(
-                "Competència",
+                "Competències",
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(16.dp)
             )

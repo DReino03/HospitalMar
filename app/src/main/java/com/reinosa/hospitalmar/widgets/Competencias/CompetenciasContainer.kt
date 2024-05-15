@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import com.reinosa.hospitalmar.ui.theme.blueproject
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import kotlinx.coroutines.launch
@@ -52,7 +53,7 @@ fun CompetenciasContainer(navController: NavController, viewModel: LoginViewMode
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.app_name)) },
+                title = { Text(text = stringResource(R.string.Evaluar)) },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {
@@ -61,7 +62,8 @@ fun CompetenciasContainer(navController: NavController, viewModel: LoginViewMode
                     }) {
                         Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
-                }
+                },
+                backgroundColor = blueproject.copy(alpha = 0.8f)
             )
         },
         drawerContent = {

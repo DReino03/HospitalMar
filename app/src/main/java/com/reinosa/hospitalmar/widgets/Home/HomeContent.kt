@@ -51,7 +51,7 @@ fun HomeContent(navController: NavController, viewModel: LoginViewModel){
 
             //Cambia esto
             if (viewModel.isAlumno == false){
-                HomeButton(navigation = navController, text = "Evaluar", imageRoute =imagePainter[1] , destination ="student" )
+                HomeButton(navigation = navController, text = "Avaluar", imageRoute =imagePainter[1] , destination ="student" )
                 viewModel.getAlumnosIdProfesor()
             }
 

@@ -33,7 +33,7 @@ fun HomeButton(
             },
             modifier = Modifier
                 .size(90.dp)
-                .background(color = blueproject, shape = RoundedCornerShape(12.dp))
+                .background(color = blueproject.copy(alpha = 0.8f), shape = RoundedCornerShape(12.dp))
                 .padding(10.dp)
         ) {
             Icon(

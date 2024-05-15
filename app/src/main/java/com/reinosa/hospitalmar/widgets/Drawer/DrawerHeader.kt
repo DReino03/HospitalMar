@@ -31,7 +31,7 @@ fun DrawerHeader(viewModel: LoginViewModel) {
         modifier = Modifier
             .fillMaxWidth(1f)
             .height(180.dp)
-            .background(blueproject)
+            .background(blueproject.copy(alpha = 0.8f))
             .padding(16.dp)
         ,
         contentAlignment = Alignment.BottomStart,
@@ -39,13 +39,12 @@ fun DrawerHeader(viewModel: LoginViewModel) {
         ){
         Column {
             Image(
-                painter = painterResource(R.drawable.ic_launcher_foreground),
+                painter = painterResource(R.drawable.ic_person),
                 contentDescription = "avatar",
                 contentScale = ContentScale.Crop,            // crop the image if it's not a square
                 modifier = Modifier
                     .size(80.dp)
-                    .clip(CircleShape)                       // clip to the circle shape
-                    .border(2.dp, Color.Gray, CircleShape)   // add a border (optional)
+                      // add a border (optional)
             )
             Spacer(modifier = Modifier.height(8.dp))
             if (!viewModel.isAlumno){

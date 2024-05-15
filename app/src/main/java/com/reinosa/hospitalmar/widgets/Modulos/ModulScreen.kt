@@ -43,7 +43,7 @@ fun ModulScreen(navController: NavController, viewModel: LoginViewModel) {
                 maxLines = 1
             )
             Text(
-                "Módulos",
+                "Mòduls",
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(16.dp)
             )

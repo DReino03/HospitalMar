@@ -35,7 +35,7 @@ fun loginField(
         Image(
             Icons.Default.Person,
             contentDescription = "",
-            colorFilter = ColorFilter.tint(blueproject)
+            colorFilter = ColorFilter.tint(blueproject.copy(alpha = 0.8f))
         )
     }
 
