@@ -28,6 +28,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -54,19 +55,30 @@ fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>
                 .padding(8.dp)
         ) {
             Spacer(modifier = Modifier.padding(8.dp))
-            Row() {
+
+            Row {
                 Text(
                     text = text,
                     Modifier
-                        .padding(16.dp),
+                        .padding(16.dp)
+                        .weight(1f)
+                    ,
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.Black
                 )
-                Spacer(modifier = Modifier.weight(0.6f))
                 IconButton(onClick = { selectedCardIndex.value = index }) {
-                    Icon(Icons.Filled.Comment, contentDescription = "Comment", tint = Color.White)
+                    Icon(Icons.Filled.Comment,
+                        contentDescription = "Comment",
+                        tint = Color.White,
+                        modifier = Modifier
+                            .weight(0.2f) // Asigna un peso al icono
+                            .padding(16.dp)
+                            .align(Alignment.CenterVertically)
+                    )
                 }
             }
+
+
             Spacer(modifier = Modifier.padding(8.dp))
             Row {
                 StarMenu(4, evalCard)
@@ -75,11 +87,15 @@ fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>
             if (selectedCardIndex.value == index) {
                 comments[index].forEachIndexed { commentIndex, commentText ->
                     Row {
-                        androidx.compose.material3.Text(commentText, modifier = Modifier.padding(16.dp), style = LocalTextStyle.current.copy(color = Color.Gray))
+                        Text(commentText,
+                            modifier = Modifier.padding(16.dp),
+                            style = LocalTextStyle.current.copy(color = Color.Gray))
                         Spacer(modifier = Modifier.weight(1f))
-                        IconButton(onClick = { comments[index].removeAt(commentIndex) }) {
+                        IconButton(onClick = { if (commentIndex < comments[index].size){
+                            comments[index].removeAt(commentIndex) } }) {
                             Icon(Icons.Filled.Delete, contentDescription = "Delete")
                         }
+
                     }
                 }
                 Row(Modifier.fillMaxWidth()) {

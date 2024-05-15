@@ -50,6 +50,18 @@ fun EvalContainer(navController: NavController ,viewModel: LoginViewModel){
                     }) {
                         Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
+                },
+                actions = {
+                    val context = LocalContext.current
+                    IconButton(onClick = {
+                        //Aqui se guardará informe y pasara a informe screen
+                        Toast.makeText(context, "Informe guardado", Toast.LENGTH_SHORT).show()
+                        //Nav
+                        navController.navigate("informe")
+
+                    }) {
+                        Icon(Icons.Filled.Save, contentDescription = "Localized description")
+                    }
                 }
             )
         },

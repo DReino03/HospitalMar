@@ -46,7 +46,7 @@ interface ApiInterface {
     suspend fun updatePasswordAlumno(@Path("idAlumno") idAlumno: Int, @Path("contrasenya") contrasenya: String): Response<ResponseBody>
 
     companion object{
-        val BASE_URL = "http://192.168.1.105:8080/"
+        val BASE_URL = "http://192.168.1.106:8080/"
         //url pc alex: 192.168.1.104
         //url pc jordi: 192.168.56.1
         //url pc clase alex: 172.23.6.123:8080
