@@ -1,7 +1,7 @@
 package com.reinosa.hospitalmar.widgets.Global.Profile
 
+import ChangePasswordDialog
 import android.annotation.SuppressLint
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,11 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,21 +29,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.SharedPreferences.UserPreferences
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
-import com.reinosa.hospitalmar.ui.theme.gris
-import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -71,7 +62,7 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                     shape = RoundedCornerShape(0.dp, 0.dp, 40.dp, 40.dp)
                 )
                 .padding(20.dp)
-                .weight(0.60f)
+                .weight(0.80f)
                 .fillMaxWidth(),
             contentAlignment = Alignment.TopCenter
         ) {
@@ -114,8 +105,7 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                     ) {
                         Text(text = "Canviar contrasenya")
                     }
-                }
-                else{
+                } else {
                     // Nombre de usuario
                     Text(
                         text = viewModel.currentAlumno.value!!.nombre,
@@ -133,7 +123,7 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                     )
                     Button(
                         onClick = {
-                            //
+                            showDialog.value = true
                         },
                         colors = ButtonDefaults.buttonColors(Color.White),
                         modifier = Modifier.padding(8.dp),
@@ -175,8 +165,7 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                 Spacer(modifier = Modifier.weight(1f))
 
             }
-        }
-        else{
+        } else {
             // Sección inferior
             Spacer(modifier = Modifier.height(16.dp))
             Column(
@@ -210,41 +199,39 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
         }
 
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(
+                onClick = {
+                    UserPreferences.clearCredentials(context)
+                    identificador = ""
+                    password = ""
+                    isChecked = false
+                    navController.navigate("login")
+                    viewModel.isAlumno = false
+                    {
+
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(blueproject.copy(alpha = 0.8f)),
+                modifier = Modifier.padding(end = 8.dp, bottom = 100.dp),
+                shape = RoundedCornerShape(20.dp)
             ) {
-                Button(
-                    onClick = {
-                        UserPreferences.clearCredentials(context)
-                        identificador = ""
-                        password = ""
-                        isChecked = false
-                        navController.navigate("login")
-                        viewModel.isAlumno = false
-                        {
+                Text(
+                    text = "Tancar sessió",
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                    color = Color.White,
+                )
 
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors(blueproject.copy(alpha = 0.8f)),
-                    modifier = Modifier.padding(end = 8.dp, bottom = 100.dp),
-
-
-                    shape = RoundedCornerShape(20.dp)
-                ) {
-                    Text(
-                        text = "Tancar sessió",
-                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
-                        color = Color.White,
-                    )
-
-                }
-                ChangePasswordDialog(showDialog = showDialog) {
-                    showDialog.value = false
-                }
+            }
+            ChangePasswordDialog(showDialog = showDialog) {
+                showDialog.value = false
             }
         }
     }
 }
+
 
 

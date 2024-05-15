@@ -1,6 +1,5 @@
 package com.reinosa.hospitalmar.widgets.Login
 
-import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,7 +33,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
-import com.reinosa.hospitalmar.Model.Credentials.Credentials
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import com.reinosa.hospitalmar.R
@@ -49,6 +46,7 @@ import kotlinx.coroutines.withContext
 import androidx.compose.material.Surface
 import com.reinosa.hospitalmar.Model.SharedPreferences.UserPreferences
 import androidx.compose.runtime.*
+import androidx.compose.ui.unit.sp
 
 
 @Composable
@@ -97,7 +95,8 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                 submit = { /* if (!checkCredentials(credentials, context)) credentials = Credentials()*/},
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp)
+                    .padding(20.dp),
+                labelFontSize = 12.sp
             )
             Spacer(modifier = Modifier.height(10.dp))
             Row(
