@@ -52,7 +52,7 @@ fun ProfileScreen(navController: NavController, viewModel: LoginViewModel) {
                         Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
                 },
-                backgroundColor = blueproject
+                backgroundColor = blueproject.copy(alpha = 0.8f)
             )
         },
         drawerContent = {

@@ -11,15 +11,29 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
-
 import com.reinosa.hospitalmar.widgets.Login.passwordField
+import androidx.compose.runtime.*
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.reinosa.hospitalmar.Model.SharedPreferences.UserPreferences
+import kotlinx.coroutines.launch
 
 @Composable
-fun ChangePasswordDialog(showDialog: MutableState<Boolean>, viewModel: LoginViewModel, onConfirm: () -> Unit) {
+fun ChangePasswordDialog(
+    showDialog: MutableState<Boolean>,
+    viewModel: LoginViewModel,
+    navController : NavController,
+    onConfirm: () -> Unit
+) {
     var oldPassword by remember { mutableStateOf("") }
     var newPassword by remember { mutableStateOf("") }
     var repeatPassword by remember { mutableStateOf("") }
-    var canChange = false
+
+    val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
+
 
     if (showDialog.value) {
         AlertDialog(
@@ -67,20 +81,40 @@ fun ChangePasswordDialog(showDialog: MutableState<Boolean>, viewModel: LoginView
             confirmButton = {
                 Button(
                     onClick = {
-                        if (viewModel.getMd5DigestForPassword(oldPassword) == viewModel.currentAlumno.value!!.contrasenya){
-//                            canChange = true
+                        val alumno = viewModel.currentAlumno.value
+                        if (alumno != null && viewModel.getMd5DigestForPassword(oldPassword) == alumno.contrasenya) {
                             if (newPassword == repeatPassword) {
                                 viewModel.updatePasswordAlumno(newPassword)
+                                coroutineScope.launch {
+                                    Toast.makeText(
+                                        context,
+                                        "¡Contrasenya canviada correctament!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    showDialog.value = false
+                                    onConfirm()
+                                    UserPreferences.clearCredentials(context)
+                                    navController.navigate("login")
+                                }
+                            } else {
+                                coroutineScope.launch {
+                                    Toast.makeText(
+                                        context,
+                                        "Les contrasenyes noves no coincideixen",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
-                            else{
-                                Log.d("Contrasenyas no son iguales", "jeje")
+                        } else {
+                            coroutineScope.launch {
+                                Toast.makeText(
+                                    context,
+                                    "La contrasenya antiga no coincideix",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
-                        else{
-                            Log.d("Contrasenya antigua incorrecta", "jeje")
-                        }
-                        showDialog.value = false
-                        onConfirm()
+
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = blueproject.copy(alpha = 0.8f)),
                     shape = RoundedCornerShape(20.dp),
@@ -96,3 +130,4 @@ fun ChangePasswordDialog(showDialog: MutableState<Boolean>, viewModel: LoginView
             })
     }
 }
+

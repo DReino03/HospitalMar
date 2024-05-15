@@ -33,7 +33,7 @@ fun StudentList(navController: NavController, viewModel: LoginViewModel) {
         item {
             Spacer(modifier = Modifier.padding(12.dp))
             Text(
-                "Alumnos",
+                "Alumnes",
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(16.dp)
             )

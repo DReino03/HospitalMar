@@ -6,7 +6,7 @@
     <string name="drawer_settings_description">Configurar la aplicación</string>
     <string name="drawer_about">Informació</string>
     <string name="drawer_info_description">Información sobre la aplicación</string>
-    <string name="drawer_graphics">Avaluació</string>
+    <string name="drawer_graphics">Avaluar</string>
     <string name="drawer_graphics_description">Evaluación\n</string>
     <string name="drawer_profile">Perfil</string>
     <string name="drawer_profile_description">Pagina de la cuenta</string>
@@ -15,7 +15,7 @@
     <string name="profile">Perfil</string>
     <string name="Coevaluació">Coevaluació</string>
     <string name="Result">Informe</string>
-    <string name="Evaluar">Evaluar</string>
+    <string name="Evaluar">Avaluar</string>
 
 
 

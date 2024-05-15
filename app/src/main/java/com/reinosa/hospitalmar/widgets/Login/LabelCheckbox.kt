@@ -45,7 +45,5 @@ fun LabeledCheckbox(
             color = color
         )
 
-
-
     }
 }

@@ -35,6 +35,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.SharedPreferences.UserPreferences
 import com.reinosa.hospitalmar.R
@@ -83,7 +84,7 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                     // Nombre de usuario
                     Text(
                         text = viewModel.currentProfesor.value!!.nombre,
-                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold, fontSize = 25.sp),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(top = 20.dp)
                     )
@@ -109,7 +110,7 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                     // Nombre de usuario
                     Text(
                         text = viewModel.currentAlumno.value!!.nombre,
-                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold, fontSize = 25.sp),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(top = 20.dp)
                     )
@@ -145,21 +146,18 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                 Text(
                     text = "Dades personals:", // Cambio de texto
                     style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
-                    textAlign = TextAlign.Center,
                     modifier = Modifier.padding(vertical = 20.dp)
                 )
                 Text(
-                    text = "-",
+                    text = "Nom complet : ${viewModel.currentProfesor.value!!.nombre} ${viewModel.currentProfesor.value!!.apellidos}",
                     style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                     color = Color.Gray,
-                    textAlign = TextAlign.Center,
                     modifier = Modifier.padding(vertical = 4.dp)
                 )
                 Text(
                     text = "Correu: ${viewModel.currentProfesor.value!!.correo}",
                     style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                     color = Color.Gray,
-                    textAlign = TextAlign.Center,
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
                 Spacer(modifier = Modifier.weight(1f))
@@ -176,21 +174,24 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                 Text(
                     text = "Dades personals:", // Cambio de texto
                     style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
-                    textAlign = TextAlign.Center,
                     modifier = Modifier.padding(vertical = 20.dp)
+                )
+                Text(
+                    text = "Nom complet : ${viewModel.currentAlumno.value!!.nombre} ${viewModel.currentAlumno.value!!.apellidos}",
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                    color = Color.Gray,
+                    modifier = Modifier.padding(vertical = 4.dp)
                 )
                 Text(
                     text = "Cicle: ${viewModel.currentAlumno.value!!.especialidad}",
                     style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                     color = Color.Gray,
-                    textAlign = TextAlign.Center,
                     modifier = Modifier.padding(vertical = 4.dp)
                 )
                 Text(
                     text = "Correu: ${viewModel.currentAlumno.value!!.correo}",
                     style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
                     color = Color.Gray,
-                    textAlign = TextAlign.Center,
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
                 Spacer(modifier = Modifier.weight(1f))
@@ -211,9 +212,6 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                     isChecked = false
                     navController.navigate("login")
                     viewModel.isAlumno = false
-                    {
-
-                    }
                 },
                 colors = ButtonDefaults.buttonColors(blueproject.copy(alpha = 0.8f)),
                 modifier = Modifier.padding(end = 8.dp, bottom = 100.dp),
@@ -226,7 +224,7 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                 )
 
             }
-            ChangePasswordDialog(showDialog = showDialog, viewModel) {
+            ChangePasswordDialog(showDialog = showDialog, viewModel, navController) {
                 showDialog.value = false
             }
         }
