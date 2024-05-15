@@ -24,6 +24,7 @@ import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -54,6 +55,7 @@ fun ProfileContent(navController: NavController) {
     var identificador by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isChecked by remember { mutableStateOf(false) }
+    val showDialog = remember { mutableStateOf(false) }
     val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -101,7 +103,7 @@ fun ProfileContent(navController: NavController) {
                 )
                 Button(
                     onClick = {
-                        //
+                        showDialog.value = true
                     },
                     colors = ButtonDefaults.buttonColors(Color.White),
                     modifier = Modifier.padding(8.dp),
@@ -166,11 +168,15 @@ fun ProfileContent(navController: NavController) {
                         color = Color.White,
                     )
 
-
+                }
+                ChangePasswordDialog(showDialog = showDialog) {
+                    showDialog.value = false
                 }
             }
         }
     }
 }
+
+
 
 
