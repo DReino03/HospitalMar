@@ -52,8 +52,7 @@ fun EvalContainer(navController: NavController ,viewModel: LoginViewModel){
                         Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
                 },
-                backgroundColor = blueproject.copy(alpha = 0.8f)
-                },
+                backgroundColor = blueproject.copy(alpha = 0.8f),
                 actions = {
                     val context = LocalContext.current
                     IconButton(onClick = {
@@ -65,9 +64,9 @@ fun EvalContainer(navController: NavController ,viewModel: LoginViewModel){
                     }) {
                         Icon(Icons.Filled.Save, contentDescription = "Localized description")
                     }
-                }
-            )
-        },
+                },
+            )},
+
         drawerContent = {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 DrawerHeader(viewModel)
