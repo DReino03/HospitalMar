@@ -43,6 +43,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.DataClass.EvalCard
@@ -59,8 +60,6 @@ import kotlinx.coroutines.launch
 fun EvaluarScreen(navController: NavController, viewModel: LoginViewModel) {
     val ratings: MutableList<Pair<String, Int>> = mutableListOf()
     val comments = remember { mutableStateListOf<MutableList<String>>() }
-    val competenciaList = viewModel.competenciaList.value
-
 
     repeat(5) {
         comments.add(mutableListOf())
@@ -74,6 +73,11 @@ fun EvaluarScreen(navController: NavController, viewModel: LoginViewModel) {
                 Text(viewModel.competenciaSelected!!.nombreCompetencia,
                     style = androidx.compose.material3.MaterialTheme.typography.headlineMedium,
                     modifier = Modifier.padding(16.dp)
+                )
+                androidx.compose.material3.Text(
+                    text = viewModel.competenciaSelected!!.descripcion,
+                    style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                 )
             }
 

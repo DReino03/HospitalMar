@@ -81,40 +81,79 @@ fun ChangePasswordDialog(
             confirmButton = {
                 Button(
                     onClick = {
-                        val alumno = viewModel.currentAlumno.value
-                        if (alumno != null && viewModel.getMd5DigestForPassword(oldPassword) == alumno.contrasenya) {
-                            if (newPassword == repeatPassword) {
-                                viewModel.updatePasswordAlumno(newPassword)
-                                coroutineScope.launch {
-                                    Toast.makeText(
-                                        context,
-                                        "¡Contrasenya canviada correctament!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    showDialog.value = false
-                                    onConfirm()
-                                    UserPreferences.clearCredentials(context)
-                                    navController.navigate("login")
+                        if (viewModel.isAlumno){
+                            if (viewModel.getMd5DigestForPassword(oldPassword) == viewModel.currentAlumno.value!!.contrasenya){
+                                if (newPassword == repeatPassword) {
+                                    viewModel.updatePasswordAlumno(newPassword)
+                                    coroutineScope.launch {
+                                        Toast.makeText(
+                                            context,
+                                            "¡Contrasenya canviada correctament!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        showDialog.value = false
+                                        onConfirm()
+                                        UserPreferences.clearCredentials(context)
+                                        navController.navigate("login")
+                                    }
                                 }
-                            } else {
-                                coroutineScope.launch {
-                                    Toast.makeText(
-                                        context,
-                                        "Les contrasenyes noves no coincideixen",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                else{
+                                    coroutineScope.launch {
+                                        Toast.makeText(
+                                            context,
+                                            "Les contrasenyes noves no coincideixen",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                                 }
                             }
-                        } else {
-                            coroutineScope.launch {
-                                Toast.makeText(
-                                    context,
-                                    "La contrasenya antiga no coincideix",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                            else{
+                                coroutineScope.launch {
+                                    Toast.makeText(
+                                        context,
+                                        "La contrasenya antiga no coincideix",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
                         }
-
+                        else{
+                            if (viewModel.getMd5DigestForPassword(oldPassword) == viewModel.currentProfesor.value!!.contrasenya){
+//                            canChange = true
+                                if (newPassword == repeatPassword) {
+                                    viewModel.updatePasswordProfesor(newPassword)
+                                    coroutineScope.launch {
+                                        Toast.makeText(
+                                            context,
+                                            "¡Contrasenya canviada correctament!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        showDialog.value = false
+                                        onConfirm()
+                                        UserPreferences.clearCredentials(context)
+                                        navController.navigate("login")
+                                    }
+                                }
+                                else{
+                                    coroutineScope.launch {
+                                        Toast.makeText(
+                                            context,
+                                            "Les contrasenyes noves no coincideixen",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                            }
+                            else{
+                                coroutineScope.launch {
+                                    Toast.makeText(
+                                        context,
+                                        "La contrasenya antiga no coincideix",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        }
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = blueproject.copy(alpha = 0.8f)),
                     shape = RoundedCornerShape(20.dp),
@@ -130,4 +169,3 @@ fun ChangePasswordDialog(
             })
     }
 }
-

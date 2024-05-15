@@ -155,6 +155,17 @@ class LoginViewModel(): ViewModel() {
             }
         }
     }
+    fun updatePasswordProfesor (contrasenya: String){
+        val idProfesor = currentProfesor.value!!.idPorfesor
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Llama a la función de la interfaz Retrofit para actualizar el idUsuario
+                repository.value?.updatePasswordProfesor(idProfesor, contrasenya)
+            } catch (e: Exception) {
+                Log.d("TRY CATCH FUNCION", "${e.message}")
+            }
+        }
+    }
 
     fun setSelectedAlumno (alumno: Alumno) {
         alumnoSelected = alumno
