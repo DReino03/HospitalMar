@@ -14,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Url
 
@@ -30,6 +31,7 @@ interface ApiInterface {
     suspend fun getModulos (@Url url: String): Response<List<Modulo>>
     @GET
     suspend fun getAllCompetencias (@Url url: String): Response<List<Competencia>>
+
     @GET ("alumno/profesor/{idProfesor}/alumnos")
     suspend fun selectAlumnosPorProfesor (@Path("idProfesor") idProfesor: Int): Response<List<Alumno>>
 
@@ -40,10 +42,11 @@ interface ApiInterface {
     suspend fun loginAlumno(@Body alumno: Alumno): Response<ResponseBody>
     @POST("user/login/profesor")
     suspend fun loginProfesor(@Body profesor: Profesor): Response<ResponseBody>
-
+    @PUT ("/alumno/update/contrasenya/{idAlumno}/{contrasenya}")
+    suspend fun updatePasswordAlumno(@Path("idAlumno") idAlumno: Int, @Path("contrasenya") contrasenya: String): Response<ResponseBody>
 
     companion object{
-        val BASE_URL = "http://192.168.56.1:8080/"
+        val BASE_URL = "http://192.168.1.25:8080/"
         //url pc alex: 192.168.1.104
         //url pc jordi: 192.168.56.1
         //url pc clase alex: 172.23.6.123:8080

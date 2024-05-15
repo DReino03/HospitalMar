@@ -226,7 +226,7 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
                 )
 
             }
-            ChangePasswordDialog(showDialog = showDialog) {
+            ChangePasswordDialog(showDialog = showDialog, viewModel) {
                 showDialog.value = false
             }
         }

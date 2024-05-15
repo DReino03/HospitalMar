@@ -1,3 +1,4 @@
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -8,18 +9,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 
 import com.reinosa.hospitalmar.widgets.Login.passwordField
 
 @Composable
-fun ChangePasswordDialog(
-    showDialog: MutableState<Boolean>,
-    onConfirm: () -> Unit,
-) {
+fun ChangePasswordDialog(showDialog: MutableState<Boolean>, viewModel: LoginViewModel, onConfirm: () -> Unit) {
     var oldPassword by remember { mutableStateOf("") }
     var newPassword by remember { mutableStateOf("") }
     var repeatPassword by remember { mutableStateOf("") }
+    var canChange = false
 
     if (showDialog.value) {
         AlertDialog(
@@ -40,7 +40,7 @@ fun ChangePasswordDialog(
                     passwordField(
                         value = oldPassword,
                         onChange = { oldPassword = it },
-                        submit = { /* Función contraseña antigua */ },
+                        submit = { },
                         label = "Contrasenya antiga",
                         labelFontSize = 12.sp // Tamaño de fuente más pequeño
                     )
@@ -67,6 +67,18 @@ fun ChangePasswordDialog(
             confirmButton = {
                 Button(
                     onClick = {
+                        if (viewModel.getMd5DigestForPassword(oldPassword) == viewModel.currentAlumno.value!!.contrasenya){
+//                            canChange = true
+                            if (newPassword == repeatPassword) {
+                                viewModel.updatePasswordAlumno(newPassword)
+                            }
+                            else{
+                                Log.d("Contrasenyas no son iguales", "jeje")
+                            }
+                        }
+                        else{
+                            Log.d("Contrasenya antigua incorrecta", "jeje")
+                        }
                         showDialog.value = false
                         onConfirm()
                     },

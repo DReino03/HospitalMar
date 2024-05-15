@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.Model.DataClass.Competencia
@@ -141,6 +142,18 @@ class LoginViewModel(): ViewModel() {
                 }
             }
 
+    }
+
+    fun updatePasswordAlumno (contrasenya: String){
+        val idAlumno = currentAlumno.value!!.idAlumno
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Llama a la función de la interfaz Retrofit para actualizar el idUsuario
+                repository.value?.updatePasswordAlumno(idAlumno, contrasenya)
+            } catch (e: Exception) {
+                Log.d("TRY CATCH FUNCION", "${e.message}")
+            }
+        }
     }
 
     fun setSelectedAlumno (alumno: Alumno) {
