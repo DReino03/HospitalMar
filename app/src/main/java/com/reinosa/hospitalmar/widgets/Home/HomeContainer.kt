@@ -38,7 +38,7 @@ fun HomeContainer(navController: NavController, viewModel: LoginViewModel){
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.profile)) },
+                title = { Text(text = stringResource(R.string.drawer_home)) },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {
