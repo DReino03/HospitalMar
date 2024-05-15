@@ -67,17 +67,33 @@ fun ChangePasswordDialog(showDialog: MutableState<Boolean>, viewModel: LoginView
             confirmButton = {
                 Button(
                     onClick = {
-                        if (viewModel.getMd5DigestForPassword(oldPassword) == viewModel.currentAlumno.value!!.contrasenya){
+                        if (viewModel.isAlumno){
+                            if (viewModel.getMd5DigestForPassword(oldPassword) == viewModel.currentAlumno.value!!.contrasenya){
 //                            canChange = true
-                            if (newPassword == repeatPassword) {
-                                viewModel.updatePasswordAlumno(newPassword)
+                                if (newPassword == repeatPassword) {
+                                    viewModel.updatePasswordAlumno(newPassword)
+                                }
+                                else{
+                                    Log.d("Contrasenyas no son iguales", "jeje")
+                                }
                             }
                             else{
-                                Log.d("Contrasenyas no son iguales", "jeje")
+                                Log.d("Contrasenya antigua incorrecta", "jeje")
                             }
                         }
                         else{
-                            Log.d("Contrasenya antigua incorrecta", "jeje")
+                            if (viewModel.getMd5DigestForPassword(oldPassword) == viewModel.currentProfesor.value!!.contrasenya){
+//                            canChange = true
+                                if (newPassword == repeatPassword) {
+                                    viewModel.updatePasswordProfesor(newPassword)
+                                }
+                                else{
+                                    Log.d("Contrasenyas no son iguales", "jeje")
+                                }
+                            }
+                            else{
+                                Log.d("Contrasenya antigua incorrecta", "jeje")
+                            }
                         }
                         showDialog.value = false
                         onConfirm()
