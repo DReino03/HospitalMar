@@ -2,6 +2,7 @@ package com.reinosa.hospitalmar.widgets.Global.Profile
 
 import ChangePasswordDialog
 import android.annotation.SuppressLint
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -206,11 +207,14 @@ fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
         ) {
             Button(
                 onClick = {
+                    navController.navigate("login") {
+                        // Limpiar la pila de retroceso hasta el inicio del gráfico de navegación
+                        popUpTo(navController.graph.startDestinationId)
+                    }
                     UserPreferences.clearCredentials(context)
                     identificador = ""
                     password = ""
                     isChecked = false
-                    navController.navigate("login")
                     viewModel.isAlumno = false
                 },
                 colors = ButtonDefaults.buttonColors(blueproject.copy(alpha = 0.8f)),

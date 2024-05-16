@@ -128,10 +128,10 @@ fun ChangePasswordDialog(
                                             "¡Contrasenya canviada correctament!",
                                             Toast.LENGTH_SHORT
                                         ).show()
+                                        navController.navigate("login")
                                         showDialog.value = false
                                         onConfirm()
                                         UserPreferences.clearCredentials(context)
-                                        navController.navigate("login")
                                     }
                                 }
                                 else{
