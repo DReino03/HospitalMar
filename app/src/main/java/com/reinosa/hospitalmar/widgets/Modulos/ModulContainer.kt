@@ -21,17 +21,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
-import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import com.reinosa.hospitalmar.ViewModel.ViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import com.reinosa.hospitalmar.widgets.Evaluacio.ModulScreen
-import com.reinosa.hospitalmar.widgets.StudentList.StudentList
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ModulContainer(navController: NavController, viewModel: LoginViewModel){
+fun ModulContainer(navController: NavController, viewModel: ViewModel){
         val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
         val scope = rememberCoroutineScope()
         Scaffold(

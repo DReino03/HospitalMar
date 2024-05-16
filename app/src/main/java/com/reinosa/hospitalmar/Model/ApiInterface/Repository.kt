@@ -1,6 +1,8 @@
 package com.reinosa.hospitalmar.Model.ApiInterface
 
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
+import com.reinosa.hospitalmar.Model.DataClass.Informe
+import com.reinosa.hospitalmar.Model.DataClass.Nota
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import retrofit2.http.Url
 
@@ -18,4 +20,7 @@ class Repository(correo: String, contrasenya: String) {
     suspend fun selectAllCompetencias(url: String) = apiInterface.getAllCompetencias(url)
     suspend fun updatePasswordAlumno(idAlumno: Int, contrasenya: String) = apiInterface.updatePasswordAlumno(idAlumno, contrasenya)
     suspend fun updatePasswordProfesor(idProfesor: Int, contrasenya: String) = apiInterface.updatePasswordProfesor(idProfesor, contrasenya)
+    suspend fun insertInforme(informe: Informe) = apiInterface.insertInforme(informe)
+    suspend fun insertInformeNota(nota: Nota) = apiInterface.insertInformeNota(nota)
+    suspend fun selectLastIdInforme() = apiInterface.selectLastIdInforme()
 }

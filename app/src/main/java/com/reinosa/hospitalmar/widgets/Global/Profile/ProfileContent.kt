@@ -39,13 +39,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.SharedPreferences.UserPreferences
 import com.reinosa.hospitalmar.R
-import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import com.reinosa.hospitalmar.ViewModel.ViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ProfileContent(navController: NavController, viewModel: LoginViewModel) {
+fun ProfileContent(navController: NavController, viewModel: ViewModel) {
     var identificador by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isChecked by remember { mutableStateOf(false) }

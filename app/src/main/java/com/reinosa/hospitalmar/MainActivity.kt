@@ -18,20 +18,16 @@ import androidx.navigation.compose.rememberNavController
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.AboutScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.ProfileScreen
 import com.reinosa.hospitalmar.View.screens.GlobalScreens.SettingsScreen
-import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import com.reinosa.hospitalmar.ViewModel.ViewModel
 import com.reinosa.hospitalmar.ui.theme.HospitalMarTheme
 import com.reinosa.hospitalmar.widgets.Competencias.CompetenciasContainer
 import com.reinosa.hospitalmar.widgets.Evaluacio.EvalContainer
 import com.reinosa.hospitalmar.widgets.Global.Profile.SplashScreen
-import com.reinosa.hospitalmar.widgets.Evaluacio.EvaluarScreen
 import com.reinosa.hospitalmar.widgets.Home.HomeContainer
-import com.reinosa.hospitalmar.widgets.Home.HomeContent
 import com.reinosa.hospitalmar.widgets.Informe.InformeContainer
-import com.reinosa.hospitalmar.widgets.Informe.InformeScreen
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
 import com.reinosa.hospitalmar.widgets.Modulos.ModulContainer
 import com.reinosa.hospitalmar.widgets.StudentList.StudentContainer
-import com.reinosa.hospitalmar.widgets.StudentList.StudentList
 
 
 class MainActivity : ComponentActivity() {
@@ -72,7 +68,7 @@ fun GreetingPreview() {
 
 @Composable
 fun Navigation(navController: NavHostController) {
-    val loginViewModel : LoginViewModel = remember { LoginViewModel() }
+    val loginViewModel : ViewModel = remember { ViewModel() }
 //    val coevalViewModel : LoginViewModel = remember { LoginViewModel() }
     NavHost(
         navController = navController,
