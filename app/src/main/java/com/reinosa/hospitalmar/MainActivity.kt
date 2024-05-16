@@ -76,7 +76,7 @@ fun Navigation(navController: NavHostController) {
 //    val coevalViewModel : LoginViewModel = remember { LoginViewModel() }
     NavHost(
         navController = navController,
-        startDestination = NavigationGraph.LOGIN
+        startDestination = NavigationGraph.SPLASH
     ) {
         // Pantalla de settings
         composable(NavigationGraph.SETTINGS) {

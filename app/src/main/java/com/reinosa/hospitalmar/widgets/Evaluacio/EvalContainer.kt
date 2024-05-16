@@ -42,7 +42,7 @@ fun EvalContainer(navController: NavController ,viewModel: LoginViewModel){
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { androidx.compose.material3.Text(text = stringResource(R.string.Evaluar)) },
+                title = { Text(text = stringResource(R.string.Evaluar)) },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {

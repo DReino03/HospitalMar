@@ -53,7 +53,7 @@ fun CompetenciasContainer(navController: NavController, viewModel: LoginViewMode
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.Evaluar)) },
+                title = { androidx.compose.material.Text(text = stringResource(R.string.Evaluar)) },
                 navigationIcon = {
                     IconButton(onClick = {
                         scope.launch {
