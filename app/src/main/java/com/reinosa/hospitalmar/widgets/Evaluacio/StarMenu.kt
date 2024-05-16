@@ -21,12 +21,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.reinosa.hospitalmar.Model.DataClass.EvalCard
+import com.reinosa.hospitalmar.ViewModel.ViewModel
 
 class Star(val id: Int, var selected: Boolean)
 
 @Composable
-fun StarMenu(stars: Int, evalCard: EvalCard) {
+fun StarMenu(stars: Int, evalCard: EvalCard, viewModel: ViewModel) {
     var selectedStar by remember { mutableStateOf(0) }
 
     Row(
@@ -36,8 +38,12 @@ fun StarMenu(stars: Int, evalCard: EvalCard) {
             IconButton(
                 onClick = {
                     selectedStar = i
+                    viewModel.listNotas.add(selectedStar)
                     evalCard.starRating = i
                     evalCard.rating = "Rating for ${evalCard.text}: $i"
+
+                    viewModel.notaFinal += i
+
                 }
             ) {
                 Icon(
@@ -47,6 +53,7 @@ fun StarMenu(stars: Int, evalCard: EvalCard) {
                     tint = if (i <= selectedStar) Color.Yellow else Color.Black
                 )
             }
+
         }
     }
 }

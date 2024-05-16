@@ -3,7 +3,9 @@ package com.reinosa.hospitalmar.Model.ApiInterface
 import com.google.gson.GsonBuilder
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.Model.DataClass.Competencia
+import com.reinosa.hospitalmar.Model.DataClass.Informe
 import com.reinosa.hospitalmar.Model.DataClass.Modulo
+import com.reinosa.hospitalmar.Model.DataClass.Nota
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import okhttp3.Credentials
 import okhttp3.OkHttpClient
@@ -37,6 +39,8 @@ interface ApiInterface {
 
     @GET
     suspend fun selectModuloPorCiclo(@Url url: String): Response<List<Modulo>>
+    @GET ("informe/ultimoIdInforme")
+    suspend fun selectLastIdInforme(): Response<Int>
 
     @POST("user/login/alumno")
     suspend fun loginAlumno(@Body alumno: Alumno): Response<ResponseBody>
@@ -46,9 +50,13 @@ interface ApiInterface {
     suspend fun updatePasswordAlumno(@Path("idAlumno") idAlumno: Int, @Path("contrasenya") contrasenya: String): Response<ResponseBody>
     @PUT ("/profesor/update/contrasenya/{idProfesor}/{contrasenya}")
     suspend fun updatePasswordProfesor(@Path("idProfesor") idAlumno: Int, @Path("contrasenya") contrasenya: String): Response<ResponseBody>
+    @POST ("/informe/insertar")
+    suspend fun insertInforme(@Body informe: Informe): Response<ResponseBody>
+    @POST ("/informe/insertar/nota")
+    suspend fun insertInformeNota(@Body nota: Nota): Response<ResponseBody>
 
     companion object{
-        val BASE_URL = "http://192.168.1.107:8080/"
+        val BASE_URL = "http://192.168.1.106:8080/"
         //url pc alex: 192.168.1.104
         //url pc jordi: 192.168.56.1
         //url pc clase alex: 172.23.6.123:8080

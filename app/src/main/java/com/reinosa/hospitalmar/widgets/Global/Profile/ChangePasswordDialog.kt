@@ -1,4 +1,3 @@
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -9,21 +8,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import com.reinosa.hospitalmar.ViewModel.ViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 import com.reinosa.hospitalmar.widgets.Login.passwordField
-import androidx.compose.runtime.*
 import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.reinosa.hospitalmar.Model.SharedPreferences.UserPreferences
 import kotlinx.coroutines.launch
 
 @Composable
 fun ChangePasswordDialog(
     showDialog: MutableState<Boolean>,
-    viewModel: LoginViewModel,
+    viewModel: ViewModel,
     navController : NavController,
     onConfirm: () -> Unit
 ) {

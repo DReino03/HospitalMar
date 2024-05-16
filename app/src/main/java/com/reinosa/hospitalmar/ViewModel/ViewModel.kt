@@ -2,10 +2,8 @@ package com.reinosa.hospitalmar.ViewModel
 
 import android.os.Looper
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,19 +11,17 @@ import androidx.lifecycle.viewModelScope
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.Model.DataClass.Competencia
+import com.reinosa.hospitalmar.Model.DataClass.Informe
 import com.reinosa.hospitalmar.Model.DataClass.Modulo
+import com.reinosa.hospitalmar.Model.DataClass.Nota
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
-import com.reinosa.hospitalmar.Model.Informe.InformeData
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.security.MessageDigest
 
-class LoginViewModel(): ViewModel() {
+class ViewModel(): ViewModel() {
     var isChecked by mutableStateOf(false)
     var currentAlumno = MutableLiveData<Alumno>()
     var currentProfesor= MutableLiveData<Profesor>()
@@ -39,6 +35,11 @@ class LoginViewModel(): ViewModel() {
     var moduloSelected: Modulo? = null
     var competenciaSelected: Competencia? = null
     var isAlumno: Boolean = false
+    var comeFromInforme: Boolean = false
+    var notaFinal = 0
+     var listNotas = mutableListOf<Int>()
+    lateinit var listComentarios: MutableList<MutableList<String>>
+    var ultimoIdInforme = MutableLiveData<Int>()
 
 
     fun getMd5DigestForPassword(password: String): String {
@@ -164,6 +165,31 @@ class LoginViewModel(): ViewModel() {
             } catch (e: Exception) {
                 Log.d("TRY CATCH FUNCION", "${e.message}")
             }
+        }
+    }
+
+    suspend fun getUltimoIdInforme() {
+            val response = repository.value?.selectLastIdInforme()
+            if (response != null) {
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        ultimoIdInforme.postValue(response.body())
+                    } else {
+                        Log.e("Error:", response.message())
+                    }
+                }
+            }
+    }
+
+    suspend fun postInforme(informe: Informe){
+        withContext(Dispatchers.IO) {
+            repository.value?.insertInforme(informe)
+        }
+    }
+
+    fun postInformeNota(nota: Nota){
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.value?.insertInformeNota(nota)
         }
     }
 

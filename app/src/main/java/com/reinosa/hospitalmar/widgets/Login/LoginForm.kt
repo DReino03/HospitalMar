@@ -36,7 +36,7 @@ import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import com.reinosa.hospitalmar.R
-import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import com.reinosa.hospitalmar.ViewModel.ViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +50,7 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
+fun LoginForm(navController: NavController, viewModel: ViewModel) {
     var identificador by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isChecked by remember { mutableStateOf(false) }
@@ -155,6 +155,7 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                                         val job = async(Dispatchers.IO){
                                             viewModel.isAlumno = true
                                             viewModel.getAlumno(identificador)
+                                            viewModel.alumnoSelected = viewModel.currentAlumno.value
                                         }
                                         job.await()
                                         navController.navigate("home")

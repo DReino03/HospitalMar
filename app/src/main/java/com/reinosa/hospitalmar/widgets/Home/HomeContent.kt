@@ -1,6 +1,7 @@
 package com.reinosa.hospitalmar.widgets.Home
 
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,19 +26,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
-import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import com.reinosa.hospitalmar.ViewModel.ViewModel
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun HomeContent(navController: NavController, viewModel: LoginViewModel){
+fun HomeContent(navController: NavController, viewModel: ViewModel) {
 
 
     Log.d("PROFESOR PANTALLA INCIO", viewModel.currentProfesor.value.toString())
     Log.d("alumno PANTALLA INCIO", viewModel.currentAlumno.value.toString())
 
-    val imagePainter = listOf<Int>(R.drawable.ic_evaluacio,R.drawable.ic_autoavaluacio,R.drawable.ic_person,R.drawable.ic_informes )
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(color = Color.White)
+    val imagePainter = listOf<Int>(
+        R.drawable.ic_evaluacio,
+        R.drawable.ic_autoavaluacio,
+        R.drawable.ic_person,
+        R.drawable.ic_informes
+    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.White)
     ) {
         Spacer(modifier = Modifier.padding(20.dp))
         Row(
@@ -46,7 +54,11 @@ fun HomeContent(navController: NavController, viewModel: LoginViewModel){
                 .align(Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(painter = painterResource(R.drawable.ic_hospital), contentDescription = "logo", modifier = Modifier.padding(20.dp))
+            Image(
+                painter = painterResource(R.drawable.ic_hospital),
+                contentDescription = "logo",
+                modifier = Modifier.padding(20.dp)
+            )
         }
         Spacer(modifier = Modifier.padding(50.dp))
         Row(
@@ -80,8 +92,12 @@ fun HomeContent(navController: NavController, viewModel: LoginViewModel){
             verticalAlignment = Alignment.CenterVertically
         ) {
             HomeButton(navController, "Perfil", imagePainter[2], "profile")
-            Spacer(modifier = Modifier.padding(40.dp) )
-            HomeButton(navController, "Informes" ,imagePainter[3], "informe")
+            Spacer(modifier = Modifier.padding(40.dp))
+            if (viewModel.isAlumno) {
+                HomeButton(navController, "Informes", imagePainter[3], "informe")
+            } else {
+                HomeButton(navController, "Informes", imagePainter[3], "student")
+            }
         }
     }
 }
