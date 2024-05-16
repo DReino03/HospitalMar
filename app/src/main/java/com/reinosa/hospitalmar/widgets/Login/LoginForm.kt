@@ -111,8 +111,6 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                     isChecked = isChecked
                 )
             }
-            Spacer(modifier = Modifier.height(20.dp))
-
             Button(
                 onClick = {
                     val hashedPassword = viewModel.getMd5DigestForPassword(password)

@@ -12,25 +12,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.material.TextField
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Comment
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Card
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Comment
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.DataClass.EvalCard
 import com.reinosa.hospitalmar.Model.Informe.InformeData
 import com.reinosa.hospitalmar.ViewModel.LoginViewModel
@@ -39,15 +36,15 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>>) {
-    val selectedCardIndex =  remember{mutableStateOf(-1)}
+    val selectedCardIndex = remember { mutableStateOf(-1) }
     val comment = remember { mutableStateOf("") }
     val evalCard = EvalCard(text)
 
     Card(
         modifier = Modifier
-            .background(Color.White)
             .padding(16.dp)
-            .clickable { selectedCardIndex.value = index },
+            .clickable { selectedCardIndex.value = index }
+            .background(MaterialTheme.colorScheme.surface),
     ) {
         Column(
             modifier = Modifier
@@ -60,8 +57,7 @@ fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>
                     text = text,
                     Modifier
                         .padding(16.dp)
-                        .weight(1f)
-                    ,
+                        .weight(1f),
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.Black
                 )
@@ -74,15 +70,14 @@ fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>
                 }) {
                     Icon(Icons.Filled.Comment,
                         contentDescription = "Comment",
-                        tint = Color.White,
+                        tint = Color.Gray,
                         modifier = Modifier
-                            .weight(0.2f) // Asigna un peso al icono
+                            .weight(0.2f)
                             .padding(16.dp)
                             .align(Alignment.CenterVertically)
                     )
                 }
             }
-
 
             Spacer(modifier = Modifier.padding(8.dp))
             Row {
@@ -97,12 +92,17 @@ fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>
                             style = LocalTextStyle.current.copy(color = Color.Gray))
                         Spacer(modifier = Modifier.weight(1f))
                         IconButton(
-                            onClick = { comments[commentIndex].removeAt(commentIndex)
+                            onClick = {
+                                if (commentIndex in comments.indices) {
+                                    comments[index].removeAt(commentIndex)
+                                    selectedCardIndex.value = -1
+                                    selectedCardIndex.value = index
+                                }
 
-                                    } ) {
+
+                            }) {
                             Icon(Icons.Filled.Delete, contentDescription = "Delete")
                         }
-
                     }
                 }
                 Row(Modifier.fillMaxWidth()) {
@@ -112,23 +112,17 @@ fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>
                             .navigationBarsPadding(),
                         value = comment.value,
                         onValueChange = { comment.value = it },
-                        label = {
-                            Text("Comment")
-                                },
-
-                        )
+                        label = { Text("Comment") }
+                    )
                     if (comment.value.isNotEmpty() && comment.value !in comments[index]) {
                         IconButton(onClick = {
                             comments[index].add(comment.value)
                             comment.value = ""
-
-
                         }) {
-                            Icon(Icons.Filled.Send, contentDescription = "Send", tint = Color.White)
+                            Icon(Icons.Filled.Send, contentDescription = "Send", tint = Color.Gray)
                         }
                     }
                 }
-
             }
         }
     }
