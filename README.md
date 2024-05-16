@@ -48,6 +48,6 @@ El patró d'arquitectura Model-Vista-ViewModel (MVVM) és l'enfocament utilitzat
 [MIT License](https://github.com/DReino03/HospitalMar/blob/master/MIT%20License)
 
 # BackEnd
-[Acceso al BackEnd](https://github.com/alextorrees/API_HospitalMar)
+[Accés al BackEnd](https://github.com/alextorrees/API_HospitalMar)
 
 
