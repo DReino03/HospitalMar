@@ -45,7 +45,7 @@ interface ApiInterface {
     @PUT ("/alumno/update/contrasenya/{idAlumno}/{contrasenya}")
     suspend fun updatePasswordAlumno(@Path("idAlumno") idAlumno: Int, @Path("contrasenya") contrasenya: String): Response<ResponseBody>
     @PUT ("/profesor/update/contrasenya/{idProfesor}/{contrasenya}")
-    suspend fun updatePasswordProfesor(@Path("idProfesor") idAlumno: Int, @Path("contrasenya") contrasenya: String): Response<ResponseBody>
+    suspend fun updatePasswordProfesor(@Path("idProfesor") idProfesor: Int, @Path("contrasenya") contrasenya: String): Response<ResponseBody>
 
     companion object{
         val BASE_URL = "http://192.168.56.1:8080/"

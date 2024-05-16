@@ -91,10 +91,14 @@ fun ChangePasswordDialog(
                                             "¡Contrasenya canviada correctament!",
                                             Toast.LENGTH_SHORT
                                         ).show()
+                                        navController.navigate("login") {
+                                            // Limpiar la pila de retroceso hasta el inicio del gráfico de navegación
+                                            popUpTo(navController.graph.startDestinationId)
+                                        }
                                         showDialog.value = false
                                         onConfirm()
                                         UserPreferences.clearCredentials(context)
-                                        navController.navigate("login")
+
                                     }
                                 }
                                 else{
@@ -128,7 +132,10 @@ fun ChangePasswordDialog(
                                             "¡Contrasenya canviada correctament!",
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                        navController.navigate("login")
+                                        navController.navigate("login") {
+                                            // Limpiar la pila de retroceso hasta el inicio del gráfico de navegación
+                                            popUpTo(navController.graph.startDestinationId)
+                                        }
                                         showDialog.value = false
                                         onConfirm()
                                         UserPreferences.clearCredentials(context)
