@@ -1,5 +1,5 @@
 # APP Hospital del Mar
-Realitzat per l'equip de DAM el Institut Tecnologic de Barcelona (ITB): 
+Realitzat per l'equip de DAM del Institut Tecnològic de Barcelona (ITB): 
 - [Alejandro Torres](https://github.com/alextorrees)
 - [Gerard Sanchez](https://github.com/Gesa09)
 - [Marçal Herraiz](https://github.com/MarcalHerraiz)
