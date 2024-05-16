@@ -38,7 +38,7 @@ Proporcionaria una visió del progrés personal de l'alumne en diferents àrees 
 # Estructura utilizada
 El patró d'arquitectura Model-Vista-ViewModel (MVVM) és l'enfocament utilitzat per a dissenyar aquesta aplicacion en Android Studio. En aquest patró, el model representa les dades i la lògica de negoci de l'aplicació, la vista representa la interfície d'usuari (UI) i el ViewModel actua com un intermediari entre la vista i el model.
 
-# Algunas Librerías externas
+# Algunes Llibreries externes
 - [Compose](https://developer.android.com/develop/ui/compose?hl=es-419)
 - [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html).
 - [Retrofit](https://square.github.io/retrofit/).
