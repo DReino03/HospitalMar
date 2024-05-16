@@ -14,19 +14,20 @@ object DrawerParams {
             "home"
         ),
         AppDrawerItemInfo(
+            MainNavOption.InformeScreen,
+            R.string.Result,
+            R.drawable.ic_informes,
+            R.string.Result,
+            "informe"
+        ),
+        AppDrawerItemInfo(
             MainNavOption.ProfileScreen,
             R.string.drawer_profile,
             R.drawable.ic_profile,
             R.string.drawer_profile_description,
             "profile"
         ),
-//        AppDrawerItemInfo(
-//            MainNavOption.EvaluateScreen,
-//            R.string.drawer_graphics,
-//            R.drawable.ic_graphics,
-//            R.string.drawer_graphics_description,
-//            "evaluate"
-//        ),
+
 
 //        AppDrawerItemInfo(
 //            MainNavOption.SettingsScreen,

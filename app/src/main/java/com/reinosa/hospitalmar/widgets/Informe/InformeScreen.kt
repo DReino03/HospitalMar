@@ -45,7 +45,7 @@ fun InformeScreen(navController: NavController, loginViewModel: LoginViewModel) 
                 .height(16.dp)
             )
             androidx.compose.material3.Text(
-                text = "Calificaciones:",
+                text = "Qualificacions:",
                 style = MaterialTheme.typography.h5
             )
             LazyColumn {

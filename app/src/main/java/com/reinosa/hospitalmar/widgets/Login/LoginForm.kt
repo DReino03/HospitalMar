@@ -146,6 +146,8 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                                         job.await() // Esperar a que se complete la función getProfesor
                                         navController.navigate("home")
                                         Log.d("Usuarionv", viewModel.currentProfesor.value.toString())
+                                        val toast = Toast.makeText(context, "Benvingut/da ${viewModel.currentProfesor.value!!.nombre}", Toast.LENGTH_SHORT)
+                                        toast.show()
                                     }
                                 }
                                 else {
@@ -157,10 +159,12 @@ fun LoginForm(navController: NavController, viewModel: LoginViewModel) {
                                         job.await()
                                         navController.navigate("home")
                                         Log.d("Usuario66", viewModel.currentAlumno.value.toString())
+                                        val toast = Toast.makeText(context, "Benvingut/da ${viewModel.currentAlumno.value!!.nombre}", Toast.LENGTH_SHORT)
+                                        toast.show()
                                     }
                                 }
                             } else {
-                                val toast = Toast.makeText(context, "Error", Toast.LENGTH_SHORT)
+                                val toast = Toast.makeText(context, "Identificador o contrasenya incorrectes", Toast.LENGTH_SHORT)
                                 toast.show()
                             }
                         }

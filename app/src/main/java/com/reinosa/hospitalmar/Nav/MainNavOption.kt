@@ -4,7 +4,7 @@ enum class MainNavOption(val route: String) {
     HomeScreen("home"),
     SettingsScreen("settings"),
     AboutScreen("about"),
-    GraphicsScreen("graphics"),
+    InformeScreen("informe"),
     ProfileScreen("profile"),
     LoginScreen("login"),
     DrawerScreen("drawer"),
