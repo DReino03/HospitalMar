@@ -1,6 +1,7 @@
 package com.reinosa.hospitalmar.widgets.Competencias
 
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.DataClass.Competencia
 import com.reinosa.hospitalmar.ViewModel.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 @Composable
 fun CompetenciasItem(text: String, navController: NavController, viewModel: ViewModel, competencia: Competencia) {
@@ -30,7 +35,31 @@ fun CompetenciasItem(text: String, navController: NavController, viewModel: View
             //.border(2.dp, borderColor.value)
             .clickable {
                 viewModel.setSelectedCompetencia(competencia)
-                navController.navigate("evaluate")
+                if (viewModel.comeFromInforme){
+                    if (viewModel.isAlumno){
+                        CoroutineScope(Dispatchers.Main).launch {
+                            val job = async(Dispatchers.IO) {
+                                viewModel.getInforme(viewModel.currentAlumno.value!!.idAlumno ,viewModel.moduloSelected!!.idModulo, viewModel.competenciaSelected!!.idCompetencia)
+                            }
+                            job.await()
+                            navController.navigate("informeFuera")
+                        }
+                    } else{
+                        CoroutineScope(Dispatchers.Main).launch {
+                            val job = async(Dispatchers.IO) {
+                                Log.d("Current alumno informe", viewModel.alumnoSelected!!.idAlumno.toString())
+                                Log.d("Current modulo informe", viewModel.moduloSelected!!.idModulo.toString())
+                                Log.d("Current competencia informe", viewModel.competenciaSelected!!.idCompetencia.toString())
+                                viewModel.getInforme(viewModel.alumnoSelected!!.idAlumno ,viewModel.moduloSelected!!.idModulo, viewModel.competenciaSelected!!.idCompetencia)
+                            }
+                            job.await()
+                            navController.navigate("informeFuera")
+                        }
+                    }
+
+                }else{
+                    navController.navigate("evaluate")
+                }
             },
     ) {
         Spacer(modifier = Modifier.padding(8.dp))

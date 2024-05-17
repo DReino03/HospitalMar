@@ -29,12 +29,14 @@ class ViewModel(): ViewModel() {
     var studentsSelected = mutableStateOf(listOf<String>())
     val modulList = MutableLiveData<List<Modulo>?>()
     val informeList = MutableLiveData<List<Informe>>()
+    val notasList = MutableLiveData<List<Nota>>()
     val competenciaList = MutableLiveData<List<Competencia>>()
     val alumnosPorIdProfesor = MutableLiveData<List<Alumno>?>()
     var repository= MutableLiveData<Repository>()
     var alumnoSelected: Alumno? = null
     var moduloSelected: Modulo? = null
     var competenciaSelected: Competencia? = null
+    var informeSelected: Informe? = null
     var isAlumno: Boolean = false
     var comeFromInforme: Boolean = false
     var notaFinal = 0
@@ -69,6 +71,46 @@ class ViewModel(): ViewModel() {
             } catch (e: Exception) {
                 Log.e("Error", "Excepción en la corrutina: ${e.message}", e)
             }
+    }
+    suspend fun getInforme(idAlumno: Int, idModulo: Int, idCompetencia: Int) {
+        try {
+            val response = repository.value?.getInforme("/informe/$idAlumno/$idModulo/$idCompetencia")
+            if (response?.isSuccessful == true){
+                if (Looper.myLooper() == Looper.getMainLooper()) {
+                    informeList.value = response.body()
+                } else {
+                    withContext(Dispatchers.Main) {
+                        informeList.value = response.body()
+                    }
+                }
+            } else{
+                if (response != null) {
+                    Log.e("Error :", response.message())
+                }
+            }
+        } catch (e: Exception){
+            Log.e("No hay informe", "Excepción en la corrutina: ${e.message}", e)
+        }
+    }
+    suspend fun getNotas(idInforme: Int) {
+        try {
+            val response = repository.value?.getNota("/informe/$idInforme")
+            if (response?.isSuccessful == true){
+                if (Looper.myLooper() == Looper.getMainLooper()) {
+                    notasList.value = response.body()
+                } else {
+                    withContext(Dispatchers.Main) {
+                        notasList.value = response.body()
+                    }
+                }
+            } else{
+                if (response != null) {
+                    Log.e("Error :", response.message())
+                }
+            }
+        } catch (e: Exception){
+            Log.e("No hay informe", "Excepción en la corrutina: ${e.message}", e)
+        }
     }
     suspend fun getProfesor(identificador: String) {
         try {
@@ -181,16 +223,7 @@ class ViewModel(): ViewModel() {
                 }
             }
     }
-    suspend fun getInforme(idAlumno: Int, idModulo: Int, idCompetencia: Int) {
-        val response = repository.value?.getInforme(idAlumno, idModulo, idCompetencia)
-        if (response!= null){
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful){
-                    informeList.postValue(response.body())
-                }
-            }
-        }
-    }
+
 
     suspend fun postInforme(informe: Informe){
         withContext(Dispatchers.IO) {
@@ -213,6 +246,9 @@ class ViewModel(): ViewModel() {
     }
     fun setSelectedCompetencia (competencia: Competencia){
         competenciaSelected = competencia
+    }
+    fun setSelectedInforme (informe: Informe){
+        informeSelected = informe
     }
 
 

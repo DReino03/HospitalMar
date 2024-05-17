@@ -27,6 +27,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
@@ -71,7 +75,7 @@ fun HomeContent(navController: NavController, viewModel: ViewModel) {
 
             //Cambia esto
             if (!viewModel.isAlumno){
-                HomeButton(navigation = navController, text = "Avaluar", imageRoute =imagePainter[1] , destination ="student" )
+                HomeButton(navController, "Avaluar", imagePainter[1] , "student", viewModel )
                 viewModel.getAlumnosIdProfesor()
             }
             if (viewModel.isAlumno){
@@ -82,7 +86,6 @@ fun HomeContent(navController: NavController, viewModel: ViewModel) {
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-
         }
         Spacer(modifier = Modifier.padding(20.dp))
         Row(
@@ -91,12 +94,18 @@ fun HomeContent(navController: NavController, viewModel: ViewModel) {
                 .align(Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            HomeButton(navController, "Perfil", imagePainter[2], "profile")
+            HomeButton(navController, "Perfil", imagePainter[2], "profile", viewModel)
             Spacer(modifier = Modifier.padding(40.dp))
             if (viewModel.isAlumno) {
-                HomeButton(navController, "Informes", imagePainter[3], "informe")
+                CoroutineScope(Dispatchers.Main).launch {
+                    val job = async(Dispatchers.IO) {
+                        viewModel.selectModuloPorCiclo(viewModel.currentAlumno.value!!.etiqueta)
+                    }
+                    job.await() // Esperar a que se complete la función getProfesor
+                }
+                HomeButton(navController, "Informes", imagePainter[3], "modulo", viewModel)
             } else {
-                HomeButton(navController, "Informes", imagePainter[3], "student")
+                HomeButton(navController, "Informes", imagePainter[3], "student", viewModel)
             }
         }
     }

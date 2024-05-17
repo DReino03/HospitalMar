@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.reinosa.hospitalmar.ViewModel.ViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 
 @Composable
@@ -20,7 +21,8 @@ fun HomeButton(
     navigation: NavController,
     text: String,
     imageRoute: Int,
-    destination: String
+    destination: String,
+    viewModel: ViewModel
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -29,6 +31,12 @@ fun HomeButton(
         Spacer(modifier = Modifier.padding(10.dp))
         IconButton(
             onClick = {
+                if (text == "Informes"){
+                    viewModel.comeFromInforme = true
+                } else if (text == "Avaluar"){
+                    viewModel.comeFromInforme = false
+                }
+
                 navigation.navigate(destination)
             },
             modifier = Modifier

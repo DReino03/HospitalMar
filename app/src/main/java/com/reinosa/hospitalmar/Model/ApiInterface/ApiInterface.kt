@@ -27,6 +27,10 @@ interface ApiInterface {
     @GET
     suspend fun getAlumno(@Url url: String): Response<Alumno>
     @GET
+    suspend fun getInforme(@Url url: String): Response<List<Informe>>
+    @GET
+    suspend fun getNotas (@Url url: String): Response<List<Nota>>
+    @GET
     suspend fun getProfesor(@Url url : String): Response<Profesor>
 
     @GET
@@ -41,8 +45,6 @@ interface ApiInterface {
     suspend fun selectModuloPorCiclo(@Url url: String): Response<List<Modulo>>
     @GET ("informe/ultimoIdInforme")
     suspend fun selectLastIdInforme(): Response<Int>
-    @GET("/{idalumno}/{idmodulo}/{idcompetencia}")
-    suspend fun getInforme( @Path("idalumno") idAlumno: Int, @Path("idmodulo") idModulo: Int, @Path("idcompetencia") idCompetencia: Int): Response<List<Informe>>
     @POST("user/login/alumno")
     suspend fun loginAlumno(@Body alumno: Alumno): Response<ResponseBody>
     @POST("user/login/profesor")

@@ -1,8 +1,10 @@
 package com.reinosa.hospitalmar
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -25,12 +27,14 @@ import com.reinosa.hospitalmar.widgets.Evaluacio.EvalContainer
 import com.reinosa.hospitalmar.widgets.Global.Profile.SplashScreen
 import com.reinosa.hospitalmar.widgets.Home.HomeContainer
 import com.reinosa.hospitalmar.widgets.Informe.InformeContainer
+import com.reinosa.hospitalmar.widgets.InformeFuera.InformeFueraContainer
 import com.reinosa.hospitalmar.widgets.Login.LoginForm
 import com.reinosa.hospitalmar.widgets.Modulos.ModulContainer
 import com.reinosa.hospitalmar.widgets.StudentList.StudentContainer
 
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -64,6 +68,7 @@ fun GreetingPreview() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation(navController: NavHostController) {
     val loginViewModel : ViewModel = remember { ViewModel() }
@@ -118,7 +123,10 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationGraph.COMPETENCIAS){
             CompetenciasContainer(navController = navController, viewModel = loginViewModel)
         }
-
+        //Competencias
+        composable(NavigationGraph.INFORMEFUERA){
+            InformeFueraContainer(navController, loginViewModel)
+        }
     }
 }
 
@@ -131,6 +139,7 @@ object NavigationGraph {
     const val PROFILE = "profile"
     const val MODULO = "modulo"
     const val STUDENT = "student"
+    const val INFORMEFUERA = "informeFuera"
     const val INFORME = "informe"
     const val SPLASH = "splash"
     const val COMPETENCIAS = "competencias"

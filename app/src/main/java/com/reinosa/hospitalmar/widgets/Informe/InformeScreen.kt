@@ -12,13 +12,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+import com.reinosa.hospitalmar.ViewModel.ViewModel
+import com.reinosa.hospitalmar.widgets.Modulos.ModulItem
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun InformeScreen(navController: NavController, viewModel: LoginViewModel) {
-        Column(
+fun InformeScreen(navController: NavController, viewModel: ViewModel) {
+    val notasList = viewModel.notasList.value
+
+    Column(
             modifier = Modifier
                 .padding(16.dp)
         ) {
@@ -31,10 +34,12 @@ fun InformeScreen(navController: NavController, viewModel: LoginViewModel) {
                 style = MaterialTheme.typography.h5
             )
             LazyColumn {
-                items(10) {
-                    CardInfo(viewModel)
+                notasList?.let { list ->
+                    items(list.size) { index ->
+                        val nota = list[index]
+                        CardInfo(text = nota.comentario, viewModel)
+                    }
                 }
-
             }
         }
     }
