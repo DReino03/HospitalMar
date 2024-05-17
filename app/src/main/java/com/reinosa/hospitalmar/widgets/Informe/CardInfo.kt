@@ -24,10 +24,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.reinosa.hospitalmar.Model.DataClass.EvalCard
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
 import com.reinosa.hospitalmar.widgets.Evaluacio.StarMenu
 
 @Composable
-fun CardInfo() {
+fun CardInfo(viewModel: LoginViewModel) {
     val evalCard = EvalCard("Modul", 0, "Rating for Modul: 0")
     var comment = true
     Card(
@@ -56,7 +57,15 @@ fun CardInfo() {
             }
             Spacer(modifier = Modifier.padding(8.dp))
             //si hay comentarios se muestran desplegando la tarjeta con un background mas oscuro si no hay comentarios dejar como esta
-
+             if (comment) {
+                Spacer(modifier = Modifier.padding(8.dp))
+                Text(
+                    text = "Comments",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = Color.Black
+                )
+                Spacer(modifier = Modifier.padding(8.dp))
+            }
         }
 
     }

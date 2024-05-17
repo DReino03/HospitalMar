@@ -7,15 +7,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.reinosa.hospitalmar.ViewModel.ViewModel
+import com.reinosa.hospitalmar.ViewModel.LoginViewModel
+
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun InformeScreen(navController: NavController, loginViewModel: ViewModel) {
+fun InformeScreen(navController: NavController, viewModel: LoginViewModel) {
         Column(
             modifier = Modifier
                 .padding(16.dp)
@@ -24,13 +26,13 @@ fun InformeScreen(navController: NavController, loginViewModel: ViewModel) {
             Spacer(modifier = Modifier
                 .height(16.dp)
             )
-            androidx.compose.material3.Text(
+            Text(
                 text = "Qualificacions:",
                 style = MaterialTheme.typography.h5
             )
             LazyColumn {
                 items(10) {
-                    CardInfo()
+                    CardInfo(viewModel)
                 }
 
             }
