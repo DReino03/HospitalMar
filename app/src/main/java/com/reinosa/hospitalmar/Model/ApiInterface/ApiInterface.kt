@@ -28,8 +28,8 @@ interface ApiInterface {
     suspend fun getAlumno(@Url url: String): Response<Alumno>
     @GET
     suspend fun getInforme(@Url url: String): Response<List<Informe>>
-    @GET
-    suspend fun getNotas (@Url url: String): Response<List<Nota>>
+    @GET ("informe/notas/{idinforme}")
+    suspend fun getNotas (@Path("idinforme") idinforme: Int): Response<List<Nota>>
     @GET
     suspend fun getProfesor(@Url url : String): Response<Profesor>
 
@@ -59,7 +59,7 @@ interface ApiInterface {
     suspend fun insertInformeNota(@Body nota: Nota): Response<ResponseBody>
 
     companion object{
-        val BASE_URL = "http:// 192.168.1.108:8080/"
+        val BASE_URL = "http://192.168.1.25:8080/"
         fun create(username: String, password: String): ApiInterface {
             val credentials = Credentials.basic(username, password)
 
