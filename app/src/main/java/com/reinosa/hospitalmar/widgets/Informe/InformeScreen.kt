@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.ViewModel.ViewModel
+import com.reinosa.hospitalmar.widgets.Evaluacio.EvalItem
 import com.reinosa.hospitalmar.widgets.Modulos.ModulItem
 
 
@@ -37,9 +38,25 @@ fun InformeScreen(navController: NavController, viewModel: ViewModel) {
                 notasList?.let { list ->
                     items(list.size) { index ->
                         val nota = list[index]
-                        CardInfo(text = nota.comentario, viewModel)
+                        val competencia = viewModel.competenciaSelected.let { competencia ->
+                            when (index) {
+                                0 -> competencia?.pregunta1
+                                1 -> competencia?.pregunta2
+                                2 -> competencia?.pregunta3
+                                3 -> competencia?.pregunta4
+                                else -> ""
+                            }
+                        }
+                        if (viewModel.listComentarios.isEmpty()){
+
+                        }else
+                        {
+                            print ("No hi ha comentaris")
+                        }
+                        CardInfo(nota.comentario, viewModel, nota.nota, competencia!!)
                     }
                 }
+
             }
         }
     }

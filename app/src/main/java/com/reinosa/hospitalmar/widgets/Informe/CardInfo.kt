@@ -22,7 +22,7 @@ import com.reinosa.hospitalmar.ViewModel.ViewModel
 
 
 @Composable
-fun CardInfo(text: String, viewModel: ViewModel) {
+fun CardInfo(comentario: String, viewModel: ViewModel, nota: Int, pregunta: String) {
     val evalCard = EvalCard("Modul", 0, "Rating for Modul: 0")
     var comment = true
     Card(
@@ -36,7 +36,7 @@ fun CardInfo(text: String, viewModel: ViewModel) {
             Spacer(modifier = Modifier.padding(8.dp))
             Row() {
                 Text(
-                    text = "loremIpsum dolor sit amet, consectetur adipiscing elit.",
+                    text = pregunta,
                     Modifier
                         .padding(16.dp),
                     style = MaterialTheme.typography.bodyLarge,
@@ -47,19 +47,18 @@ fun CardInfo(text: String, viewModel: ViewModel) {
             Spacer(modifier = Modifier.padding(8.dp))
             Row {
                 Spacer(modifier = Modifier.padding(8.dp))
-                StaticStar(4)
+                StaticStar(nota)
             }
             Spacer(modifier = Modifier.padding(8.dp))
             //si hay comentarios se muestran desplegando la tarjeta con un background mas oscuro si no hay comentarios dejar como esta
-             if (comment) {
                 Spacer(modifier = Modifier.padding(8.dp))
                 Text(
-                    text = "Comments",
+                    text = comentario,
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.Black
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
-            }
+
         }
 
     }
