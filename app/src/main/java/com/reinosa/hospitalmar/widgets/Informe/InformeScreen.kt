@@ -47,13 +47,7 @@ fun InformeScreen(navController: NavController, viewModel: ViewModel) {
                                 else -> ""
                             }
                         }
-                        if (viewModel.listComentarios.isEmpty()){
-
-                        }else
-                        {
-                            print ("No hi ha comentaris")
-                        }
-                        CardInfo(nota.comentario, viewModel, nota.nota, competencia!!)
+                        CardInfo(nota.comentario, viewModel, nota.nota, competencia.toString())
                     }
                 }
 
