@@ -1,6 +1,7 @@
 package com.reinosa.hospitalmar.Model.ApiInterface
 
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
+import com.reinosa.hospitalmar.Model.DataClass.Competencia
 import com.reinosa.hospitalmar.Model.DataClass.Informe
 import com.reinosa.hospitalmar.Model.DataClass.Nota
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
@@ -18,6 +19,7 @@ class Repository(correo: String, contrasenya: String) {
     suspend fun selectAlumnosPorProfesor(idProfesor: Int) = apiInterface.selectAlumnosPorProfesor(idProfesor)
     suspend fun selectModuloPorCiclo(etiqueta: String) = apiInterface.selectModuloPorCiclo(etiqueta)
     suspend fun selectAllCompetencias(url: String) = apiInterface.getAllCompetencias(url)
+    suspend fun getInforme(idAlumno: Int, idModulo: Int, idCompetencia: Int) = apiInterface.getInforme(idAlumno, idModulo, idCompetencia)
     suspend fun updatePasswordAlumno(idAlumno: Int, contrasenya: String) = apiInterface.updatePasswordAlumno(idAlumno, contrasenya)
     suspend fun updatePasswordProfesor(idProfesor: Int, contrasenya: String) = apiInterface.updatePasswordProfesor(idProfesor, contrasenya)
     suspend fun insertInforme(informe: Informe) = apiInterface.insertInforme(informe)

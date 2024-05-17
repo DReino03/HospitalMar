@@ -28,6 +28,7 @@ class ViewModel(): ViewModel() {
     val success = MutableLiveData<Boolean>()
     var studentsSelected = mutableStateOf(listOf<String>())
     val modulList = MutableLiveData<List<Modulo>?>()
+    val informeList = MutableLiveData<List<Informe>>()
     val competenciaList = MutableLiveData<List<Competencia>>()
     val alumnosPorIdProfesor = MutableLiveData<List<Alumno>?>()
     var repository= MutableLiveData<Repository>()
@@ -179,6 +180,16 @@ class ViewModel(): ViewModel() {
                     }
                 }
             }
+    }
+    suspend fun getInforme(idAlumno: Int, idModulo: Int, idCompetencia: Int) {
+        val response = repository.value?.getInforme(idAlumno, idModulo, idCompetencia)
+        if (response!= null){
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful){
+                    informeList.postValue(response.body())
+                }
+            }
+        }
     }
 
     suspend fun postInforme(informe: Informe){

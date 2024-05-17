@@ -41,7 +41,8 @@ interface ApiInterface {
     suspend fun selectModuloPorCiclo(@Url url: String): Response<List<Modulo>>
     @GET ("informe/ultimoIdInforme")
     suspend fun selectLastIdInforme(): Response<Int>
-
+    @GET("/{idalumno}/{idmodulo}/{idcompetencia}")
+    suspend fun getInforme( @Path("idalumno") idAlumno: Int, @Path("idmodulo") idModulo: Int, @Path("idcompetencia") idCompetencia: Int): Response<List<Informe>>
     @POST("user/login/alumno")
     suspend fun loginAlumno(@Body alumno: Alumno): Response<ResponseBody>
     @POST("user/login/profesor")
@@ -56,11 +57,7 @@ interface ApiInterface {
     suspend fun insertInformeNota(@Body nota: Nota): Response<ResponseBody>
 
     companion object{
-        val BASE_URL = "http://192.168.1.106:8080/"
-        //url pc alex: 192.168.1.104
-        //url pc jordi: 192.168.56.1
-        //url pc clase alex: 172.23.6.123:8080
-        //url api aws 34.192.34.148:8081
+        val BASE_URL = "http://192.168.1.25:8080/"
         fun create(username: String, password: String): ApiInterface {
             val credentials = Credentials.basic(username, password)
 
