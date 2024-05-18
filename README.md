@@ -44,6 +44,8 @@ El patró d'arquitectura Model-Vista-ViewModel (MVVM) és l'enfocament utilitzat
 - [Retrofit](https://square.github.io/retrofit/).
 - [Navigation Compose](https://developer.android.com/develop/ui/compose/navigation?hl=es-419).
 
+#VIDEO
+(Aplicació)[2024-05-18 16-08-48.mkv]
 ## Licencia
 [MIT License](https://github.com/DReino03/HospitalMar/blob/master/MIT%20License)
 
