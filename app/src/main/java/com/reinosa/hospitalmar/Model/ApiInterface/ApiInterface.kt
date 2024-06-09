@@ -59,7 +59,7 @@ interface ApiInterface {
     suspend fun insertInformeNota(@Body nota: Nota): Response<ResponseBody>
 
     companion object{
-        val BASE_URL = "http://192.168.1.25:8080/"
+        val BASE_URL = "http://192.168.56.1:8080/"
         fun create(username: String, password: String): ApiInterface {
             val credentials = Credentials.basic(username, password)
 

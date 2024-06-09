@@ -27,16 +27,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.reinosa.hospitalmar.Model.DataClass.Informe
 import com.reinosa.hospitalmar.Model.DataClass.Nota
+import com.reinosa.hospitalmar.Model.MailSender.MailSender
 import com.reinosa.hospitalmar.R
 import com.reinosa.hospitalmar.ViewModel.ViewModel
 import com.reinosa.hospitalmar.ui.theme.blueproject
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerHeader
 import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
+
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+
+
+
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -108,7 +115,10 @@ fun EvalContainer(navController: NavController ,viewModel: ViewModel){
                         viewModel.notaFinal = 0
                         //Nav
                         navController.navigate("home")
-
+                        val mailsender = MailSender()
+                        mailsender.sendEmail("gery13598@gmail.com",
+                            "Nou informe",
+                            " S'ha generat un nou informe. Entra a la app per comprovar-ho")
                     }) {
                         Icon(Icons.Filled.Save, contentDescription = "Localized description")
                     }
@@ -127,3 +137,11 @@ fun EvalContainer(navController: NavController ,viewModel: ViewModel){
         EvaluarScreen(navController = navController, viewModel)
     }
 }
+
+
+
+
+
+
+
+
