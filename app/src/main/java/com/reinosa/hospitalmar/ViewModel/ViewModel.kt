@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.reinosa.hospitalmar.Model.ApiInterface.Repository
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
 import com.reinosa.hospitalmar.Model.DataClass.Competencia
@@ -100,8 +101,10 @@ class ViewModel(): ViewModel() {
         }
     }
     suspend fun getNotas(idInforme: Int) {
+
+        Log.d("IdInforme", informeSelected.toString())
         try {
-            val response = repository.value?.getNota("/notas/$idInforme")
+            val response = repository.value?.getNota(idInforme)
             if (response?.isSuccessful == true){
                 if (Looper.myLooper() == Looper.getMainLooper()) {
                     notasList.value = response.body()

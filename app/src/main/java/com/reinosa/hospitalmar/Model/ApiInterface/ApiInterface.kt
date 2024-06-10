@@ -28,8 +28,8 @@ interface ApiInterface {
     suspend fun getAlumno(@Url url: String): Response<Alumno>
     @GET
     suspend fun getInforme(@Url url: String): Response<List<Informe>>
-    @GET
-    suspend fun getNotas (@Url url: String): Response<List<Nota>>
+    @GET ("informe/notas/{idinforme}")
+    suspend fun getNotas (@Path("idinforme") idinforme: Int): Response<List<Nota>>
     @GET
     suspend fun getProfesor(@Url url : String): Response<Profesor>
 

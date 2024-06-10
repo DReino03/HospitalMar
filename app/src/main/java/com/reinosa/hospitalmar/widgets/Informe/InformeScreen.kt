@@ -35,21 +35,22 @@ fun InformeScreen(navController: NavController, viewModel: ViewModel) {
                 style = MaterialTheme.typography.h5
             )
             LazyColumn {
-                notasList?.let { list ->
-                    items(list.size) { index ->
-                        val nota = list[index]
-                        val competencia = viewModel.competenciaSelected.let { competencia ->
+                notasList?.sortedBy { it.orden }?.let { sortedList ->
+                    items(sortedList.size) { index ->
+                        val nota = sortedList[index]
+                        val competencia = viewModel.competenciaSelected?.let { competencia ->
                             when (index) {
-                                0 -> competencia?.pregunta1
-                                1 -> competencia?.pregunta2
-                                2 -> competencia?.pregunta3
-                                3 -> competencia?.pregunta4
+                                0 -> competencia.pregunta1
+                                1 -> competencia.pregunta2
+                                2 -> competencia.pregunta3
+                                3 -> competencia.pregunta4
                                 else -> ""
                             }
                         }
-                        CardInfo(nota.comentario, viewModel, nota.nota, competencia.toString())
+                        CardInfo(nota.comentario, viewModel, nota.nota, competencia ?: "")
                     }
                 }
+
 
             }
         }

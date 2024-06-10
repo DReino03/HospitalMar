@@ -36,7 +36,7 @@ fun InformeFueraScreen(navController: NavController, viewModel: ViewModel) {
         informeList?.let { list ->
             items(list.size) { index ->
                 val informe = list[index]
-                InformeFueraItem(text = informe.idInforme.toString(), navController = navController, viewModel, informe)
+                InformeFueraItem(informe.fechaGeneracion, navController, viewModel, informe)
             }
         }
     }
