@@ -1,11 +1,9 @@
 package com.reinosa.hospitalmar.Model.ApiInterface
 
 import com.reinosa.hospitalmar.Model.DataClass.Alumno
-import com.reinosa.hospitalmar.Model.DataClass.Competencia
 import com.reinosa.hospitalmar.Model.DataClass.Informe
 import com.reinosa.hospitalmar.Model.DataClass.Nota
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
-import retrofit2.http.Url
 
 class Repository(correo: String, contrasenya: String) {
     val apiInterface = ApiInterface.create(correo, contrasenya)

@@ -116,7 +116,7 @@ fun EvalContainer(navController: NavController ,viewModel: ViewModel){
                         //Nav
                         navController.navigate("home")
                         val mailsender = MailSender()
-                        mailsender.sendEmail("gery13598@gmail.com",
+                        mailsender.sendEmail("reinosa2002@gmail.com",
                             "Nou informe",
                             " S'ha generat un nou informe. Entra a la app per comprovar-ho")
                     }) {
