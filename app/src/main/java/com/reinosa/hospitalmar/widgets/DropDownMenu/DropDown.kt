@@ -1,75 +1,70 @@
-package com.reinosa.hospitalmar.widgets.DropDownMenu
-
-import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.reinosa.hospitalmar.Model.DataClass.Competencia
 import com.reinosa.hospitalmar.ViewModel.ViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-@Composable
-fun DropdownMenuWidget(viewModel: ViewModel, navController: NavController) {
-    var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf("Selecciona una Competencia") }
+import com.reinosa.hospitalmar.widgets.Competencias.CompetenciasItem
 
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(
-            text = selectedOption,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { expanded = true }
-                .padding(16.dp)
-                .background(Color.White)
-        )
+@Composable
+fun DropdownMenuWidgett(
+    navController: NavController,
+    viewModel: ViewModel,
+    onItemSelected: (Competencia) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val competenciaList = viewModel.competenciaList.value
+
+    var expanded by remember { mutableStateOf(false) }
+    var selectedItem by remember { mutableStateOf<Competencia?>(null) }
+    viewModel.updateText(viewModel.competenciaSelected?.nombreCompetencia)
+    viewModel.updateCompetenciaInfo(viewModel.competenciaSelected)
+    Column(modifier) {
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .clickable { expanded = true }
+            .padding(16.dp)
+            .background(Color.White)
+            .clickable { expanded = true } // Esta línea abre el menú desplegable
+
+        ) {
+            Text(text = selectedItem?.nombreCompetencia ?: "Selecciona una Competencia",
+                style = MaterialTheme.typography.body1,
+                color = Color.Black,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .clip(RoundedCornerShape(16.dp))  // Redondea las esquinas con un radio de 16.dp
+                    .background(Color.White)  // Establece el color de fondo
+                    .border(2.dp, Color.Blue, RoundedCornerShape(16.dp))  // Agrega un borde azul
+                    .padding(16.dp))
+        }
 
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            viewModel.competenciaList.value?.forEach { option ->
-                DropdownMenuItem(onClick = {
-                    selectedOption = option.nombreCompetencia
-                    viewModel.competenciaSelectedText.value = option.nombreCompetencia
-                    expanded = false
-                    viewModel.setSelectedCompetencia(option)
-                    if (viewModel.comeFromInforme){
-                        if (viewModel.isAlumno){
-                            CoroutineScope(Dispatchers.Main).launch {
-                                val job = async(Dispatchers.IO) {
-                                    viewModel.getInforme(viewModel.currentAlumno.value!!.idAlumno ,viewModel.moduloSelected!!.idModulo, viewModel.competenciaSelected!!.idCompetencia)
-                                }
-                                job.await()
-                            }
-                        } else{
-                            CoroutineScope(Dispatchers.Main).launch {
-                                val job = async(Dispatchers.IO) {
-                                    Log.d("Current alumno informe", viewModel.alumnoSelected!!.idAlumno.toString())
-                                    Log.d("Current modulo informe", viewModel.moduloSelected!!.idModulo.toString())
-                                    Log.d("Current competencia informe", viewModel.competenciaSelected!!.idCompetencia.toString())
-                                    viewModel.getInforme(viewModel.alumnoSelected!!.idAlumno ,viewModel.moduloSelected!!.idModulo, viewModel.competenciaSelected!!.idCompetencia)
-                                }
-                                job.await()
-                                navController.navigate("evaluate")
-                            }
-                        }
-                }}) {
-                    Text(text = option.nombreCompetencia)
+            if (competenciaList != null) {
+                competenciaList.forEach { item ->
+                    DropdownMenuItem(onClick = {
+                        selectedItem = item
+                        expanded = false
+                        onItemSelected(item)
+                    }) {
+                        Text(text = item.nombreCompetencia)
+                    }
                 }
             }
         }

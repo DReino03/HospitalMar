@@ -257,6 +257,8 @@ class ViewModel(): ViewModel() {
     fun setSelectedInforme (informe: Informe){
         informeSelected = informe
     }
+    ////SEARCHBAR////////
+
     //Saber si se esta buscando o no (search bar)
     private val _searchText = MutableStateFlow("")
     val searchText: StateFlow<String> = _searchText
@@ -288,5 +290,47 @@ class ViewModel(): ViewModel() {
             }
         }
     }
+
+////DROP DOWN COMPETENCIAS////////
+// Lista de competencias
+private val _competenciaList = MutableStateFlow(listOf<Competencia>())
+    val competenciaListt: StateFlow<List<Competencia>> = _competenciaList
+
+    // Competencia seleccionada
+    private val _competenciaSelectedd = MutableStateFlow<Competencia?>(null)
+    val competenciaSelectedd: StateFlow<Competencia?> = _competenciaSelectedd
+
+
+
+    // Elimina la parte duplicada de la lista de competencias
+    val selectedCompetencia = MutableStateFlow<Competencia?>(null)
+
+    // Elimina el método setSelectedCompetenciaa
+    fun setSelectedCompetenciaa(competencia: Competencia) {
+        selectedCompetencia.value = competencia
+    }
+
+
+    private val _displayText = MutableStateFlow("")
+    val displayText: StateFlow<String> = _displayText
+
+    // Función para actualizar el texto
+    fun updateText(newText: String?) {
+        if (newText != null) {
+            _displayText.value = newText
+        }
+    }
+    private val _competenciaInfo = MutableStateFlow(Competencia(1, "", "", "", "", "", ""))
+    val competenciaInfo: StateFlow<Competencia> = _competenciaInfo
+
+    // Función para actualizar el UserInfo
+    fun updateCompetenciaInfo(newCompetencia: Competencia?) {
+        if (newCompetencia != null) {
+            _competenciaInfo.value = newCompetencia
+        }
+    }
 }
+
+
+
 
