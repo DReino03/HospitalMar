@@ -39,7 +39,7 @@ Card(
                         viewModel.selectAllCompetencias()
                     }
                     job.await()
-                    navController.navigate("competencias")
+                    navController.navigate("evaluate")
                 }
                 //Passamos el nombre del modulo a la pantalla de evaluacion
                 Log.e("ModulItem", "click")
@@ -52,14 +52,14 @@ Card(
             Text(
                 text = text,
                 Modifier
-                    .weight(1f) // Asigna un peso al texto
+                    .weight(1f)
                     .padding(16.dp)
             )
             Icon(
                 Icons.Filled.ArrowForwardIos,
                 contentDescription ="Continue",
                 modifier = Modifier
-                    .weight(0.2f) // Asigna un peso al icono
+                    .weight(0.2f)
                     .padding(16.dp)
                     .align(Alignment.CenterVertically)
             )

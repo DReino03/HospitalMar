@@ -18,6 +18,12 @@ import com.reinosa.hospitalmar.Model.DataClass.Nota
 import com.reinosa.hospitalmar.Model.DataClass.Profesor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.security.MessageDigest
@@ -37,6 +43,7 @@ class ViewModel(): ViewModel() {
     var alumnoSelected: Alumno? = null
     var moduloSelected: Modulo? = null
     var competenciaSelected: Competencia? = null
+    val competenciaSelectedText = mutableStateOf("Seleccionar competencia")
     var informeSelected: Informe? = null
     var isAlumno: Boolean = false
     var comeFromInforme: Boolean = false
@@ -253,10 +260,36 @@ class ViewModel(): ViewModel() {
     fun setSelectedInforme (informe: Informe){
         informeSelected = informe
     }
+    //Saber si se esta buscando o no (search bar)
+    private val _searchText = MutableStateFlow("")
+    val searchText: StateFlow<String> = _searchText
 
+    private val _isSearching = MutableStateFlow(false)
+    val isSearching: StateFlow<Boolean> = _isSearching
 
+    private val _studentsList = MutableStateFlow(listOf<Alumno>())
+    val studentsList: StateFlow<List<Alumno>> = _studentsList
 
+    private val _filteredStudentsList = MutableStateFlow(listOf<Alumno>())
+    val filteredStudentsList: StateFlow<List<Alumno>> = _filteredStudentsList
 
+    fun onSearchTextChange(newText: String) {
+        _searchText.value = newText
+        _filteredStudentsList.value = getFilteredStudents(newText)
+    }
 
+    fun onToogleSearch() {
+        _isSearching.value = !_isSearching.value
+    }
 
+    private fun getFilteredStudents(query: String): List<Alumno> {
+        return if (query.isEmpty()) {
+            _studentsList.value
+        } else {
+            _studentsList.value.filter {
+                it.nombre.contains(query, ignoreCase = true)
+            }
+        }
+    }
 }
+
