@@ -23,6 +23,7 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -35,7 +36,7 @@ import com.reinosa.hospitalmar.ViewModel.ViewModel
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun EvalItem(text: String, index: Int, comments: MutableList<MutableList<String>>, viewModel: ViewModel) {
-    val selectedCardIndex =  remember{mutableStateOf(-1)}
+    val selectedCardIndex =  remember{ mutableIntStateOf(-1) }
     val comment = remember { mutableStateOf("") }
     val evalCard = EvalCard(text)
 

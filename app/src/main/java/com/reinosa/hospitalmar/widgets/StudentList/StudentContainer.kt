@@ -122,17 +122,3 @@ fun StudentContainer(navController: NavController, viewModel: ViewModel) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun searchBar(viewModel: ViewModel, searchText: String, isSearching: Boolean) {
-    SearchBar(
-        query = searchText,
-        onQueryChange = viewModel::onSearchTextChange,
-        onSearch = viewModel::onSearchTextChange,
-        active = isSearching,
-        onActiveChange = { viewModel.onToogleSearch() },
-
-
-    ) {
-    }
-}
