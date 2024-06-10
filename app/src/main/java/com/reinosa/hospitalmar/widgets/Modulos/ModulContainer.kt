@@ -28,6 +28,7 @@ import com.reinosa.hospitalmar.widgets.Drawer.DrawerItems
 import com.reinosa.hospitalmar.widgets.Evaluacio.ModulScreen
 import kotlinx.coroutines.launch
 
+
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ModulContainer(navController: NavController, viewModel: ViewModel){
@@ -57,8 +58,9 @@ fun ModulContainer(navController: NavController, viewModel: ViewModel){
 
                 }
             },
-            drawerBackgroundColor = Color.White // Cambiar por el color deseado
+            drawerBackgroundColor = Color.White
         ){
+
             ModulScreen(navController = navController, viewModel)
         }
 }
