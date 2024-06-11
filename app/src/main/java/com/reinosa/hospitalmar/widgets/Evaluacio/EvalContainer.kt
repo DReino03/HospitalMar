@@ -19,6 +19,8 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.rememberDrawerState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -49,6 +51,7 @@ import java.time.LocalDate
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EvalContainer(navController: NavController ,viewModel: ViewModel){
+    val displayText by viewModel.displayText.collectAsState()
 
     val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
     val scope = rememberCoroutineScope()
@@ -70,7 +73,6 @@ fun EvalContainer(navController: NavController ,viewModel: ViewModel){
                 actions = {
                     val context = LocalContext.current
                     IconButton(onClick = {
-
                         val notaCalculada = (viewModel.notaFinal/16)*10
                         val informe = Informe(
                             idInforme= null,
@@ -117,8 +119,10 @@ fun EvalContainer(navController: NavController ,viewModel: ViewModel){
                         navController.navigate("home")
                         val mailsender = MailSender()
                         mailsender.sendEmail("reinosa2002@gmail.com",
-                            "Nou informe",
-                            " S'ha generat un nou informe. Entra a la app per comprovar-ho")
+                            "Nova avaluació",
+                            "S'ha generat un nou informe del módul ${viewModel.moduloSelected!!.nombreModulo}, " +
+                                    "a la competencia ${viewModel.competenciaSelected!!.nombreCompetencia}." +
+                                    "Entra a la app per comprovar-ho!")
                     }) {
                         Icon(Icons.Filled.Save, contentDescription = "Localized description")
                     }

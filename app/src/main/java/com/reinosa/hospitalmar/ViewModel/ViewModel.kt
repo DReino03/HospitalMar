@@ -102,7 +102,7 @@ class ViewModel(): ViewModel() {
     }
     suspend fun getNotas(idInforme: Int) {
         try {
-            val response = repository.value?.getNota("/notas/$idInforme")
+            val response = repository.value?.getNota("/informe/notas/$idInforme")
             if (response?.isSuccessful == true){
                 if (Looper.myLooper() == Looper.getMainLooper()) {
                     notasList.value = response.body()
@@ -313,6 +313,7 @@ private val _competenciaList = MutableStateFlow(listOf<Competencia>())
 
 
     private val _displayText = MutableStateFlow("")
+    val displayUpdated = MutableStateFlow("")
     val displayText: StateFlow<String> = _displayText
 
     // Función para actualizar el texto
