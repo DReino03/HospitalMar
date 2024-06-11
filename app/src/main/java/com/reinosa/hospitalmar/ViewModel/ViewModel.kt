@@ -93,7 +93,7 @@ class ViewModel(): ViewModel() {
                 }
             } else{
                 if (response != null) {
-                    Log.e("Error :", response.message())
+                    Log.e("Error GetInforme ViewModel :", response.message())
                 }
             }
         } catch (e: Exception){
@@ -101,10 +101,8 @@ class ViewModel(): ViewModel() {
         }
     }
     suspend fun getNotas(idInforme: Int) {
-
-        Log.d("IdInforme", informeSelected.toString())
         try {
-            val response = repository.value?.getNota(idInforme)
+            val response = repository.value?.getNota("/notas/$idInforme")
             if (response?.isSuccessful == true){
                 if (Looper.myLooper() == Looper.getMainLooper()) {
                     notasList.value = response.body()
@@ -115,7 +113,7 @@ class ViewModel(): ViewModel() {
                 }
             } else{
                 if (response != null) {
-                    Log.e("Error :", response.message())
+                    Log.e("Error GetNotas ViewModel :", response.message())
                 }
             }
         } catch (e: Exception){

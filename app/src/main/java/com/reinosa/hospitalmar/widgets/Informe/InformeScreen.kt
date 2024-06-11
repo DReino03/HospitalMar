@@ -27,14 +27,16 @@ fun InformeScreen(navController: NavController, viewModel: ViewModel) {
                 .padding(16.dp)
         ) {
 
-            Spacer(modifier = Modifier
-                .height(16.dp)
-            )
-            Text(
-                text = "Qualificacions:",
-                style = MaterialTheme.typography.h5
-            )
             LazyColumn {
+                item {
+                    Spacer(modifier = Modifier
+                        .height(16.dp)
+                    )
+                    Text(
+                        text = "Qualificacions:",
+                        style = MaterialTheme.typography.h5
+                    )
+                }
                 notasList?.sortedBy { it.orden }?.let { sortedList ->
                     items(sortedList.size) { index ->
                         val nota = sortedList[index]

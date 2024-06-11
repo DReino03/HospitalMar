@@ -18,7 +18,7 @@ class Repository(correo: String, contrasenya: String) {
     suspend fun selectModuloPorCiclo(etiqueta: String) = apiInterface.selectModuloPorCiclo(etiqueta)
     suspend fun selectAllCompetencias(url: String) = apiInterface.getAllCompetencias(url)
     suspend fun getInforme(url: String) = apiInterface.getInforme(url)
-    suspend fun getNota(idInforme: Int) = apiInterface.getNotas(idInforme)
+    suspend fun getNota(url: String) = apiInterface.getNotas(url)
     suspend fun updatePasswordAlumno(idAlumno: Int, contrasenya: String) = apiInterface.updatePasswordAlumno(idAlumno, contrasenya)
     suspend fun updatePasswordProfesor(idProfesor: Int, contrasenya: String) = apiInterface.updatePasswordProfesor(idProfesor, contrasenya)
     suspend fun insertInforme(informe: Informe) = apiInterface.insertInforme(informe)

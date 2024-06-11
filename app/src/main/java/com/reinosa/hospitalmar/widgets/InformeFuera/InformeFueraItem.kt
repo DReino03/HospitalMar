@@ -42,7 +42,7 @@ fun InformeFueraItem(text:String, navController: NavController, viewModel: ViewM
                     navController.navigate("informe")
                 }
                 //Passamos el nombre del modulo a la pantalla de evaluacion
-                Log.e("InformeFuera", "click")
+                Log.e("InformeFuera", "InformeFueraItem click")
             }
     ) {
         Spacer(modifier = Modifier.padding(8.dp))
