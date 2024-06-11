@@ -39,7 +39,7 @@ fun InformeFueraItem(text:String, navController: NavController, viewModel: ViewM
                         viewModel.getNotas(viewModel.informeSelected!!.idInforme!!)
                     }
                     job.await()
-                    navController.navigate("informeFuera")
+                    navController.navigate("informe")
                 }
                 //Passamos el nombre del modulo a la pantalla de evaluacion
                 Log.e("InformeFuera", "click")

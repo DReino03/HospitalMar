@@ -33,16 +33,28 @@ Card(
             .background(Color.White)
             .padding(16.dp)
             .clickable {
-                viewModel.setSelectedModulo(modulo)
-                CoroutineScope(Dispatchers.Main).launch {
-                    val job = async(Dispatchers.IO) {
-                        viewModel.selectAllCompetencias()
+                if (viewModel.comeFromInforme) {
+                    viewModel.setSelectedModulo(modulo)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val job = async(Dispatchers.IO) {
+                            viewModel.selectAllCompetencias()
+                        }
+                        job.await()
+                        navController.navigate("competencias")
                     }
-                    job.await()
-                    navController.navigate("evaluate")
+
+                } else {
+                    viewModel.setSelectedModulo(modulo)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val job = async(Dispatchers.IO) {
+                            viewModel.selectAllCompetencias()
+                        }
+                        job.await()
+                        navController.navigate("evaluate")
+                    }
+                    //Passamos el nombre del modulo a la pantalla de evaluacion
+                    Log.e("ModulItem", "click")
                 }
-                //Passamos el nombre del modulo a la pantalla de evaluacion
-                Log.e("ModulItem", "click")
             }
     ) {
         Spacer(modifier = Modifier.padding(8.dp))

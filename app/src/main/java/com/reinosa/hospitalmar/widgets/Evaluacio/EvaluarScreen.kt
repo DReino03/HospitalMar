@@ -26,7 +26,7 @@ import coil.decode.SvgDecoder
 import com.reinosa.hospitalmar.R
 
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "SuspiciousIndentation")
 @Composable
 fun EvaluarScreen(navController: NavController, viewModel: ViewModel) {
     val ratings: MutableList<Pair<String, Int>> = mutableListOf()
